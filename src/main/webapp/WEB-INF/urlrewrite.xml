@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.1//EN"  "http://tuckey.org/res/dtds/urlrewrite3.1.dtd"> 
+<urlrewrite>
+    <!-- 
+    <rule>
+        <from>^/Category/([0-9]{1,3}).html</from>
+        <to type="forward">/MlbackCategory/toproductlist?categoryId=$1</to>
+    </rule>
+    <rule>
+        <from>^/search/([a-z0-9A-Z-]{2,60}).html</from>
+        <to type="forward">/MlbackCategory/toprolistBycategorySeo?categorySeo=$1</to>
+    </rule>
+    <rule>
+        <from>^/([a-z0-9A-Z-]{8,80}).html</from>
+        <to type="forward">/MlbackProduct/tofbProductDetailPageByhtml?productSeo=$1</to>
+    </rule> 
+    -->
+    <rule>
+        <from>^/search/([a-z0-9A-Z-]{2,60}).html</from>
+        <to type="forward">/MlbackCategory/toprolistBycategorySeoPage?categorySeo=$1</to>
+    </rule>
+    <rule>
+        <from>^/([a-z0-9A-Z-]{8,80}).html</from>
+        <to type="forward">/MlbackProduct/tofbProductDetailPageByhtml?productSeo=$1</to>
+    </rule>
+    <rule>
+        <from>^/pages/([a-z0-9A-Z-]{6,60}).html</from>
+        <to type="forward">/MlbackFootNav/toFootNavDetailByfootSeoPage?footnavSeo=$1</to>
+    </rule>
+    <rule>
+        <from>^/recover/([a-z0-9A-Z-]{5,60}).html</from>
+        <to type="forward">/MlbackCart/toCheakOutMoreBuyByhtml?orderIdIntoStr=$1</to>
+    </rule>
+    <rule>
+        <from>^/SMS/([a-z0-9A-Z-]{5,30}).html</from>
+        <to type="forward">/MlbackCart/toCheakOutSMSMoreBuyByhtml?orderIdIntoStr=$1</to>
+    </rule>
+    <!-- 博客链接 -->
+    <rule>
+        <from>^/Blog/([a-z0-9A-Z-]{5,60}).html</from>
+        <to type="forward">/MlbackBlog/toBlogDetailPageByhtml?blogSeoname=$1</to>
+    </rule>
+    <rule>
+        <from>^/Blog.html</from>
+        <to>/MlbackBlog/toMlbackBlogList</to>
+    </rule>
+    <rule>
+        <from>^/myCart.html</from>
+        <to>/MlbackCart/toCartList</to>
+    </rule>
+    <rule>
+        <from>^/CheakOut.html</from>
+        <to>/MlbackCart/toCheakOut</to>
+    </rule>
+    <rule>
+        <from>^/FAQ.html</from>
+        <to>/PortalHome/FAQuestionPage</to>
+    </rule>
+    <rule>
+        <from>^/Friday.html</from>
+        <to>/PortalHome/FridayPage</to>
+    </rule>
+    <rule>
+        <from>^/Activty.html</from>
+        <to>/MlActive/NowActiveIndex</to>
+    </rule>
+    <rule>
+        <from>^/Success.html</from>
+        <to>/MlfrontPayInfo/toPaySuccessPage</to>
+    </rule>
+    <rule>
+        <from>^/MyInfo.html</from>
+        <to>/MlfrontUser/toUserCenter</to>
+    </rule>
+    <rule>
+        <from>^/index.html</from>
+        <to>/</to>
+    </rule>
+    <rule>
+        <from>^/Customer/Wholesale.html</from>
+        <to>/PortalHome/WholesalePage</to>
+    </rule>
+    <rule>
+        <from>^/PortalHome/ChristmasPage.html</from>
+        <to>/PortalHome/ChristmasPage</to>
+    </rule>
+    <!--  -->
+    <rule>
+        <from>^/Policy/PrivacyPolicyPage.html</from>
+        <to>/MlbackFootNav/toPrivacyPolicyPage</to>
+    </rule>
+    <rule>
+        <from>^/Policy/ReturnPolicyPage.html</from>
+        <to>/MlbackFootNav/toReturnPolicyPage</to>
+    </rule>
+    <rule>
+        <from>^/Policy/ShippingPolicyPage.html</from>
+        <to>/MlbackFootNav/toShippingPolicyPage</to>
+    </rule>
+        <rule>
+        <from>^/Policy/TermsConditionsPage.html</from>
+        <to>/MlbackFootNav/toTermsConditionsPage</to>
+    </rule>
+</urlrewrite>
