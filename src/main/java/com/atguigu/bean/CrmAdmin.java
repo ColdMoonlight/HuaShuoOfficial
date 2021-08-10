@@ -9,13 +9,21 @@ public class CrmAdmin {
 
     private String adminName;
 
-    private String adminDepartment;
+    private Integer adminDepartmentId;
 
-    private Integer adminDepartmentLevel;
+    private String adminDepartmentName;
 
-    private String adminDepartmentDesc;
+    private Integer adminShopId;
+
+    private String adminShopName;
 
     private Integer adminStatus;
+
+    private String adminMenuIdstr;
+
+    private String adminMenuNamestr;
+
+    private String adminMenuUrlstr;
 
     private String adminCreatetime;
 
@@ -53,28 +61,36 @@ public class CrmAdmin {
         this.adminName = adminName == null ? null : adminName.trim();
     }
 
-    public String getAdminDepartment() {
-        return adminDepartment;
+    public Integer getAdminDepartmentId() {
+        return adminDepartmentId;
     }
 
-    public void setAdminDepartment(String adminDepartment) {
-        this.adminDepartment = adminDepartment == null ? null : adminDepartment.trim();
+    public void setAdminDepartmentId(Integer adminDepartmentId) {
+        this.adminDepartmentId = adminDepartmentId;
     }
 
-    public Integer getAdminDepartmentLevel() {
-        return adminDepartmentLevel;
+    public String getAdminDepartmentName() {
+        return adminDepartmentName;
     }
 
-    public void setAdminDepartmentLevel(Integer adminDepartmentLevel) {
-        this.adminDepartmentLevel = adminDepartmentLevel;
+    public void setAdminDepartmentName(String adminDepartmentName) {
+        this.adminDepartmentName = adminDepartmentName == null ? null : adminDepartmentName.trim();
     }
 
-    public String getAdminDepartmentDesc() {
-        return adminDepartmentDesc;
+    public Integer getAdminShopId() {
+        return adminShopId;
     }
 
-    public void setAdminDepartmentDesc(String adminDepartmentDesc) {
-        this.adminDepartmentDesc = adminDepartmentDesc == null ? null : adminDepartmentDesc.trim();
+    public void setAdminShopId(Integer adminShopId) {
+        this.adminShopId = adminShopId;
+    }
+
+    public String getAdminShopName() {
+        return adminShopName;
+    }
+
+    public void setAdminShopName(String adminShopName) {
+        this.adminShopName = adminShopName == null ? null : adminShopName.trim();
     }
 
     public Integer getAdminStatus() {
@@ -83,6 +99,30 @@ public class CrmAdmin {
 
     public void setAdminStatus(Integer adminStatus) {
         this.adminStatus = adminStatus;
+    }
+
+    public String getAdminMenuIdstr() {
+        return adminMenuIdstr;
+    }
+
+    public void setAdminMenuIdstr(String adminMenuIdstr) {
+        this.adminMenuIdstr = adminMenuIdstr == null ? null : adminMenuIdstr.trim();
+    }
+
+    public String getAdminMenuNamestr() {
+        return adminMenuNamestr;
+    }
+
+    public void setAdminMenuNamestr(String adminMenuNamestr) {
+        this.adminMenuNamestr = adminMenuNamestr == null ? null : adminMenuNamestr.trim();
+    }
+
+    public String getAdminMenuUrlstr() {
+        return adminMenuUrlstr;
+    }
+
+    public void setAdminMenuUrlstr(String adminMenuUrlstr) {
+        this.adminMenuUrlstr = adminMenuUrlstr == null ? null : adminMenuUrlstr.trim();
     }
 
     public String getAdminCreatetime() {
@@ -106,17 +146,22 @@ public class CrmAdmin {
 	}
 
 	public CrmAdmin(Integer adminId, String adminAccount, String adminPassword, String adminName,
-			String adminDepartment, Integer adminDepartmentLevel, String adminDepartmentDesc, Integer adminStatus,
+			Integer adminDepartmentId, String adminDepartmentName, Integer adminShopId, String adminShopName,
+			Integer adminStatus, String adminMenuIdstr, String adminMenuNamestr, String adminMenuUrlstr,
 			String adminCreatetime, String adminMotifytime) {
 		super();
 		this.adminId = adminId;
 		this.adminAccount = adminAccount;
 		this.adminPassword = adminPassword;
 		this.adminName = adminName;
-		this.adminDepartment = adminDepartment;
-		this.adminDepartmentLevel = adminDepartmentLevel;
-		this.adminDepartmentDesc = adminDepartmentDesc;
+		this.adminDepartmentId = adminDepartmentId;
+		this.adminDepartmentName = adminDepartmentName;
+		this.adminShopId = adminShopId;
+		this.adminShopName = adminShopName;
 		this.adminStatus = adminStatus;
+		this.adminMenuIdstr = adminMenuIdstr;
+		this.adminMenuNamestr = adminMenuNamestr;
+		this.adminMenuUrlstr = adminMenuUrlstr;
 		this.adminCreatetime = adminCreatetime;
 		this.adminMotifytime = adminMotifytime;
 	}
@@ -124,8 +169,11 @@ public class CrmAdmin {
 	@Override
 	public String toString() {
 		return "CrmAdmin [adminId=" + adminId + ", adminAccount=" + adminAccount + ", adminPassword=" + adminPassword
-				+ ", adminName=" + adminName + ", adminDepartment=" + adminDepartment + ", adminDepartmentLevel="
-				+ adminDepartmentLevel + ", adminDepartmentDesc=" + adminDepartmentDesc + ", adminStatus=" + adminStatus
-				+ ", adminCreatetime=" + adminCreatetime + ", adminMotifytime=" + adminMotifytime + "]";
+				+ ", adminName=" + adminName + ", adminDepartmentId=" + adminDepartmentId + ", adminDepartmentName="
+				+ adminDepartmentName + ", adminShopId=" + adminShopId + ", adminShopName=" + adminShopName
+				+ ", adminStatus=" + adminStatus + ", adminMenuIdstr=" + adminMenuIdstr + ", adminMenuNamestr="
+				+ adminMenuNamestr + ", adminMenuUrlstr=" + adminMenuUrlstr + ", adminCreatetime=" + adminCreatetime
+				+ ", adminMotifytime=" + adminMotifytime + "]";
 	}
+    
 }
