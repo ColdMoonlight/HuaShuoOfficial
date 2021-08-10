@@ -10,7 +10,7 @@
 		</commentGenerator>
 		<!-- 配置数据库连接 -->
 		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/huashuoshare" userId="root"
+			connectionURL="jdbc:mysql://localhost:3306/huashuoofficial" userId="root"
 			password="root">
 		</jdbcConnection>
 
@@ -41,20 +41,9 @@
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		
-		<!-- megalook table指定每个表的生成策略 -->
-		<!--	tb_share
-		<table tableName="tb_share_image_label" domainObjectName="ShareImageLabel" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		<table tableName="tb_share_update" domainObjectName="ShareUpdate" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		<table tableName="tb_share_demand" domainObjectName="ShareDemand" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		-->
-		<!-- 数据统计模块-->
-		<!--	tb_share
-		<table tableName="tb_share_dataRecord" domainObjectName="ShareDataRecord" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		-->
-		<!--	tb_email
-		<table tableName="tb_email_noneed" domainObjectName="EmailNoneed" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		<table tableName="tb_email_address" domainObjectName="EmailAddress" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		<table tableName="tb_email_user" domainObjectName="EmailUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<!-- official table指定每个表的生成策略 
+		<table tableName="tb_crm_catalog" domainObjectName="CrmCatalog" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		<table tableName="tb_crm_admin" domainObjectName="CrmAdmin" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
 		
 	</context>

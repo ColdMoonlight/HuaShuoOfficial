@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.CrmAdminMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.CrmAdmin">
+    <id column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="admin_account" jdbcType="VARCHAR" property="adminAccount" />
+    <result column="admin_password" jdbcType="VARCHAR" property="adminPassword" />
+    <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
+    <result column="admin_department" jdbcType="VARCHAR" property="adminDepartment" />
+    <result column="admin_department_level" jdbcType="INTEGER" property="adminDepartmentLevel" />
+    <result column="admin_department_desc" jdbcType="VARCHAR" property="adminDepartmentDesc" />
+    <result column="admin_status" jdbcType="INTEGER" property="adminStatus" />
+    <result column="admin_createTime" jdbcType="VARCHAR" property="adminCreatetime" />
+    <result column="admin_motifyTime" jdbcType="VARCHAR" property="adminMotifytime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    admin_id, admin_account, admin_password, admin_name, admin_department, admin_department_level, 
+    admin_department_desc, admin_status, admin_createTime, admin_motifyTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_crm_admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.bean.CrmAdmin">
+    insert into tb_crm_admin (admin_id, admin_account, admin_password, 
+      admin_name, admin_department, admin_department_level, 
+      admin_department_desc, admin_status, admin_createTime, 
+      admin_motifyTime)
+    values (#{adminId,jdbcType=INTEGER}, #{adminAccount,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
+      #{adminName,jdbcType=VARCHAR}, #{adminDepartment,jdbcType=VARCHAR}, #{adminDepartmentLevel,jdbcType=INTEGER}, 
+      #{adminDepartmentDesc,jdbcType=VARCHAR}, #{adminStatus,jdbcType=INTEGER}, #{adminCreatetime,jdbcType=VARCHAR}, 
+      #{adminMotifytime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="adminId"  parameterType="com.atguigu.bean.CrmAdmin">
+    insert into tb_crm_admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="adminAccount != null">
+        admin_account,
+      </if>
+      <if test="adminPassword != null">
+        admin_password,
+      </if>
+      <if test="adminName != null">
+        admin_name,
+      </if>
+      <if test="adminDepartment != null">
+        admin_department,
+      </if>
+      <if test="adminDepartmentLevel != null">
+        admin_department_level,
+      </if>
+      <if test="adminDepartmentDesc != null">
+        admin_department_desc,
+      </if>
+      <if test="adminStatus != null">
+        admin_status,
+      </if>
+      <if test="adminCreatetime != null">
+        admin_createTime,
+      </if>
+      <if test="adminMotifytime != null">
+        admin_motifyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="adminAccount != null">
+        #{adminAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null">
+        #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null">
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminDepartment != null">
+        #{adminDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="adminDepartmentLevel != null">
+        #{adminDepartmentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="adminDepartmentDesc != null">
+        #{adminDepartmentDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStatus != null">
+        #{adminStatus,jdbcType=INTEGER},
+      </if>
+      <if test="adminCreatetime != null">
+        #{adminCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMotifytime != null">
+        #{adminMotifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.CrmAdmin">
+    update tb_crm_admin
+    <set>
+      <if test="adminAccount != null">
+        admin_account = #{adminAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPassword != null">
+        admin_password = #{adminPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null">
+        admin_name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminDepartment != null">
+        admin_department = #{adminDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="adminDepartmentLevel != null">
+        admin_department_level = #{adminDepartmentLevel,jdbcType=INTEGER},
+      </if>
+      <if test="adminDepartmentDesc != null">
+        admin_department_desc = #{adminDepartmentDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="adminStatus != null">
+        admin_status = #{adminStatus,jdbcType=INTEGER},
+      </if>
+      <if test="adminCreatetime != null">
+        admin_createTime = #{adminCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMotifytime != null">
+        admin_motifyTime = #{adminMotifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmAdmin">
+    update tb_crm_admin
+    set admin_account = #{adminAccount,jdbcType=VARCHAR},
+      admin_password = #{adminPassword,jdbcType=VARCHAR},
+      admin_name = #{adminName,jdbcType=VARCHAR},
+      admin_department = #{adminDepartment,jdbcType=VARCHAR},
+      admin_department_level = #{adminDepartmentLevel,jdbcType=INTEGER},
+      admin_department_desc = #{adminDepartmentDesc,jdbcType=VARCHAR},
+      admin_status = #{adminStatus,jdbcType=INTEGER},
+      admin_createTime = #{adminCreatetime,jdbcType=VARCHAR},
+      admin_motifyTime = #{adminMotifytime,jdbcType=VARCHAR}
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  <!--新增SQL语句 -->
+  
+  <!-- 查询 -->
+  <select id="selectAdminInfoAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_admin order by admin_id desc
+  </select>
+  
+  <select id="selectCrmAdminByParameter" parameterType="com.atguigu.bean.CrmAdmin" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_admin 
+    where admin_account = #{adminAccount,jdbcType=VARCHAR} 
+    <if test="adminPassword != null">
+        and admin_password = #{adminPassword,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>
