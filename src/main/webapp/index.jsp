@@ -8,7 +8,7 @@
 	</head>
 	<body class="c-app">
 		
-		<!-- custom0 script -->
+		<!-- custom script -->
 		<script> window.location.href = "${APP_PATH}/login.html"; </script>
 	</body>
 </html>
