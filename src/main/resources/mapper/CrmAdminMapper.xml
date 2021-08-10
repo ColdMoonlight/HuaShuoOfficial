@@ -6,16 +6,21 @@
     <result column="admin_account" jdbcType="VARCHAR" property="adminAccount" />
     <result column="admin_password" jdbcType="VARCHAR" property="adminPassword" />
     <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
-    <result column="admin_department" jdbcType="VARCHAR" property="adminDepartment" />
-    <result column="admin_department_level" jdbcType="INTEGER" property="adminDepartmentLevel" />
-    <result column="admin_department_desc" jdbcType="VARCHAR" property="adminDepartmentDesc" />
+    <result column="admin_department_id" jdbcType="INTEGER" property="adminDepartmentId" />
+    <result column="admin_department_name" jdbcType="VARCHAR" property="adminDepartmentName" />
+    <result column="admin_shop_id" jdbcType="INTEGER" property="adminShopId" />
+    <result column="admin_shop_name" jdbcType="VARCHAR" property="adminShopName" />
     <result column="admin_status" jdbcType="INTEGER" property="adminStatus" />
+    <result column="admin_menu_idStr" jdbcType="VARCHAR" property="adminMenuIdstr" />
+    <result column="admin_menu_nameStr" jdbcType="VARCHAR" property="adminMenuNamestr" />
+    <result column="admin_menu_urlStr" jdbcType="VARCHAR" property="adminMenuUrlstr" />
     <result column="admin_createTime" jdbcType="VARCHAR" property="adminCreatetime" />
     <result column="admin_motifyTime" jdbcType="VARCHAR" property="adminMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    admin_id, admin_account, admin_password, admin_name, admin_department, admin_department_level, 
-    admin_department_desc, admin_status, admin_createTime, admin_motifyTime
+    admin_id, admin_account, admin_password, admin_name, admin_department_id, admin_department_name, 
+    admin_shop_id, admin_shop_name, admin_status, admin_menu_idStr, admin_menu_nameStr, 
+    admin_menu_urlStr, admin_createTime, admin_motifyTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -29,15 +34,17 @@
   </delete>
   <insert id="insert" parameterType="com.atguigu.bean.CrmAdmin">
     insert into tb_crm_admin (admin_id, admin_account, admin_password, 
-      admin_name, admin_department, admin_department_level, 
-      admin_department_desc, admin_status, admin_createTime, 
-      admin_motifyTime)
+      admin_name, admin_department_id, admin_department_name, 
+      admin_shop_id, admin_shop_name, admin_status, 
+      admin_menu_idStr, admin_menu_nameStr, admin_menu_urlStr, 
+      admin_createTime, admin_motifyTime)
     values (#{adminId,jdbcType=INTEGER}, #{adminAccount,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
-      #{adminName,jdbcType=VARCHAR}, #{adminDepartment,jdbcType=VARCHAR}, #{adminDepartmentLevel,jdbcType=INTEGER}, 
-      #{adminDepartmentDesc,jdbcType=VARCHAR}, #{adminStatus,jdbcType=INTEGER}, #{adminCreatetime,jdbcType=VARCHAR}, 
-      #{adminMotifytime,jdbcType=VARCHAR})
+      #{adminName,jdbcType=VARCHAR}, #{adminDepartmentId,jdbcType=INTEGER}, #{adminDepartmentName,jdbcType=VARCHAR}, 
+      #{adminShopId,jdbcType=INTEGER}, #{adminShopName,jdbcType=VARCHAR}, #{adminStatus,jdbcType=INTEGER}, 
+      #{adminMenuIdstr,jdbcType=VARCHAR}, #{adminMenuNamestr,jdbcType=VARCHAR}, #{adminMenuUrlstr,jdbcType=VARCHAR}, 
+      #{adminCreatetime,jdbcType=VARCHAR}, #{adminMotifytime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="adminId"  parameterType="com.atguigu.bean.CrmAdmin">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="adminId" parameterType="com.atguigu.bean.CrmAdmin">
     insert into tb_crm_admin
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="adminId != null">
@@ -52,17 +59,29 @@
       <if test="adminName != null">
         admin_name,
       </if>
-      <if test="adminDepartment != null">
-        admin_department,
+      <if test="adminDepartmentId != null">
+        admin_department_id,
       </if>
-      <if test="adminDepartmentLevel != null">
-        admin_department_level,
+      <if test="adminDepartmentName != null">
+        admin_department_name,
       </if>
-      <if test="adminDepartmentDesc != null">
-        admin_department_desc,
+      <if test="adminShopId != null">
+        admin_shop_id,
+      </if>
+      <if test="adminShopName != null">
+        admin_shop_name,
       </if>
       <if test="adminStatus != null">
         admin_status,
+      </if>
+      <if test="adminMenuIdstr != null">
+        admin_menu_idStr,
+      </if>
+      <if test="adminMenuNamestr != null">
+        admin_menu_nameStr,
+      </if>
+      <if test="adminMenuUrlstr != null">
+        admin_menu_urlStr,
       </if>
       <if test="adminCreatetime != null">
         admin_createTime,
@@ -84,17 +103,29 @@
       <if test="adminName != null">
         #{adminName,jdbcType=VARCHAR},
       </if>
-      <if test="adminDepartment != null">
-        #{adminDepartment,jdbcType=VARCHAR},
+      <if test="adminDepartmentId != null">
+        #{adminDepartmentId,jdbcType=INTEGER},
       </if>
-      <if test="adminDepartmentLevel != null">
-        #{adminDepartmentLevel,jdbcType=INTEGER},
+      <if test="adminDepartmentName != null">
+        #{adminDepartmentName,jdbcType=VARCHAR},
       </if>
-      <if test="adminDepartmentDesc != null">
-        #{adminDepartmentDesc,jdbcType=VARCHAR},
+      <if test="adminShopId != null">
+        #{adminShopId,jdbcType=INTEGER},
+      </if>
+      <if test="adminShopName != null">
+        #{adminShopName,jdbcType=VARCHAR},
       </if>
       <if test="adminStatus != null">
         #{adminStatus,jdbcType=INTEGER},
+      </if>
+      <if test="adminMenuIdstr != null">
+        #{adminMenuIdstr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMenuNamestr != null">
+        #{adminMenuNamestr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMenuUrlstr != null">
+        #{adminMenuUrlstr,jdbcType=VARCHAR},
       </if>
       <if test="adminCreatetime != null">
         #{adminCreatetime,jdbcType=VARCHAR},
@@ -116,17 +147,29 @@
       <if test="adminName != null">
         admin_name = #{adminName,jdbcType=VARCHAR},
       </if>
-      <if test="adminDepartment != null">
-        admin_department = #{adminDepartment,jdbcType=VARCHAR},
+      <if test="adminDepartmentId != null">
+        admin_department_id = #{adminDepartmentId,jdbcType=INTEGER},
       </if>
-      <if test="adminDepartmentLevel != null">
-        admin_department_level = #{adminDepartmentLevel,jdbcType=INTEGER},
+      <if test="adminDepartmentName != null">
+        admin_department_name = #{adminDepartmentName,jdbcType=VARCHAR},
       </if>
-      <if test="adminDepartmentDesc != null">
-        admin_department_desc = #{adminDepartmentDesc,jdbcType=VARCHAR},
+      <if test="adminShopId != null">
+        admin_shop_id = #{adminShopId,jdbcType=INTEGER},
+      </if>
+      <if test="adminShopName != null">
+        admin_shop_name = #{adminShopName,jdbcType=VARCHAR},
       </if>
       <if test="adminStatus != null">
         admin_status = #{adminStatus,jdbcType=INTEGER},
+      </if>
+      <if test="adminMenuIdstr != null">
+        admin_menu_idStr = #{adminMenuIdstr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMenuNamestr != null">
+        admin_menu_nameStr = #{adminMenuNamestr,jdbcType=VARCHAR},
+      </if>
+      <if test="adminMenuUrlstr != null">
+        admin_menu_urlStr = #{adminMenuUrlstr,jdbcType=VARCHAR},
       </if>
       <if test="adminCreatetime != null">
         admin_createTime = #{adminCreatetime,jdbcType=VARCHAR},
@@ -142,14 +185,19 @@
     set admin_account = #{adminAccount,jdbcType=VARCHAR},
       admin_password = #{adminPassword,jdbcType=VARCHAR},
       admin_name = #{adminName,jdbcType=VARCHAR},
-      admin_department = #{adminDepartment,jdbcType=VARCHAR},
-      admin_department_level = #{adminDepartmentLevel,jdbcType=INTEGER},
-      admin_department_desc = #{adminDepartmentDesc,jdbcType=VARCHAR},
+      admin_department_id = #{adminDepartmentId,jdbcType=INTEGER},
+      admin_department_name = #{adminDepartmentName,jdbcType=VARCHAR},
+      admin_shop_id = #{adminShopId,jdbcType=INTEGER},
+      admin_shop_name = #{adminShopName,jdbcType=VARCHAR},
       admin_status = #{adminStatus,jdbcType=INTEGER},
+      admin_menu_idStr = #{adminMenuIdstr,jdbcType=VARCHAR},
+      admin_menu_nameStr = #{adminMenuNamestr,jdbcType=VARCHAR},
+      admin_menu_urlStr = #{adminMenuUrlstr,jdbcType=VARCHAR},
       admin_createTime = #{adminCreatetime,jdbcType=VARCHAR},
       admin_motifyTime = #{adminMotifytime,jdbcType=VARCHAR}
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
+  
   <!--新增SQL语句 -->
   
   <!-- 查询 -->
@@ -168,4 +216,5 @@
         and admin_password = #{adminPassword,jdbcType=VARCHAR}
     </if>
   </select>
+  
 </mapper>
