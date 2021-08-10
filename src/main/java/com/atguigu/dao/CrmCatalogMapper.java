@@ -1,5 +1,7 @@
 package com.atguigu.dao;
 
+import java.util.List;
+
 import com.atguigu.bean.CrmCatalog;
 
 public interface CrmCatalogMapper {
@@ -14,4 +16,8 @@ public interface CrmCatalogMapper {
     int updateByPrimaryKeySelective(CrmCatalog record);
 
     int updateByPrimaryKey(CrmCatalog record);
+
+	List<CrmCatalog> selectCrmCatalogInfoAll();
+
+	List<CrmCatalog> selectCrmCatalogByParameter(CrmCatalog crmCatalog);
 }
