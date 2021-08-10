@@ -77,6 +77,10 @@
         <to>/</to>
     </rule>
     <rule>
+        <from>^/login.html</from>
+        <to>/BackHome/tologin</to>
+    </rule>
+    <rule>
         <from>^/Customer/Wholesale.html</from>
         <to>/PortalHome/WholesalePage</to>
     </rule>
