@@ -69,7 +69,7 @@ public class CrmAdminController {
 	 * 2.0
 	 * @author 20210810
 	 * @param CrmAdmin
-	 * @exception 创建新用户
+	 * @exception 更新用户信息
 	 * */
 	@RequestMapping(value="/Update",method=RequestMethod.POST)
 	@ResponseBody
@@ -78,13 +78,8 @@ public class CrmAdminController {
 		//接收参数信息 
 		String nowTime = DateUtil.strTime14s();
 		crmAdminReg.setAdminMotifytime(nowTime);
-		int i = crmAdminService.updateByPrimaryKeySelective(crmAdminReg);
-		
-		if(i>0){
-			return Msg.success().add("resMsg", "修改成功");
-		}else{
-			return Msg.fail().add("resMsg", "系统错误，请联系管理员");
-		}
+		crmAdminService.updateByPrimaryKeySelective(crmAdminReg);
+		return Msg.success().add("resMsg", "修改成功");
 	}
 	
 	/**
@@ -188,7 +183,7 @@ public class CrmAdminController {
 			crmAdminListNameAndPwd = crmAdminService.selectCrmAdminByParameter(crmAdminGet);
 			System.out.println("UpdateAdminUserInfo--CrmAdminGet:" + crmAdminListNameAndPwd.get(0).toString());
 			session.setAttribute("AdminUser", crmAdminListNameAndPwd.get(0));
-			
+			 
 			return Msg.success().add("resMsg", "密码修改成功");
 		}else{
 			return Msg.fail().add("resMsg", "旧密码错误");
