@@ -99,7 +99,6 @@ public class CrmCatalogController {
 			CrmCatalogSuperList.add(CrmCatalogNowSecondList);
 		}
 			
-			
 		return Msg.success().add("CrmCatalogdownFirst", CrmCatalogdownFirst).add("CrmCatalogSuperList", CrmCatalogSuperList);
 	}
 	
