@@ -89,7 +89,6 @@ public class CrmCatalogController {
 		List<List<CrmCatalog>> CrmCatalogSuperList =new ArrayList<List<CrmCatalog>>();
 		for(CrmCatalog CatalogFirstOne :CrmCatalogdownFirst){
 			Integer CatalogFirstId = CatalogFirstOne.getCatalogId();
-			
 			CrmCatalog CrmCatalogSecReq = new CrmCatalog();
 			CrmCatalogSecReq.setCatalogParentId(CatalogFirstId);
 			
