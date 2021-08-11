@@ -66,7 +66,16 @@ public class CrmCatalogService {
 		List<CrmCatalog> crmCatalogList = crmCatalogMapper.selectCrmCatalogInfoAll();
 		return crmCatalogList;
 	}
-	
+	/**
+	 * @author Shinelon
+	 * @param 
+	 * @exception 查询全部用户信息
+	 * 
+	 * */
+	public List<CrmCatalog> selectCrmCatalogSuper() {
+		List<CrmCatalog> crmCatalogList = crmCatalogMapper.selectCrmCatalogSuper();
+		return crmCatalogList;
+	}
 	
 	/**
 	 * @author Shinelon
@@ -78,5 +87,6 @@ public class CrmCatalogService {
 		List<CrmCatalog> crmCatalogList = crmCatalogMapper.selectCrmCatalogByParameter(crmCatalog);
 		return crmCatalogList;
 	}
+
 
 }
