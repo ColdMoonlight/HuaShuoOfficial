@@ -74,8 +74,6 @@ public class CrmCatalogController {
 			crmCatalogList = crmCatalogService.selectCrmCatalogSuper();
 		}
 		
-		List<CrmCatalog> returnCrmCatalogList = new ArrayList<CrmCatalog>();
-		
 		List<CrmCatalog> CrmCatalogdownFirst =new ArrayList<CrmCatalog>();
 		for(CrmCatalog CrmCatalogOne :crmCatalogList){
 			Integer CatalogParentId = CrmCatalogOne.getCatalogParentId();
