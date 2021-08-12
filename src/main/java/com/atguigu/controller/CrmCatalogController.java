@@ -105,8 +105,7 @@ public class CrmCatalogController {
 	 * */
 	@RequestMapping(value="/save",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg insertSelective(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
-			@RequestBody CrmCatalog crmCatalogReg){
+	public Msg save(HttpServletResponse rep,HttpServletRequest res,HttpSession session,@RequestBody CrmCatalog crmCatalogReg){
 		//接收参数信息 
 		
 		Integer cId = crmCatalogReg.getCatalogId();
@@ -154,7 +153,7 @@ public class CrmCatalogController {
 		
 		//通过id 查询单个用户详情
 		crmCatalogService.deleteByPrimaryKey(crmCatalogReg.getCatalogId());
-		return Msg.success().add("resMsg", "创建成功");
+		return Msg.success().add("resMsg", "删除成功");
 		
 	}
 	
