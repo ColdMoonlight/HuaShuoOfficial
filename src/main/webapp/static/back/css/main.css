@@ -34,6 +34,7 @@
 	z-index: 999;
 	width: 256px;
 	color: #454f5b;
+	overflow-y: auto;
 	background-color: #f4f6f8;
 	-webkit-transition: width 0.3s ease;
 	transition: width 0.3s ease;
@@ -46,9 +47,11 @@
 	-webkit-transition: margin-left 0.3s ease;
 	transition: margin-left 0.3s ease;
 }
+.c-body {	
+	height: calc(100vh - 3.6rem);
+}
 .c-main {
 	padding: 1rem;
-	min-height: 100vh;
 }
 .c-init,.c-create {
 	width: 100%;
@@ -56,6 +59,23 @@
 .c-main .card {
 	min-height: 10rem;
     padding: 1rem;
+}
+.c-tab-container {
+	overflow-y: auto;
+}
+
+/* scrollbar */
+.c-sidebar::-webkit-scrollbar,
+.c-tab-container::-webkit-scrollbar {
+    width: 8px;
+}
+.c-sidebar::-webkit-scrollbar-track,
+.c-tab-container::-webkit-scrollbar-track  {
+    background-color: #fff;
+}
+.c-sidebar::-webkit-scrollbar-thumb,
+.c-tab-container::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
 }
 /* table title */
 .c-option {
@@ -75,9 +95,11 @@
 	overflow: hidden;
 }
 /* sidebar */
-.c-sidebar-nav,
-.c-child-menu {
+.c-sidebar-nav {
 	padding-left: 0;
+}
+.c-child-menu {
+	padding-left: 1rem;
 }
 .c-sidebar-nav-item {
 	position: relative;
@@ -103,7 +125,8 @@
 	fill: #454f5b;
 }
 .c-sidebar-nav-link:hover,
-.c-sidebar-nav-item.active .c-sidebar-nav-link {
+.c-sidebar-nav-item.active .c-sidebar-nav-link,
+.c-sidebar-nav-item.active .c-child-menu {
 	color: #fff;
 	background-color: #7d50af;
 }
@@ -120,7 +143,20 @@
 .c-sidebar-nav-item.current-page .c-sidebar-nav-icon {
   	fill: #fff;
 }
-.c-sidebar-nav-dropdown-toggle::after {
+.c-sidebar-nav-item.active .c-child-menu {
+	display: block;
+}
+/* header dropdown */
+.c-sidebar-nav-dropdown-toggle .icon {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 3rem;
+	height: 3rem;	
+	padding: .75rem;
+	cursor: pointer;
+}
+.c-sidebar-nav-dropdown-toggle .icon:after {
 	content: "";
 	display: block;
 	width: 1.5rem;
@@ -137,7 +173,7 @@
 	transition: transform 0.3s;
 	transition: transform 0.3s, -webkit-transform 0.3s;
 }
-.c-sidebar-nav-item.active > .c-sidebar-nav-dropdown-toggle::after {
+.c-sidebar-nav-item.c-sidebar-nav-dropdown-toggle.active > .icon::after {
 	-webkit-transform: rotate(-90deg);
 	transform: rotate(-90deg);
 }
@@ -932,3 +968,4 @@
 		transform: rotate(360deg);
 	}
 }
+
