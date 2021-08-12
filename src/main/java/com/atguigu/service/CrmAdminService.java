@@ -17,17 +17,6 @@ public class CrmAdminService {
 	/**
 	 * @author Shinelon
 	 * @param CrmAdmin
-	 * @exception 根据条件查询用户信息
-	 * 
-	 * */
-	public List<CrmAdmin> selectCrmAdminByParameter(CrmAdmin crmAdmin) {
-		List<CrmAdmin> crmAdminList = crmAdminMapper.selectCrmAdminByParameter(crmAdmin);
-		return crmAdminList;
-	}
-	
-	/**
-	 * @author Shinelon
-	 * @param CrmAdmin
 	 * @exception 新增单条用户信息
 	 * 
 	 * */
@@ -35,7 +24,6 @@ public class CrmAdminService {
 		int intReslut = crmAdminMapper.insertSelective(crmAdmin);
 		return intReslut;
 	}
-	
 	/**
 	 * @author Shinelon
 	 * @param 
@@ -45,6 +33,16 @@ public class CrmAdminService {
 	public int updateByPrimaryKeySelective(CrmAdmin crmAdmin) {
 		int intReslut = crmAdminMapper.updateByPrimaryKeySelective(crmAdmin);
 		return intReslut;
+	}
+	/**
+	 * @author Shinelon
+	 * @param CrmAdmin
+	 * @exception 根据条件查询用户信息
+	 * 
+	 * */
+	public List<CrmAdmin> selectCrmAdminByParameter(CrmAdmin crmAdmin) {
+		List<CrmAdmin> crmAdminList = crmAdminMapper.selectCrmAdminByParameter(crmAdmin);
+		return crmAdminList;
 	}
 	
 	/**

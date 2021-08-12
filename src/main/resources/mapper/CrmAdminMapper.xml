@@ -28,10 +28,6 @@
     from tb_crm_admin
     where admin_id = #{adminId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_crm_admin
-    where admin_id = #{adminId,jdbcType=INTEGER}
-  </delete>
   <insert id="insert" parameterType="com.atguigu.bean.CrmAdmin">
     insert into tb_crm_admin (admin_id, admin_account, admin_password, 
       admin_name, admin_department_id, admin_department_name, 
@@ -44,6 +40,25 @@
       #{adminMenuIdstr,jdbcType=VARCHAR}, #{adminMenuNamestr,jdbcType=VARCHAR}, #{adminMenuUrlstr,jdbcType=VARCHAR}, 
       #{adminCreatetime,jdbcType=VARCHAR}, #{adminMotifytime,jdbcType=VARCHAR})
   </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmAdmin">
+    update tb_crm_admin
+    set admin_account = #{adminAccount,jdbcType=VARCHAR},
+      admin_password = #{adminPassword,jdbcType=VARCHAR},
+      admin_name = #{adminName,jdbcType=VARCHAR},
+      admin_department_id = #{adminDepartmentId,jdbcType=INTEGER},
+      admin_department_name = #{adminDepartmentName,jdbcType=VARCHAR},
+      admin_shop_id = #{adminShopId,jdbcType=INTEGER},
+      admin_shop_name = #{adminShopName,jdbcType=VARCHAR},
+      admin_status = #{adminStatus,jdbcType=INTEGER},
+      admin_menu_idStr = #{adminMenuIdstr,jdbcType=VARCHAR},
+      admin_menu_nameStr = #{adminMenuNamestr,jdbcType=VARCHAR},
+      admin_menu_urlStr = #{adminMenuUrlstr,jdbcType=VARCHAR},
+      admin_createTime = #{adminCreatetime,jdbcType=VARCHAR},
+      admin_motifyTime = #{adminMotifytime,jdbcType=VARCHAR}
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </update>
+  
+  <!--insertSelective -->
   <insert id="insertSelective" useGeneratedKeys="true" keyProperty="adminId" parameterType="com.atguigu.bean.CrmAdmin">
     insert into tb_crm_admin
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -135,6 +150,12 @@
       </if>
     </trim>
   </insert>
+  <!--deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_crm_admin
+    where admin_id = #{adminId,jdbcType=INTEGER}
+  </delete>
+  <!--updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.CrmAdmin">
     update tb_crm_admin
     <set>
@@ -180,33 +201,13 @@
     </set>
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmAdmin">
-    update tb_crm_admin
-    set admin_account = #{adminAccount,jdbcType=VARCHAR},
-      admin_password = #{adminPassword,jdbcType=VARCHAR},
-      admin_name = #{adminName,jdbcType=VARCHAR},
-      admin_department_id = #{adminDepartmentId,jdbcType=INTEGER},
-      admin_department_name = #{adminDepartmentName,jdbcType=VARCHAR},
-      admin_shop_id = #{adminShopId,jdbcType=INTEGER},
-      admin_shop_name = #{adminShopName,jdbcType=VARCHAR},
-      admin_status = #{adminStatus,jdbcType=INTEGER},
-      admin_menu_idStr = #{adminMenuIdstr,jdbcType=VARCHAR},
-      admin_menu_nameStr = #{adminMenuNamestr,jdbcType=VARCHAR},
-      admin_menu_urlStr = #{adminMenuUrlstr,jdbcType=VARCHAR},
-      admin_createTime = #{adminCreatetime,jdbcType=VARCHAR},
-      admin_motifyTime = #{adminMotifytime,jdbcType=VARCHAR}
-    where admin_id = #{adminId,jdbcType=INTEGER}
-  </update>
-  
-  <!--新增SQL语句 -->
-  
-  <!-- 查询 -->
+  <!-- 查询全部selectAdminInfoAll -->
   <select id="selectAdminInfoAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tb_crm_admin order by admin_id desc
   </select>
-  
+  <!-- 多条件查询selectCrmAdminByParameter -->
   <select id="selectCrmAdminByParameter" parameterType="com.atguigu.bean.CrmAdmin" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

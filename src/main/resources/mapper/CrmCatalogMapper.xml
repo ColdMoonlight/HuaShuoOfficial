@@ -23,10 +23,6 @@
     from tb_crm_catalog
     where catalog_id = #{catalogId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_crm_catalog
-    where catalog_id = #{catalogId,jdbcType=INTEGER}
-  </delete>
   <insert id="insert" parameterType="com.atguigu.bean.CrmCatalog">
     insert into tb_crm_catalog (catalog_id, catalog_name, catalog_parent_id, 
       catalog_parent_name, catalog_desc, catalog_status, 
@@ -37,7 +33,22 @@
       #{catalogFirthNum,jdbcType=INTEGER}, #{catalogUrl,jdbcType=VARCHAR}, #{catalogCreatetime,jdbcType=VARCHAR}, 
       #{catalogMotifytime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.CrmCatalog">
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmCatalog">
+    update tb_crm_catalog
+    set catalog_name = #{catalogName,jdbcType=VARCHAR},
+      catalog_parent_id = #{catalogParentId,jdbcType=INTEGER},
+      catalog_parent_name = #{catalogParentName,jdbcType=VARCHAR},
+      catalog_desc = #{catalogDesc,jdbcType=VARCHAR},
+      catalog_status = #{catalogStatus,jdbcType=INTEGER},
+      catalog_firth_num = #{catalogFirthNum,jdbcType=INTEGER},
+      catalog_url = #{catalogUrl,jdbcType=VARCHAR},
+      catalog_createTime = #{catalogCreatetime,jdbcType=VARCHAR},
+      catalog_motifyTime = #{catalogMotifytime,jdbcType=VARCHAR}
+    where catalog_id = #{catalogId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="catalogId" parameterType="com.atguigu.bean.CrmCatalog">
     insert into tb_crm_catalog
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="catalogId != null">
@@ -104,6 +115,19 @@
       </if>
     </trim>
   </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_crm_catalog
+    where catalog_id = #{catalogId,jdbcType=INTEGER}
+  </delete>
+    <!-- 查询 -->
+  <select id="selectCrmCatalogInfoAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_status, 
+    catalog_firth_num, catalog_url, 
+    from tb_crm_catalog order by catalog_id desc
+  </select>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.CrmCatalog">
     update tb_crm_catalog
     <set>
@@ -137,54 +161,32 @@
     </set>
     where catalog_id = #{catalogId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmCatalog">
-    update tb_crm_catalog
-    set catalog_name = #{catalogName,jdbcType=VARCHAR},
-      catalog_parent_id = #{catalogParentId,jdbcType=INTEGER},
-      catalog_parent_name = #{catalogParentName,jdbcType=VARCHAR},
-      catalog_desc = #{catalogDesc,jdbcType=VARCHAR},
-      catalog_status = #{catalogStatus,jdbcType=INTEGER},
-      catalog_firth_num = #{catalogFirthNum,jdbcType=INTEGER},
-      catalog_url = #{catalogUrl,jdbcType=VARCHAR},
-      catalog_createTime = #{catalogCreatetime,jdbcType=VARCHAR},
-      catalog_motifyTime = #{catalogMotifytime,jdbcType=VARCHAR}
-    where catalog_id = #{catalogId,jdbcType=INTEGER}
-  </update>
-  
-    <!-- 查询 -->
-  <select id="selectCrmCatalogInfoAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_status, 
-    catalog_firth_num, catalog_url, 
-    from tb_crm_catalog order by catalog_id desc
-  </select>
-  
-   <!-- 查询 -->
+  <!-- 超级权限查询时候--selectCrmCatalogSuper -->
   <select id="selectCrmCatalogSuper" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_status, 
     catalog_firth_num, catalog_url
     from tb_crm_catalog where catalog_status = 1 order by catalog_id
   </select>
-  
+  <!-- 多条件查询查询时候--selectCrmCatalogByParameter -->
   <select id="selectCrmCatalogByParameter" parameterType="com.atguigu.bean.CrmCatalog" resultMap="BaseResultMap">
     select *
     from tb_crm_catalog 
     where catalog_id>0 
     <if test="catalogName != null">
-        and catalog_name = #{catalogName,jdbcType=VARCHAR}
-      </if>
-      <if test="catalogParentId != null">
-        and catalog_parent_id = #{catalogParentId,jdbcType=INTEGER}
-      </if>
-      <if test="catalogParentName != null">
-        and catalog_parent_name = #{catalogParentName,jdbcType=VARCHAR}
-      </if>
-      <if test="catalogStatus != null">
-        and catalog_status = #{catalogStatus,jdbcType=INTEGER}
-      </if>
-      <if test="catalogFirthNum != null">
-        and catalog_firth_num = #{catalogFirthNum,jdbcType=INTEGER}
-      </if>
+      and catalog_name = #{catalogName,jdbcType=VARCHAR}
+    </if>
+    <if test="catalogParentId != null">
+      and catalog_parent_id = #{catalogParentId,jdbcType=INTEGER}
+    </if>
+    <if test="catalogParentName != null">
+      and catalog_parent_name = #{catalogParentName,jdbcType=VARCHAR}
+    </if>
+    <if test="catalogStatus != null">
+      and catalog_status = #{catalogStatus,jdbcType=INTEGER}
+    </if>
+    <if test="catalogFirthNum != null">
+      and catalog_firth_num = #{catalogFirthNum,jdbcType=INTEGER}
+    </if>
   </select>
 </mapper>
