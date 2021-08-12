@@ -131,6 +131,9 @@
 			</div>
 		</div>
 		<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
+		<jsp:include page="modal/deleteModal.jsp"></jsp:include>
+		
+		<!-- common script  -->
 		<jsp:include page="common/backfooter.jsp"></jsp:include>
 		<jsp:include page="common/backsidebar.jsp"></jsp:include>
 		<!-- custom script -->
