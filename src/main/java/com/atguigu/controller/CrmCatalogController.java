@@ -165,18 +165,14 @@ public class CrmCatalogController {
 	 * 4.0
 	 * @author 20210810
 	 * @param 
-	 * @exception 获取父级菜单
+	 * @exception 获取全部的下拉菜单
 	 * */
 	@RequestMapping(value="/GetSuperCatalogDownList",method=RequestMethod.GET)
 	@ResponseBody
 	public Msg getSuperCatalogDownList(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
 		
 		//查询 全部菜单列表
-		CrmCatalog crmCatalogReq = new CrmCatalog();
-		crmCatalogReq.setCatalogParentId(-1);//一级菜单
-		crmCatalogReq.setCatalogStatus(1);//生效
-		
-		List<CrmCatalog> crmSuperCatalogdownList = crmCatalogService.selectCrmCatalogByParameter(crmCatalogReq);
+		List<CrmCatalog> crmSuperCatalogdownList = crmCatalogService.selectDownListAll();
 		return Msg.success().add("crmSuperCatalogdownList", crmSuperCatalogdownList);
 	}
 	
