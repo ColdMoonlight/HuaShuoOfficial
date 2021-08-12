@@ -18,6 +18,8 @@ public interface CrmCatalogMapper {
     int updateByPrimaryKey(CrmCatalog record);
 
 	List<CrmCatalog> selectCrmCatalogInfoAll();
-
+	
+	List<CrmCatalog> selectCrmCatalogSuper();
+	
 	List<CrmCatalog> selectCrmCatalogByParameter(CrmCatalog crmCatalog);
 }

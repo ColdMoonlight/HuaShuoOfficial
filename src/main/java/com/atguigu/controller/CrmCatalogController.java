@@ -14,14 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.CrmAdmin;
 import com.atguigu.bean.CrmCatalog;
-import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
-import com.atguigu.common.TokenCache;
 import com.atguigu.service.CrmAdminService;
 import com.atguigu.service.CrmCatalogService;
 import com.atguigu.utils.DateUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
 @Controller
 @RequestMapping("/CrmCatalog")
@@ -71,110 +67,111 @@ public class CrmCatalogController {
 		Integer departmentId = nowCrmAdmin.getAdminDepartmentId();
 		if(departmentId==99){
 			//这个是超级用户
-			crmCatalogList = crmCatalogService.selectCrmCatalogGetAll();
+			crmCatalogList = crmCatalogService.selectCrmCatalogSuper();
 		}
 		
-		return Msg.success().add("crmCatalogList", crmCatalogList);
-	}
-	
-	/**3.0	20200703
-	 * CrmCatalog	save
-	 * @param CrmCatalog
-	 * @return
-	 */
-	@RequestMapping(value="/save",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg initializaCrmCatalog(HttpServletResponse rep,HttpServletRequest res,CrmCatalog CrmCatalog){
-		
-		
-		Integer catalogId = CrmCatalog.getCatalogId();
-		String nowTime = DateUtil.strTime14s();
-		CrmCatalog.setCatalogMotifytime(nowTime);
-		if(catalogId!=null){
-			//老数据,走更新
-			crmCatalogService.updateByPrimaryKeySelective(CrmCatalog);
-		}else{
-			//新数据,走插入
-			CrmCatalog.setCatalogCreatetime(nowTime);
-			crmCatalogService.insertSelective(CrmCatalog);
+		List<CrmCatalog> CrmCatalogdownFirst =new ArrayList<CrmCatalog>();
+		for(CrmCatalog CrmCatalogOne :crmCatalogList){
+			Integer CatalogParentId = CrmCatalogOne.getCatalogParentId();
+			if(CatalogParentId>0){
+				//System.out.println("CatalogParentId:"+CatalogParentId);
+			}else{
+				//筛选出一级菜单(patentId=-1)的类，//第一级别的导航
+				//存到list中，存一下这些ids,这些是一级类
+				CrmCatalogdownFirst.add(CrmCatalogOne);//一级类list;
+			}
 		}
 		
-		CrmCatalog.setCatalogStatus(0);//0未上架1上架中
-		return Msg.success().add("resMsg", "Catalog保存成功").add("CrmCatalog", CrmCatalog);
-	}
-	
-	/**4.0	20200703
-	 * CrmCatalog	update
-	 * @param CrmCatalog
-	 * @return
-	 */
-	@RequestMapping(value="/save",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg saveSelective(HttpServletResponse rep,HttpServletRequest res,@RequestBody CrmCatalog CrmCatalog){
-		//接受参数信息
-		//获取类名
-		String CatalogName = CrmCatalog.getCatalogName();
-		//获取归属类名
-		Integer CatalogParentId = CrmCatalog.getCatalogParentId();
-		CrmCatalog CrmCatalogParentNameReq = new CrmCatalog();
-		CrmCatalogParentNameReq.setCatalogId(CatalogParentId);
-		List<CrmCatalog> CrmCatalogList = crmCatalogService.selectCrmCatalog(CrmCatalogParentNameReq);
-		String CatalogParentName="";
-		String CatalogDesc="";
-		if(CrmCatalogList.size()>0){
-			CrmCatalog CrmCatalogParentNameRes = CrmCatalogList.get(0);
-			CatalogParentName = CrmCatalogParentNameRes.getCatalogName();
-			CatalogDesc = CrmCatalogParentNameRes.getCatalogDesc();
-		}else{
-			CatalogParentName ="---none---";
+		List<List<CrmCatalog>> CrmCatalogSuperList =new ArrayList<List<CrmCatalog>>();
+		for(CrmCatalog CatalogFirstOne :CrmCatalogdownFirst){
+			Integer CatalogFirstId = CatalogFirstOne.getCatalogId();
+			CrmCatalog CrmCatalogSecReq = new CrmCatalog();
+			CrmCatalogSecReq.setCatalogParentId(CatalogFirstId);
+			
+			List<CrmCatalog> CrmCatalogNowSecondList = crmCatalogService.selectCrmCatalogByParameter(CrmCatalogSecReq);
+			//System.out.println("操作说明:客户查询-本二级的菜单完毕Catalog-菜单");
+			
+			CrmCatalogSuperList.add(CrmCatalogNowSecondList);
 		}
-		//判断归属是否为none
-		if(CatalogParentName.equals("---none---")){
-			CrmCatalog.setCatalogDesc(CatalogName);
-		}else{
-			CrmCatalog.setCatalogDesc(CatalogDesc+">"+CatalogName);
-		}
-		String nowTime = DateUtil.strTime14s();
-		CrmCatalog.setCatalogMotifytime(nowTime);
-		CrmCatalog.setCatalogParentName(CatalogParentName);
-		
-		return Msg.success().add("resMsg", "Catalog保存成功");
-	}
-	
-	/**5.0	20200703
-	 * CrmCatalog	delete
-	 * @param CrmCatalog-CatalogId
-	 * @return 
-	 */
-	@RequestMapping(value="/delete",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg delete(@RequestBody CrmCatalog CrmCatalog){
-		//接收id信息
-		int CatalogIdInt = CrmCatalog.getCatalogId();
-		crmCatalogService.deleteByPrimaryKey(CatalogIdInt);
-		return Msg.success().add("resMsg", "Catalog delete  success");
+			
+		return Msg.success().add("CrmCatalogdownFirst", CrmCatalogdownFirst).add("CrmCatalogSuperList", CrmCatalogSuperList);
 	}
 	
 	/**
-	 * 6.0	20200703
-	 * 查单条CrmCatalog详情
-	 * @param CrmCatalog-CatalogId
-	 * @return 
-	 */
-	@RequestMapping(value="/getOneCrmCatalogDetail",method=RequestMethod.POST)
+	 * 2.0
+	 * @author 20210810
+	 * @param CrmCatalog
+	 * @exception 创建新用户
+	 * */
+	@RequestMapping(value="/save",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getOneCrmCatalogDetail(@RequestBody CrmCatalog CrmCatalog){
+	public Msg insertSelective(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody CrmCatalog crmCatalogReg){
+		//接收参数信息 
 		
-		//接受CatalogId
-		Integer CatalogId = CrmCatalog.getCatalogId();
-		CrmCatalog CrmCatalogReq = new CrmCatalog();
-		CrmCatalogReq.setCatalogId(CatalogId);
-		//查询本条
-		List<CrmCatalog> CrmCatalogResList =crmCatalogService.selectCrmCatalog(CrmCatalogReq);
-		CrmCatalog CrmCatalogOne =CrmCatalogResList.get(0);
-		return Msg.success().add("resMsg", "查CatalogOne完毕").add("CrmCatalogOne", CrmCatalogOne);
+		Integer cId = crmCatalogReg.getCatalogId();
+		String nowTime = DateUtil.strTime14s();
+		crmCatalogReg.setCatalogMotifytime(nowTime);
+		if(cId==null){
+			crmCatalogReg.setCatalogCreatetime(nowTime);
+			crmCatalogService.insertSelective(crmCatalogReg);
+			
+		}else{
+			crmCatalogService.updateByPrimaryKeySelective(crmCatalogReg);
+		}
+		
+		return Msg.success().add("resMsg", "创建成功");
+		
 	}
 	
+	/**
+	 * 3.0
+	 * @author 20210810
+	 * @param CrmAdmin
+	 * @exception 查看单个用户
+	 * */
+	@RequestMapping(value="/GetOneCrmCatalogDetail",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg GetOneCrmCatalogDetail(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody CrmCatalog crmCatalogReg){
+		
+		//通过id 查询单个用户详情
+		CrmCatalog crmCatalogRes = crmCatalogService.selectByPrimaryKey(crmCatalogReg.getCatalogId());
+		return Msg.success().add("crmCatalog", crmCatalogRes);
+		
+	}
 	
+	/**
+	 * 4.0
+	 * @author 20210810
+	 * @param CrmAdmin
+	 * @exception 查看单个用户
+	 * */
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg delete(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody CrmCatalog crmCatalogReg){
+		
+		//通过id 查询单个用户详情
+		crmCatalogService.deleteByPrimaryKey(crmCatalogReg.getCatalogId());
+		return Msg.success().add("resMsg", "创建成功");
+		
+	}
+	
+	/**
+	 * 4.0
+	 * @author 20210810
+	 * @param CrmAdmin
+	 * @exception 获取下拉菜单
+	 * */
+//	@RequestMapping(value="/getDownList")
+//	@ResponseBody
+//	public Msg getDownList(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
+//		
+//		//通过id 查询单个用户详情
+//		crmCatalogService.deleteByPrimaryKey(crmCatalogReg.getCatalogId());
+//		return Msg.success().add("resMsg", "创建成功");
+//		
+//	}
 	
 }
