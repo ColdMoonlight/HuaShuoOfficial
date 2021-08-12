@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.CrmAdmin;
 import com.atguigu.bean.CrmCatalog;
+import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.CrmAdminService;
 import com.atguigu.service.CrmCatalogService;
@@ -45,7 +46,7 @@ public class CrmCatalogController {
 	 * */
 	@RequestMapping("/ExitIndex")
 	public String exitindex(HttpSession session) throws Exception{
-		session.removeAttribute("AdminUser");
+		session.removeAttribute(Const.ADMIN_USER);
 		session.invalidate();
 		return "back/crmAdminLogin";
 	}
@@ -59,7 +60,7 @@ public class CrmCatalogController {
 	@ResponseBody
 	public Msg getCrmCatalogByAdminId(HttpSession session) {
 		
-		CrmAdmin nowCrmAdmin = (CrmAdmin) session.getAttribute("AdminUser");
+		CrmAdmin nowCrmAdmin = (CrmAdmin) session.getAttribute(Const.ADMIN_USER);
 		
 		List<CrmCatalog> crmCatalogList = new ArrayList<CrmCatalog>();
 		

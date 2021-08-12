@@ -37,7 +37,7 @@ public class CrmAdminController {
 	 * */
 	@RequestMapping("/ExitIndex")
 	public String exitindex(HttpSession session) throws Exception{
-		session.removeAttribute("AdminUser");
+		session.removeAttribute(Const.ADMIN_USER);
 		session.invalidate();
 		return "back/crmAdminLogin";
 	}
@@ -136,7 +136,7 @@ public class CrmAdminController {
 		List<CrmAdmin> crmAdminListNameAndPwd = crmAdminService.selectCrmAdminByParameter(crmAdminGet);
 		if(crmAdminListNameAndPwd.size()>0){
 			//将登陆状态放入session对象
-			session.setAttribute("AdminUser", crmAdminListNameAndPwd.get(0));
+			session.setAttribute(Const.ADMIN_USER, crmAdminListNameAndPwd.get(0));
 			System.out.println("CheakAdminUser--CrmAdminGet:"+crmAdminListNameAndPwd.get(0).toString());
 			TokenCache.setKey(Const.TOKEN_PREFIX+crmAdminReg.getAdminAccount(), "String");
 			
@@ -182,7 +182,7 @@ public class CrmAdminController {
 			//获取修改后的用户信息
 			crmAdminListNameAndPwd = crmAdminService.selectCrmAdminByParameter(crmAdminGet);
 			System.out.println("UpdateAdminUserInfo--CrmAdminGet:" + crmAdminListNameAndPwd.get(0).toString());
-			session.setAttribute("AdminUser", crmAdminListNameAndPwd.get(0));
+			session.setAttribute(Const.ADMIN_USER, crmAdminListNameAndPwd.get(0));
 			 
 			return Msg.success().add("resMsg", "密码修改成功");
 		}else{
@@ -200,7 +200,7 @@ public class CrmAdminController {
 	@ResponseBody
 	public Msg adminIfLogin(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
 		
-		CrmAdmin CrmAdmin =(CrmAdmin) session.getAttribute("AdminUser");
+		CrmAdmin CrmAdmin =(CrmAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(CrmAdmin!=null){
 			System.out.println("CrmAdmin:"+CrmAdmin.toString());
 			return Msg.success().add("resMsg", "登陆中"+CrmAdmin.toString());
