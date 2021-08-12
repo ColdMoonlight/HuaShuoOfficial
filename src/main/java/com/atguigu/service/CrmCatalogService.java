@@ -88,5 +88,10 @@ public class CrmCatalogService {
 		return crmCatalogList;
 	}
 
+	public List<CrmCatalog> selectDownListAll() {
+		List<CrmCatalog> crmCatalogList = crmCatalogMapper.selectDownListAll();
+		return crmCatalogList;
+	}
+
 
 }

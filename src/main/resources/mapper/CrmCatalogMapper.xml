@@ -189,4 +189,11 @@
       and catalog_firth_num = #{catalogFirthNum,jdbcType=INTEGER}
     </if>
   </select>
+  <!-- 超级权限查询时候selectDownListAll -->
+  <select id="selectDownListAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_status, 
+    catalog_firth_num, catalog_url
+    from tb_crm_catalog where catalog_status = 1 order by catalog_parent_id,catalog_id
+  </select>
 </mapper>
