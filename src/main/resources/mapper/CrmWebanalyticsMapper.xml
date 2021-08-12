@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.CrmWebanalyticsMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.CrmWebanalytics">
+    <id column="webanalytics_id" jdbcType="INTEGER" property="webanalyticsId" />
+    <result column="webanalytics_channelName" jdbcType="VARCHAR" property="webanalyticsChannelname" />
+    <result column="webanalytics_channelInvestMoney" jdbcType="DECIMAL" property="webanalyticsChannelinvestmoney" />
+    <result column="webanalytics_channelflowlNum" jdbcType="INTEGER" property="webanalyticsChannelflowlnum" />
+    <result column="webanalytics_channelSellNum" jdbcType="VARCHAR" property="webanalyticsChannelsellnum" />
+    <result column="webanalytics_channelSellMoney" jdbcType="DECIMAL" property="webanalyticsChannelsellmoney" />
+    <result column="webanalytics_brandName" jdbcType="VARCHAR" property="webanalyticsBrandname" />
+    <result column="webanalytics_createTime" jdbcType="VARCHAR" property="webanalyticsCreatetime" />
+    <result column="webanalytics_motifyTime" jdbcType="VARCHAR" property="webanalyticsMotifytime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    webanalytics_id, webanalytics_channelName, webanalytics_channelInvestMoney, webanalytics_channelflowlNum, 
+    webanalytics_channelSellNum, webanalytics_channelSellMoney, webanalytics_brandName, 
+    webanalytics_createTime, webanalytics_motifyTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_webanalytics
+    where webanalytics_id = #{webanalyticsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_crm_webanalytics
+    where webanalytics_id = #{webanalyticsId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.bean.CrmWebanalytics">
+    insert into tb_crm_webanalytics (webanalytics_id, webanalytics_channelName, 
+      webanalytics_channelInvestMoney, webanalytics_channelflowlNum, 
+      webanalytics_channelSellNum, webanalytics_channelSellMoney, 
+      webanalytics_brandName, webanalytics_createTime, 
+      webanalytics_motifyTime)
+    values (#{webanalyticsId,jdbcType=INTEGER}, #{webanalyticsChannelname,jdbcType=VARCHAR}, 
+      #{webanalyticsChannelinvestmoney,jdbcType=DECIMAL}, #{webanalyticsChannelflowlnum,jdbcType=INTEGER}, 
+      #{webanalyticsChannelsellnum,jdbcType=VARCHAR}, #{webanalyticsChannelsellmoney,jdbcType=DECIMAL}, 
+      #{webanalyticsBrandname,jdbcType=VARCHAR}, #{webanalyticsCreatetime,jdbcType=VARCHAR}, 
+      #{webanalyticsMotifytime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.bean.CrmWebanalytics">
+    insert into tb_crm_webanalytics
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="webanalyticsId != null">
+        webanalytics_id,
+      </if>
+      <if test="webanalyticsChannelname != null">
+        webanalytics_channelName,
+      </if>
+      <if test="webanalyticsChannelinvestmoney != null">
+        webanalytics_channelInvestMoney,
+      </if>
+      <if test="webanalyticsChannelflowlnum != null">
+        webanalytics_channelflowlNum,
+      </if>
+      <if test="webanalyticsChannelsellnum != null">
+        webanalytics_channelSellNum,
+      </if>
+      <if test="webanalyticsChannelsellmoney != null">
+        webanalytics_channelSellMoney,
+      </if>
+      <if test="webanalyticsBrandname != null">
+        webanalytics_brandName,
+      </if>
+      <if test="webanalyticsCreatetime != null">
+        webanalytics_createTime,
+      </if>
+      <if test="webanalyticsMotifytime != null">
+        webanalytics_motifyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="webanalyticsId != null">
+        #{webanalyticsId,jdbcType=INTEGER},
+      </if>
+      <if test="webanalyticsChannelname != null">
+        #{webanalyticsChannelname,jdbcType=VARCHAR},
+      </if>
+      <if test="webanalyticsChannelinvestmoney != null">
+        #{webanalyticsChannelinvestmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="webanalyticsChannelflowlnum != null">
+        #{webanalyticsChannelflowlnum,jdbcType=INTEGER},
+      </if>
+      <if test="webanalyticsChannelsellnum != null">
+        #{webanalyticsChannelsellnum,jdbcType=VARCHAR},
+      </if>
+      <if test="webanalyticsChannelsellmoney != null">
+        #{webanalyticsChannelsellmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="webanalyticsBrandname != null">
+        #{webanalyticsBrandname,jdbcType=VARCHAR},
+      </if>
+      <if test="webanalyticsCreatetime != null">
+        #{webanalyticsCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="webanalyticsMotifytime != null">
+        #{webanalyticsMotifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.CrmWebanalytics">
+    update tb_crm_webanalytics
+    <set>
+      <if test="webanalyticsChannelname != null">
+        webanalytics_channelName = #{webanalyticsChannelname,jdbcType=VARCHAR},
+      </if>
+      <if test="webanalyticsChannelinvestmoney != null">
+        webanalytics_channelInvestMoney = #{webanalyticsChannelinvestmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="webanalyticsChannelflowlnum != null">
+        webanalytics_channelflowlNum = #{webanalyticsChannelflowlnum,jdbcType=INTEGER},
+      </if>
+      <if test="webanalyticsChannelsellnum != null">
+        webanalytics_channelSellNum = #{webanalyticsChannelsellnum,jdbcType=VARCHAR},
+      </if>
+      <if test="webanalyticsChannelsellmoney != null">
+        webanalytics_channelSellMoney = #{webanalyticsChannelsellmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="webanalyticsBrandname != null">
+        webanalytics_brandName = #{webanalyticsBrandname,jdbcType=VARCHAR},
+      </if>
+      <if test="webanalyticsCreatetime != null">
+        webanalytics_createTime = #{webanalyticsCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="webanalyticsMotifytime != null">
+        webanalytics_motifyTime = #{webanalyticsMotifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where webanalytics_id = #{webanalyticsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmWebanalytics">
+    update tb_crm_webanalytics
+    set webanalytics_channelName = #{webanalyticsChannelname,jdbcType=VARCHAR},
+      webanalytics_channelInvestMoney = #{webanalyticsChannelinvestmoney,jdbcType=DECIMAL},
+      webanalytics_channelflowlNum = #{webanalyticsChannelflowlnum,jdbcType=INTEGER},
+      webanalytics_channelSellNum = #{webanalyticsChannelsellnum,jdbcType=VARCHAR},
+      webanalytics_channelSellMoney = #{webanalyticsChannelsellmoney,jdbcType=DECIMAL},
+      webanalytics_brandName = #{webanalyticsBrandname,jdbcType=VARCHAR},
+      webanalytics_createTime = #{webanalyticsCreatetime,jdbcType=VARCHAR},
+      webanalytics_motifyTime = #{webanalyticsMotifytime,jdbcType=VARCHAR}
+    where webanalytics_id = #{webanalyticsId,jdbcType=INTEGER}
+  </update>
+</mapper>
