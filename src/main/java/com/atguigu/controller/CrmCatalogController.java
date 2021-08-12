@@ -165,28 +165,19 @@ public class CrmCatalogController {
 	 * 4.0
 	 * @author 20210810
 	 * @param 
-	 * @exception 获取全部类目，以便于下拉选择
+	 * @exception 获取父级菜单
 	 * */
-	@RequestMapping(value="/GetCatalogDownList",method=RequestMethod.GET)
+	@RequestMapping(value="/GetSuperCatalogDownList",method=RequestMethod.GET)
 	@ResponseBody
-	public Msg getCatalogDownList(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
+	public Msg getSuperCatalogDownList(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
 		
 		//查询 全部菜单列表
 		CrmCatalog crmCatalogReq = new CrmCatalog();
-		List<CrmCatalog> crmCatalogdownList = crmCatalogService.selectCrmCatalogByParameter(crmCatalogReq);
+		crmCatalogReq.setCatalogParentId(-1);//一级菜单
+		crmCatalogReq.setCatalogStatus(1);//生效
 		
-		//筛选出二级菜单
-		List<CrmCatalog> crmCatalogdownEr =new ArrayList<CrmCatalog>();
-		if(crmCatalogdownList.size() > 0){
-			for(CrmCatalog MlbackCatalogOne :crmCatalogdownList){
-				Integer catalogParentId = MlbackCatalogOne.getCatalogParentId();
-				if(catalogParentId>0){
-					crmCatalogdownEr.add(MlbackCatalogOne);
-				}
-			}
-		}
-		return Msg.success().add("crmCatalogdownList", crmCatalogdownList).add("crmCatalogdownEr", crmCatalogdownEr);
-		
+		List<CrmCatalog> crmSuperCatalogdownList = crmCatalogService.selectCrmCatalogByParameter(crmCatalogReq);
+		return Msg.success().add("crmSuperCatalogdownList", crmSuperCatalogdownList);
 	}
 	
 }
