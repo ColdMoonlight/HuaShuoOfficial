@@ -161,14 +161,14 @@
     </set>
     where catalog_id = #{catalogId,jdbcType=INTEGER}
   </update>
-  <!-- 超级权限查询时候--selectCrmCatalogSuper -->
+  <!-- 超级权限查询时候selectCrmCatalogSuper -->
   <select id="selectCrmCatalogSuper" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     catalog_id, catalog_name, catalog_parent_id, catalog_parent_name, catalog_desc, catalog_status, 
     catalog_firth_num, catalog_url
     from tb_crm_catalog where catalog_status = 1 order by catalog_id
   </select>
-  <!-- 多条件查询查询时候--selectCrmCatalogByParameter -->
+  <!-- 多条件查询查询时候selectCrmCatalogByParameter -->
   <select id="selectCrmCatalogByParameter" parameterType="com.atguigu.bean.CrmCatalog" resultMap="BaseResultMap">
     select *
     from tb_crm_catalog 
