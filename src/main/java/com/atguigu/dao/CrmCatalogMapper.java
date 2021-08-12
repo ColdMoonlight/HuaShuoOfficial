@@ -5,17 +5,20 @@ import java.util.List;
 import com.atguigu.bean.CrmCatalog;
 
 public interface CrmCatalogMapper {
-    int deleteByPrimaryKey(Integer catalogId);
 
     int insert(CrmCatalog record);
 
-    int insertSelective(CrmCatalog record);
-
     CrmCatalog selectByPrimaryKey(Integer catalogId);
-
-    int updateByPrimaryKeySelective(CrmCatalog record);
-
+    
     int updateByPrimaryKey(CrmCatalog record);
+    
+    /****************以下使用********************/
+    
+    int insertSelective(CrmCatalog record);
+    
+    int deleteByPrimaryKey(Integer catalogId);
+    
+    int updateByPrimaryKeySelective(CrmCatalog record);
 
 	List<CrmCatalog> selectCrmCatalogInfoAll();
 	
