@@ -8,8 +8,6 @@ public interface CrmAdminMapper {
 
     int insert(CrmAdmin record);
 
-    CrmAdmin selectByPrimaryKey(Integer adminId);
-
     int updateByPrimaryKey(CrmAdmin record);
     
     /****************以下使用********************/
@@ -18,6 +16,8 @@ public interface CrmAdminMapper {
     int deleteByPrimaryKey(Integer adminId);
     
     int updateByPrimaryKeySelective(CrmAdmin record);
+    
+    CrmAdmin selectByPrimaryKey(Integer adminId);
     
     //查询全部用户
     List<CrmAdmin> selectAdminInfoAll();
