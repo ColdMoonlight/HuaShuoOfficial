@@ -141,7 +141,6 @@ public class CrmCatalogController {
 		
 	}
 	
-	
 	/**
 	 * 4.0
 	 * @author 20210810
@@ -165,14 +164,14 @@ public class CrmCatalogController {
 	 * @param CrmAdmin
 	 * @exception 获取下拉菜单
 	 * */
-	@RequestMapping(value="/getDownList")
-	@ResponseBody
-	public Msg getDownList(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
-		
-		//通过id 查询单个用户详情
-		crmCatalogService.deleteByPrimaryKey(crmCatalogReg.getCatalogId());
-		return Msg.success().add("resMsg", "创建成功");
-		
-	}
+//	@RequestMapping(value="/getDownList")
+//	@ResponseBody
+//	public Msg getDownList(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
+//		
+//		//通过id 查询单个用户详情
+//		crmCatalogService.deleteByPrimaryKey(crmCatalogReg.getCatalogId());
+//		return Msg.success().add("resMsg", "创建成功");
+//		
+//	}
 	
 }
