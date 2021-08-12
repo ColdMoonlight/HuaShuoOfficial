@@ -88,9 +88,9 @@ public class CrmAdminController {
 	 * @param CrmAdmin
 	 * @exception 查看单个用户
 	 * */
-	@RequestMapping(value="/GetOneAdminDetail",method=RequestMethod.POST)
+	@RequestMapping(value="/GetOneAdminDetailById",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg GetOneAdminDetail(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+	public Msg GetOneAdminDetailById(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
 			@RequestBody CrmAdmin crmAdminReg){
 		
 		//通过id 查询单个用户详情
