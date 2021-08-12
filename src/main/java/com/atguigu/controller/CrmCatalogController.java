@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.CrmAdmin;
 import com.atguigu.bean.CrmCatalog;
@@ -110,6 +109,11 @@ public class CrmCatalogController {
 		
 		Integer cId = crmCatalogReg.getCatalogId();
 		String nowTime = DateUtil.strTime14s();
+		int cataLogPid = crmCatalogReg.getCatalogParentId();//判断是否有父级
+		if(cataLogPid != -1){
+			//有父级，设置描述信息
+			crmCatalogReg.setCatalogDesc(crmCatalogReg.getCatalogParentName()+">"+crmCatalogReg.getCatalogName());
+		}
 		crmCatalogReg.setCatalogMotifytime(nowTime);
 		if(cId==null){
 			crmCatalogReg.setCatalogCreatetime(nowTime);
@@ -160,17 +164,29 @@ public class CrmCatalogController {
 	/**
 	 * 4.0
 	 * @author 20210810
-	 * @param CrmAdmin
-	 * @exception 获取下拉菜单
+	 * @param 
+	 * @exception 获取全部类目，以便于下拉选择
 	 * */
-//	@RequestMapping(value="/getDownList")
-//	@ResponseBody
-//	public Msg getDownList(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
-//		
-//		//通过id 查询单个用户详情
-//		crmCatalogService.deleteByPrimaryKey(crmCatalogReg.getCatalogId());
-//		return Msg.success().add("resMsg", "创建成功");
-//		
-//	}
+	@RequestMapping(value="/GetCatalogDownList",method=RequestMethod.GET)
+	@ResponseBody
+	public Msg getCatalogDownList(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
+		
+		//查询 全部菜单列表
+		CrmCatalog crmCatalogReq = new CrmCatalog();
+		List<CrmCatalog> crmCatalogdownList = crmCatalogService.selectCrmCatalogByParameter(crmCatalogReq);
+		
+		//筛选出二级菜单
+		List<CrmCatalog> crmCatalogdownEr =new ArrayList<CrmCatalog>();
+		if(crmCatalogdownList.size() > 0){
+			for(CrmCatalog MlbackCatalogOne :crmCatalogdownList){
+				Integer catalogParentId = MlbackCatalogOne.getCatalogParentId();
+				if(catalogParentId>0){
+					crmCatalogdownEr.add(MlbackCatalogOne);
+				}
+			}
+		}
+		return Msg.success().add("crmCatalogdownList", crmCatalogdownList).add("crmCatalogdownEr", crmCatalogdownEr);
+		
+	}
 	
 }
