@@ -196,7 +196,6 @@
     </set>
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
-  
   <!-- 查询单条selectByPrimaryKey -->
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
