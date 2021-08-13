@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.atguigu.bean.CrmAdmin;
+import com.atguigu.common.Const;
 
 @Controller
 @RequestMapping("/BackHome")
@@ -28,7 +29,7 @@ public class BackHomeController {
 	@RequestMapping("/BackHomePage")
 	public String backHome(HttpSession session) throws Exception{
 		
-		CrmAdmin mlbackAdmin =(CrmAdmin) session.getAttribute("AdminUser");
+		CrmAdmin mlbackAdmin =(CrmAdmin) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackAdmin==null){
 			//SysUsers对象为空
 			return "back/crmAdminLogin";

@@ -17,16 +17,8 @@
     webanalytics_channelSellNum, webanalytics_channelSellMoney, webanalytics_brandName, 
     webanalytics_createTime, webanalytics_motifyTime
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_crm_webanalytics
-    where webanalytics_id = #{webanalyticsId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_crm_webanalytics
-    where webanalytics_id = #{webanalyticsId,jdbcType=INTEGER}
-  </delete>
+  
+  
   <insert id="insert" parameterType="com.atguigu.bean.CrmWebanalytics">
     insert into tb_crm_webanalytics (webanalytics_id, webanalytics_channelName, 
       webanalytics_channelInvestMoney, webanalytics_channelflowlNum, 
@@ -39,7 +31,21 @@
       #{webanalyticsBrandname,jdbcType=VARCHAR}, #{webanalyticsCreatetime,jdbcType=VARCHAR}, 
       #{webanalyticsMotifytime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.CrmWebanalytics">
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmWebanalytics">
+    update tb_crm_webanalytics
+    set webanalytics_channelName = #{webanalyticsChannelname,jdbcType=VARCHAR},
+      webanalytics_channelInvestMoney = #{webanalyticsChannelinvestmoney,jdbcType=DECIMAL},
+      webanalytics_channelflowlNum = #{webanalyticsChannelflowlnum,jdbcType=INTEGER},
+      webanalytics_channelSellNum = #{webanalyticsChannelsellnum,jdbcType=VARCHAR},
+      webanalytics_channelSellMoney = #{webanalyticsChannelsellmoney,jdbcType=DECIMAL},
+      webanalytics_brandName = #{webanalyticsBrandname,jdbcType=VARCHAR},
+      webanalytics_createTime = #{webanalyticsCreatetime,jdbcType=VARCHAR},
+      webanalytics_motifyTime = #{webanalyticsMotifytime,jdbcType=VARCHAR}
+    where webanalytics_id = #{webanalyticsId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="webanalyticsId" parameterType="com.atguigu.bean.CrmWebanalytics">
     insert into tb_crm_webanalytics
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="webanalyticsId != null">
@@ -100,6 +106,14 @@
       </if>
     </trim>
   </insert>
+  
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_crm_webanalytics
+    where webanalytics_id = #{webanalyticsId,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.CrmWebanalytics">
     update tb_crm_webanalytics
     <set>
@@ -130,16 +144,46 @@
     </set>
     where webanalytics_id = #{webanalyticsId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmWebanalytics">
-    update tb_crm_webanalytics
-    set webanalytics_channelName = #{webanalyticsChannelname,jdbcType=VARCHAR},
-      webanalytics_channelInvestMoney = #{webanalyticsChannelinvestmoney,jdbcType=DECIMAL},
-      webanalytics_channelflowlNum = #{webanalyticsChannelflowlnum,jdbcType=INTEGER},
-      webanalytics_channelSellNum = #{webanalyticsChannelsellnum,jdbcType=VARCHAR},
-      webanalytics_channelSellMoney = #{webanalyticsChannelsellmoney,jdbcType=DECIMAL},
-      webanalytics_brandName = #{webanalyticsBrandname,jdbcType=VARCHAR},
-      webanalytics_createTime = #{webanalyticsCreatetime,jdbcType=VARCHAR},
-      webanalytics_motifyTime = #{webanalyticsMotifytime,jdbcType=VARCHAR}
+  
+  <!-- 查询单条selectByPrimaryKey -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_webanalytics
     where webanalytics_id = #{webanalyticsId,jdbcType=INTEGER}
-  </update>
+  </select>
+  
+   <!-- 查询全部selectAdminInfoAll -->
+  <select id="selectCrmWebanalyticsInfoAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_webanalytics order by webanalytics_id desc
+  </select>
+  
+  <!-- 分页查询 -->
+  <select id="selectCrmWebanalyticsByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_webanalytics order by webanalytics_id desc
+  </select>
+  
+  <!-- 多条件查询selectCrmAdminByParameter -->
+  <select id="selectCrmWebanalyticsByParameter" parameterType="com.atguigu.bean.CrmWebanalytics" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_webanalytics 
+    where webanalytics_id > 0 
+    <if test="webanalyticsChannelname != null">
+      and webanalytics_channelName = #{webanalyticsChannelname,jdbcType=VARCHAR},
+    </if>
+    <if test="webanalyticsBrandname != null">
+      and webanalytics_brandName = #{webanalyticsBrandname,jdbcType=VARCHAR},
+    </if>
+    <if test="webanalyticsCreatetime != null">
+    	<if test="webanalyticsMotifytime != null">
+        	and webanalytics_createTime between #{webanalyticsCreatetime,jdbcType=VARCHAR} and #{webanalyticsMotifytime,jdbcType=VARCHAR}
+      	</if>
+    </if>
+    order by webanalytics_id desc
+  </select>
 </mapper>
