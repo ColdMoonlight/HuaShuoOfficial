@@ -1,18 +1,15 @@
 package com.atguigu.controller;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.atguigu.bean.CrmAdmin;
 import com.atguigu.bean.CrmShopRoom;
 import com.atguigu.common.Const;
@@ -28,6 +25,7 @@ public class CrmShopRoomController {
 	CrmShopRoomService crmShopRoomService;
 	
 	/**
+	 * 1.0
 	 * 20210813
 	 * ShopRoom首页
 	 * */
@@ -67,7 +65,7 @@ public class CrmShopRoomController {
 	}
 	
 	/**
-	 * 2.0
+	 * 3.0
 	 * @author 20210813
 	 * @param CrmShopRoom
 	 * @exception 创建新店铺
@@ -82,7 +80,7 @@ public class CrmShopRoomController {
 	}
 	
 	/**
-	 * 2.0
+	 * 4.0
 	 * @author 20210813
 	 * @param CrmShopRoom
 	 * @exception 更新店铺信息
@@ -99,7 +97,7 @@ public class CrmShopRoomController {
 	}
 	
 	/**
-	 * 2.0
+	 * 5.0
 	 * @author 20210813
 	 * @param CrmShopRoom
 	 * @exception 查看单个店铺
@@ -116,7 +114,7 @@ public class CrmShopRoomController {
 	}
 	
 	/**
-	 * 2.0
+	 * 6.0
 	 * @author 20210813
 	 * @param CrmShopRoom
 	 * @exception 查看全部店铺
@@ -130,21 +128,4 @@ public class CrmShopRoomController {
 		return Msg.success().add("crmShopRoomList", crmShopRoomList);
 		
 	}
-	
-	/**
-	 * 2.0
-	 * @author 20210813
-	 * @param CrmShopRoom
-	 * @exception 获取店铺分页列表
-	 * */
-	/*@RequestMapping(value="/GetShopRoomByPage",method=RequestMethod.POST)
-	@ResponseBody
-	public Msg getcrmCatalogByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
-
-		int PagNum = Const.PAGE_NUM_DEFAULT;
-		PageHelper.startPage(pn, PagNum);
-		List<CrmShopRoom> crmShopRoomList = crmShopRoomService.selectCrmShopRoomByPage();
-		PageInfo page = new PageInfo(crmShopRoomList, PagNum);
-		return Msg.success().add("pageInfo", page);
-	}*/
 }
