@@ -10,23 +10,23 @@
   <sql id="Base_Column_List">
     department_id, department_Name, department_createTime, department_motifyTime
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_crm_department
-    where department_id = #{departmentId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_crm_department
-    where department_id = #{departmentId,jdbcType=INTEGER}
-  </delete>
+  
   <insert id="insert" parameterType="com.atguigu.bean.CrmDepartment">
     insert into tb_crm_department (department_id, department_Name, department_createTime, 
       department_motifyTime)
     values (#{departmentId,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR}, #{departmentCreatetime,jdbcType=VARCHAR}, 
       #{departmentMotifytime,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.atguigu.bean.CrmDepartment">
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmDepartment">
+    update tb_crm_department
+    set department_Name = #{departmentName,jdbcType=VARCHAR},
+      department_createTime = #{departmentCreatetime,jdbcType=VARCHAR},
+      department_motifyTime = #{departmentMotifytime,jdbcType=VARCHAR}
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="departmentId" parameterType="com.atguigu.bean.CrmDepartment">
     insert into tb_crm_department
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="departmentId != null">
@@ -57,6 +57,12 @@
       </if>
     </trim>
   </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_crm_department
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.CrmDepartment">
     update tb_crm_department
     <set>
@@ -72,11 +78,30 @@
     </set>
     where department_id = #{departmentId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmDepartment">
-    update tb_crm_department
-    set department_Name = #{departmentName,jdbcType=VARCHAR},
-      department_createTime = #{departmentCreatetime,jdbcType=VARCHAR},
-      department_motifyTime = #{departmentMotifytime,jdbcType=VARCHAR}
+  
+  <!-- selectByPrimaryKey -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_department
     where department_id = #{departmentId,jdbcType=INTEGER}
-  </update>
+  </select>
+  
+  <!-- selectCrmDepartmentByParameter -->
+  <select id="selectCrmDepartmentByParameter" parameterType="com.atguigu.bean.CrmDepartment" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_department where shopRoom_id > 0
+    <if test="departmentName != null">
+        and department_Name = #{departmentName,jdbcType=VARCHAR}
+    </if>
+    order by department_id desc
+  </select>
+  
+  <!-- selectDepartmentInfoAll -->
+  <select id="selectDepartmentInfoAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_department order by department_id desc
+  </select>
 </mapper>
