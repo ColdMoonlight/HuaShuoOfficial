@@ -83,6 +83,42 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 			callback && callback(startTime, endTime, this);
 		});
 	}
+	// timepicker
+	function bindDateTimepicker() {
+		$('.datetimepicker').daterangepicker({
+			singleDatePicker: true,
+			timePicker: true,
+			timePicker24Hour: true,
+			timePickerSeconds: true,
+			showWeekNumbers: true,
+			locale: {
+				format: format,
+			},
+		});
+	}
+
+	// intitial date
+	function initDate() {
+		return moment(new Date()).format(format);
+	}
+	function getMilliseconds(value) {
+		return moment(value, format).utc().valueOf();
+	}
+	function getYears(value) {
+		return moment(value).year();
+	}
+	function getMonths(value) {
+		return moment(value).month() + 1;
+	}
+	function getDays(value) {
+		return moment(value).dates();
+	}
+	function getHours(value) {
+		return moment(value).hours();
+	}
+	function isLeapYear(value) {
+		return moment([value]).isLeapYear();
+	}
 	
 	/* pageNum */
 	function getPageNum() {

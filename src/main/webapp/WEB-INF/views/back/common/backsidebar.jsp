@@ -23,8 +23,16 @@ function renderSideBarMenu(data) {
 	var menuHtml
 	if (firstArrData.length) {
 		menuHtml = '<ul class="c-sidebar-nav">';
+		menuHtml +=	'<li class="c-sidebar-nav-item">' +
+				'<a class="c-sidebar-nav-link" href="${APP_PATH}/BackHome/BackHomePage">' +
+					'<svg class="c-sidebar-nav-icon">' +
+						'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-speedometer"></use>' +
+					'</svg>' +
+					'<span class="c-text">Dashboard</span>' +
+				'</a>' +
+			'</li>';
 		firstArrData.forEach(function(item, idx) {
-			menuHtml += '<li class="c-sidebar-nav-item'+ (idx < 1 ? ' active' : '') + '' + (secondMapData && secondMapData[idx].length ? ' c-sidebar-nav-dropdown-toggle' : '') +'">' +
+			menuHtml += '<li class="c-sidebar-nav-item' + (secondMapData && secondMapData[idx].length ? ' c-sidebar-nav-dropdown-toggle' : '') +'">' +
 				'<a class="c-sidebar-nav-link" href="'+ (secondMapData && secondMapData[idx].length ? 'javascript:void(0);' : '${APP_PATH}/'+ item.catalogUrl) +'">' +
 					'<svg class="c-sidebar-nav-icon"><use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-cursor"></use></svg>' +
 					'<span class="c-text">'+ item.catalogName +'</span>' +
@@ -38,7 +46,7 @@ function renderSideBarMenu(data) {
 		menuHtml = '没有目录数据...';
 	}
 	$SIDEBAR_MENU.html(menuHtml);
-	addSidebarEvent();
+	!isInitMenu && addSidebarEvent();
 }
 function initSideBarMenu() {
 	$.ajax({
@@ -89,6 +97,7 @@ function addSidebarEvent() {
 }
 
 var CURRENT_URL = window.location.href.split('#')[0],
-$SIDEBAR_MENU = $('#sidebar-menu');
+	$SIDEBAR_MENU = $('#sidebar-menu'),
+	isInitMenu = false;
 initSideBarMenu();
 </script>
