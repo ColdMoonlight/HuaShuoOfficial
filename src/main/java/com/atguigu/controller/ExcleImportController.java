@@ -18,27 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import com.atguigu.bean.MlbackAdmin;
-import com.atguigu.bean.MlfrontReview;
+
+import com.atguigu.bean.CrmAdmin;
 import com.atguigu.common.Const;
-import com.atguigu.service.DownPayCheckDateService;
-import com.atguigu.service.MlfrontPayInfoService;
-import com.atguigu.service.MlfrontReviewService;
 import com.atguigu.utils.DateUtil;
-import com.atguigu.utils.URLLocationUtils;
 
 @Controller
 @RequestMapping("/excleImport")
 public class ExcleImportController {
 		
-	@Autowired
-	MlfrontPayInfoService mlfrontPayInfoService;
-	
-	@Autowired
-	DownPayCheckDateService downPayCheckDateService;
-	
-	@Autowired
-	MlfrontReviewService mlfrontReviewService;
 	
 	/**
 	 * zsh 200730
@@ -46,8 +34,8 @@ public class ExcleImportController {
 	 * */
 	@RequestMapping("/reviewsImportPage")
 	public String reviewsImportPage(HttpSession session){
-		MlbackAdmin mlbackAdmin =(MlbackAdmin) session.getAttribute(Const.ADMIN_USER);
-		if(mlbackAdmin==null){
+		CrmAdmin crmAdmin =(CrmAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(crmAdmin==null){
 			//MlbackAdmin对象为空
 			return "back/mlbackAdminLogin";
 		}else{
@@ -115,7 +103,7 @@ public class ExcleImportController {
      * @param request
      * @param response
      */
-	@RequestMapping(value="/inportReviews",method=RequestMethod.POST)
+	/*@RequestMapping(value="/inportReviews",method=RequestMethod.POST)
 	public void inportReviews(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,HttpServletResponse response,HttpSession session){
 		try {
 			InputStream is = multipartFile.getInputStream();
@@ -276,5 +264,5 @@ public class ExcleImportController {
 		String returnReaUrlAll = pathBig+path+returnReaUrl;
 		return returnReaUrlAll;
 	}
-	
+	*/
 }

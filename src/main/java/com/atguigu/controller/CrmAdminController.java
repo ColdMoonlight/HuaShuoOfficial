@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.druid.util.StringUtils;
 import com.atguigu.bean.CrmAdmin;
-import com.atguigu.bean.CrmCatalog;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.common.TokenCache;
