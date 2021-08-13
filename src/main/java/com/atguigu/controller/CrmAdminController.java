@@ -162,7 +162,7 @@ public class CrmAdminController {
 	 * @param CrmAdmin
 	 * @exception 获取用户分页列表
 	 * */
-	@RequestMapping(value="/GetAdminByPage",method=RequestMethod.GET)
+	@RequestMapping(value="/GetAdminByPage",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg getcrmCatalogByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
 
