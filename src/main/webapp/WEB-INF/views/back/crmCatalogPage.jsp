@@ -64,43 +64,43 @@
 												<input class="form-control" id="catalogName" type="text" />
 											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-md-3 col-form-label" for="catalogStatus">状态</label>
-										<div class="controls col-md-3">
-											<label class="c-switch c-switch-primary">
-												<input class="c-switch-input" id="catalogStatus" type="checkbox">
-												<span class="c-switch-slider"></span>
-											</label>
+										<div class="form-group row">
+											<label class="col-md-3 col-form-label" for="catalogStatus">状态</label>
+											<div class="controls col-md-3">
+												<label class="c-switch c-switch-primary">
+													<input class="c-switch-input" id="catalogStatus" type="checkbox">
+													<span class="c-switch-slider"></span>
+												</label>
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="catalogFirthNum">位置</label>
-										<div class="controls">
-											<select class="form-control" id="catalogFirthNum" />
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-												<option value="5">5</option>
-												<option value="6">6</option>
-												<option value="7">7</option>
-												<option value="8">8</option>
-												<option value="9">9</option>
-												<option value="10">10</option>
-											</select>
+										<div class="form-group">
+											<label class="col-form-label" for="catalogFirthNum">位置</label>
+											<div class="controls">
+												<select class="form-control" id="catalogFirthNum" />
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="4">4</option>
+													<option value="5">5</option>
+													<option value="6">6</option>
+													<option value="7">7</option>
+													<option value="8">8</option>
+													<option value="9">9</option>
+													<option value="10">10</option>
+												</select>
+											</div>
+										</div>									
+										<div class="form-group">
+											<label class="col-form-label" for="catalogUrl">URL</label>
+											<div class="controls">
+												<input class="form-control" id="catalogUrl" />
+											</div>
 										</div>
-									</div>									
-									<div class="form-group">
-										<label class="col-form-label" for="catalogUrl">URL</label>
-										<div class="controls">
-											<input class="form-control" id="catalogUrl" />
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-form-label" for="catalogDesc">描述</label>
-										<div class="controls">
-											<textarea class="form-control" id="catalogDesc" row="6"></textarea>
+										<div class="form-group">
+											<label class="col-form-label" for="catalogDesc">描述</label>
+											<div class="controls">
+												<textarea class="form-control" id="catalogDesc" row="6"></textarea>
+											</div>
 										</div>
 									</div>
 								</div>
