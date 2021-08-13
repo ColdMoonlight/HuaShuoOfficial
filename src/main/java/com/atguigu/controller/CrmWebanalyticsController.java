@@ -59,7 +59,7 @@ public class CrmWebanalyticsController {
 			@RequestBody CrmWebanalytics crmWebanalyticsReg){
 		//接收参数信息 
 		String nowTime = DateUtil.strTime14s();
-		crmWebanalyticsReg.setWebanalyticsCreatetime(nowTime);
+		//crmWebanalyticsReg.setWebanalyticsCreatetime(nowTime);
 		crmWebanalyticsReg.setWebanalyticsMotifytime(nowTime);
 		crmWebanalyticsService.insertSelective(crmWebanalyticsReg);
 		
