@@ -66,6 +66,7 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 			timePicker24Hour: true,
 			timePickerSeconds: true,
 			showWeekNumbers: true,
+			autoUpdateInput: false,
 			locale: {
 				format: format,
 			},
@@ -82,6 +83,51 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 			var endTime = moment(new Date(end)).format(format);
 			callback && callback(startTime, endTime, this);
 		});
+		$('.daterangetimepicker').on('apply.daterangepicker', function(ev, picker) {
+            $(this).val(picker.startDate.format(format) + ' - ' + picker.endDate.format(format));
+        });
+
+        $('.daterangetimepicker').on('cancel.daterangepicker', function(ev, picker) {
+            $(this).val('');
+            $('#search-start-time').val('');
+			$('#search-end-time').val('');
+        });
+	}
+	// timepicker
+	function bindDateTimepicker() {
+		$('.datetimepicker').daterangepicker({
+			singleDatePicker: true,
+			timePicker: true,
+			timePicker24Hour: true,
+			timePickerSeconds: true,
+			showWeekNumbers: true,
+			locale: {
+				format: format,
+			},
+		});
+	}
+
+	// intitial date
+	function initDate() {
+		return moment(new Date()).format(format);
+	}
+	function getMilliseconds(value) {
+		return moment(value, format).utc().valueOf();
+	}
+	function getYears(value) {
+		return moment(value).year();
+	}
+	function getMonths(value) {
+		return moment(value).month() + 1;
+	}
+	function getDays(value) {
+		return moment(value).dates();
+	}
+	function getHours(value) {
+		return moment(value).hours();
+	}
+	function isLeapYear(value) {
+		return moment([value]).isLeapYear();
 	}
 	
 	/* pageNum */
