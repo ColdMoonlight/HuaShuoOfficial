@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.atguigu.bean.CrmAdmin;
 import com.atguigu.bean.CrmDepartment;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
@@ -33,8 +34,8 @@ public class CrmDepartmentController {
 	@RequestMapping("/ToCrmDepartmentPage")
 	public String toCrmDepartmentPage(HttpSession session) throws Exception{
 		
-		CrmDepartment mlbackDepartment =(CrmDepartment) session.getAttribute(Const.ADMIN_USER);
-		if(mlbackDepartment==null){
+		CrmAdmin crmAdmin =(CrmAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(crmAdmin==null){
 			//SysUsers对象为空
 			return "back/crmAdminLogin";
 		}else{
