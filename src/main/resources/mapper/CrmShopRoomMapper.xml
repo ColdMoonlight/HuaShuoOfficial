@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.CrmShopRoomMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.CrmShopRoom">
+    <id column="shopRoom_id" jdbcType="INTEGER" property="shoproomId" />
+    <result column="shopRoom_Name" jdbcType="VARCHAR" property="shoproomName" />
+    <result column="shopRoom_createTime" jdbcType="VARCHAR" property="shoproomCreatetime" />
+    <result column="shopRoom_motifyTime" jdbcType="VARCHAR" property="shoproomMotifytime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    shopRoom_id, shopRoom_Name, shopRoom_createTime, shopRoom_motifyTime
+  </sql>
+  <insert id="insert" parameterType="com.atguigu.bean.CrmShopRoom">
+    insert into tb_crm_shoproom (shopRoom_id, shopRoom_Name, shopRoom_createTime, 
+      shopRoom_motifyTime)
+    values (#{shoproomId,jdbcType=INTEGER}, #{shoproomName,jdbcType=VARCHAR}, #{shoproomCreatetime,jdbcType=VARCHAR}, 
+      #{shoproomMotifytime,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmShopRoom">
+    update tb_crm_shoproom
+    set shopRoom_Name = #{shoproomName,jdbcType=VARCHAR},
+      shopRoom_createTime = #{shoproomCreatetime,jdbcType=VARCHAR},
+      shopRoom_motifyTime = #{shoproomMotifytime,jdbcType=VARCHAR}
+    where shopRoom_id = #{shoproomId,jdbcType=INTEGER}
+  </update>
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="shoproomId" parameterType="com.atguigu.bean.CrmShopRoom">
+    insert into tb_crm_shoproom
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shoproomId != null">
+        shopRoom_id,
+      </if>
+      <if test="shoproomName != null">
+        shopRoom_Name,
+      </if>
+      <if test="shoproomCreatetime != null">
+        shopRoom_createTime,
+      </if>
+      <if test="shoproomMotifytime != null">
+        shopRoom_motifyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shoproomId != null">
+        #{shoproomId,jdbcType=INTEGER},
+      </if>
+      <if test="shoproomName != null">
+        #{shoproomName,jdbcType=VARCHAR},
+      </if>
+      <if test="shoproomCreatetime != null">
+        #{shoproomCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="shoproomMotifytime != null">
+        #{shoproomMotifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_crm_shoproom
+    where shopRoom_id = #{shoproomId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.CrmShopRoom">
+    update tb_crm_shoproom
+    <set>
+      <if test="shoproomName != null">
+        shopRoom_Name = #{shoproomName,jdbcType=VARCHAR},
+      </if>
+      <if test="shoproomCreatetime != null">
+        shopRoom_createTime = #{shoproomCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="shoproomMotifytime != null">
+        shopRoom_motifyTime = #{shoproomMotifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where shopRoom_id = #{shoproomId,jdbcType=INTEGER}
+  </update>
+  <!-- selectByPrimaryKey -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_shoproom
+    where shopRoom_id = #{shoproomId,jdbcType=INTEGER}
+  </select>
+   <!-- selectCrmShopRoomByParameter -->
+  <select id="selectCrmShopRoomByParameter" parameterType="com.atguigu.bean.CrmShopRoom" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_shoproom where shopRoom_id > 0
+    <if test="shoproomName != null">
+        and shopRoom_Name = #{shoproomName,jdbcType=VARCHAR}
+    </if>
+    order by shopRoom_id desc
+  </select>
+   <!-- selectByPrimaryKey -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_shoproom order by shopRoom_id desc
+  </select>
+  
+  
+</mapper>
