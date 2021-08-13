@@ -95,11 +95,12 @@
 	overflow: hidden;
 }
 /* sidebar */
-.c-sidebar-nav {
+.c-sidebar-nav,
+.c-child-menu {
 	padding-left: 0;
 }
-.c-child-menu {
-	padding-left: 1rem;
+.c-child-menu .c-sidebar-nav-link {
+	padding-left: 2rem;
 }
 .c-sidebar-nav-item {
 	position: relative;
