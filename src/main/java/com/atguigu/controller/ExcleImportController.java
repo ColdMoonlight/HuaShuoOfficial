@@ -3,6 +3,7 @@ package com.atguigu.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -20,14 +21,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.atguigu.bean.CrmAdmin;
+import com.atguigu.bean.CrmWebanalytics;
 import com.atguigu.common.Const;
+import com.atguigu.service.CrmWebanalyticsService;
 import com.atguigu.utils.DateUtil;
 
 @Controller
-@RequestMapping("/excleImport")
+@RequestMapping("/ExcelImport")
 public class ExcleImportController {
 		
-	
+	@Autowired
+	CrmWebanalyticsService crmWebanalyticsService;
 	/**
 	 * zsh 200730
 	 * 中控台首页
@@ -44,49 +48,43 @@ public class ExcleImportController {
 	}
 	
 	/**
-	 * 下载review模板
+	 * 下载Webanalytics模板
 	 * */
-	@RequestMapping(value="/exportReviewsImportDemo",method=RequestMethod.GET)
-	public void exportReviewsImportDemo(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
+	@RequestMapping(value="/ExportWebanalyticsImportDemo",method=RequestMethod.GET)
+	public void exportWebanalyticsImportDemo(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
 		
 		rep.setContentType("application/octet-stream");
 		String nowTime = DateUtil.strTime14();
-		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"reviewDemo.xls");
+		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"WebanalyticsDemo.xls");
 		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("sheet0");
 		HSSFRow row = sheet.createRow(0);
 		HSSFCell cell = row.createCell(0);
 		
-		cell.setCellValue("ReviewUname");
+		cell.setCellValue("webanalytics_channelName");
 	    cell = row.createCell(1);
-	    cell.setCellValue("ReviewPid");
+	    cell.setCellValue("webanalytics_channelInvestMoney");
 	    cell = row.createCell(2);
-	    cell.setCellValue("ReviewCreatetime");
+	    cell.setCellValue("webanalytics_channelflowlNum");
 	    cell = row.createCell(3);
-	    cell.setCellValue("ReviewMotifytime");
+	    cell.setCellValue("webanalytics_channelSellNum");
 	    cell = row.createCell(4);
-	    cell.setCellValue("ReviewPseoname");
+	    cell.setCellValue("webanalytics_channelSellMoney");
 	    cell = row.createCell(5);
-	    cell.setCellValue("ReviewStatus");
+	    cell.setCellValue("webanalytics_brandName");
 	    cell = row.createCell(6);
-	    cell.setCellValue("ReviewDetailstr");
+	    cell.setCellValue("webanalytics_createTime");
 	    cell = row.createCell(7);
-	    cell.setCellValue("ReviewProstarnum");
-	    cell = row.createCell(8);
-	    cell.setCellValue("ReviewFrom");
-	    cell = row.createCell(9);
 	    
         row = sheet.createRow(1);
-        row.createCell(0).setCellValue("MegaLookCustomer");//ReviewUname
-        row.createCell(1).setCellValue(252);//ReviewPid
-        row.createCell(2).setCellValue("2019-07-02 15:23:43");//ReviewCreatetime
-        row.createCell(3).setCellValue("2019-07-02 15:23:43");//ReviewMotifytime
-        row.createCell(4).setCellValue("613-Color-13x4-Body-Wave-Lace-Wig");//ReviewPseoname
-        row.createCell(5).setCellValue("0不展示/1展示");//ReviewStatus
-        row.createCell(6).setCellValue("i like megalook's hair,very like");//ReviewDetailstr
-        row.createCell(7).setCellValue("1/2/3/4/5星评论");//ReviewProstarnum
-        row.createCell(8).setCellValue("0-self/1-customer/2-ins瀑布流/3-ins首页");//ReviewFrom
+        row.createCell(0).setCellValue("channelName");//
+        row.createCell(1).setCellValue(266.32);//
+        row.createCell(2).setCellValue(6523);//
+        row.createCell(3).setCellValue(16);//
+        row.createCell(4).setCellValue(66.32);//
+        row.createCell(5).setCellValue("哪个网站");//
+        row.createCell(6).setCellValue("2021-08-13 10:56:49");//
         
 		try {
 			OutputStream out =rep.getOutputStream();
@@ -99,17 +97,18 @@ public class ExcleImportController {
 	}
 	
 	/**
-     * inportReviews
+     * inportWebanalytics
      * @param request
      * @param response
      */
-	/*@RequestMapping(value="/inportReviews",method=RequestMethod.POST)
-	public void inportReviews(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,HttpServletResponse response,HttpSession session){
+	@RequestMapping(value="/ImportWebanalytics",method=RequestMethod.POST)
+	public void importWebanalytics(@RequestParam(value = "file", required = false) MultipartFile multipartFile,HttpServletRequest request,HttpServletResponse response,HttpSession session){
 		try {
 			InputStream is = multipartFile.getInputStream();
 			if(is!=null){
+				String nowTime = DateUtil.strTime14s();
 				HSSFWorkbook wb = new HSSFWorkbook(is);
-				List<MlfrontReview> reviewList = new ArrayList<MlfrontReview>();
+				List<CrmWebanalytics> crmWebanalyticsList = new ArrayList<CrmWebanalytics>();
 				int rowCount = 0;
 				try {
 					HSSFSheet st = wb.getSheetAt(0);
@@ -118,70 +117,46 @@ public class ExcleImportController {
 					for(int r=1;r<=rowNum;r++){//读取每一行，第一行为标题，从第二行开始
 						rowCount = r;
 						HSSFRow row = st.getRow(r);
-						MlfrontReview reviewOne = new MlfrontReview();
+						CrmWebanalytics crmWebanalytics = new CrmWebanalytics();
+						crmWebanalytics.setWebanalyticsMotifytime(nowTime);//创建时间
 						HSSFCell getCell = null;
 						getCell = row.getCell(0);
-						if (getCell != null) {
-		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		                    reviewOne.setReviewUname(getCell.getStringCellValue());
-		                    
-		                    String reviewUname = reviewOne.getReviewUname();
-		                    String UimgUrl = getReviewImgUrl(request,response,reviewUname);
-		                    reviewOne.setReviewUimgurl(UimgUrl);
+						if(getCell != null) {
+		                    crmWebanalytics.setWebanalyticsChannelname(getCell.getStringCellValue());
 		                    
 		                    //做特殊字符转移处理
-		            		String afterReviewUname = reviewUname.replaceAll("[^\\u0000-\\uFFFF]", "");
-		            		reviewOne.setReviewUname(afterReviewUname);
+		            		//String afterReviewUname = reviewUname.replaceAll("[^\\u0000-\\uFFFF]", "");
+		            		
 		                }
 						getCell = row.getCell(1);
-						if (getCell != null) {
-		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		                    reviewOne.setReviewPid(Integer.parseInt(getCell.getStringCellValue()));
+						if(getCell != null) {
+		                    crmWebanalytics.setWebanalyticsChannelinvestmoney(new BigDecimal(getCell.getStringCellValue()));
 		                }
 						getCell = row.getCell(2);
-						if (getCell != null) {
-		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		                    reviewOne.setReviewCreatetime(getCell.getStringCellValue());
+						if(getCell != null) {
+		                    crmWebanalytics.setWebanalyticsChannelflowlnum(Integer.parseInt(getCell.getStringCellValue()));
 		                }
 						getCell = row.getCell(3);
-						if (getCell != null) {
-		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		                    reviewOne.setReviewMotifytime(getCell.getStringCellValue());
-		                    reviewOne.setReviewConfirmtime(getCell.getStringCellValue());
-		                    reviewOne.setReviewSupercateidstr("1");
+						if(getCell != null) {
+		                    crmWebanalytics.setWebanalyticsChannelsellnum(getCell.getStringCellValue());
 		                }
 						getCell = row.getCell(4);
-						if (getCell != null) {
-		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		                    reviewOne.setReviewPseoname(getCell.getStringCellValue());
+						if(getCell != null) {
+		                    crmWebanalytics.setWebanalyticsChannelsellmoney(new BigDecimal(getCell.getStringCellValue()));
 		                }
 						getCell = row.getCell(5);
-						if (getCell != null) {
-		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		                    reviewOne.setReviewStatus(Integer.parseInt(getCell.getStringCellValue()));
+						if(getCell != null) {
+		                    crmWebanalytics.setWebanalyticsBrandname(getCell.getStringCellValue());
 		                }
 						getCell = row.getCell(6);
-						if (getCell != null) {
-		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		                    String intoReviewMessage = getCell.getStringCellValue();
-		                    String afterMessage = intoReviewMessage.replaceAll("[^\\u0000-\\uFFFF]", "");
-		                    reviewOne.setReviewDetailstr(afterMessage);
+						if(getCell != null) {
+		                    crmWebanalytics.setWebanalyticsCreatetime(getCell.getStringCellValue());
 		                }
-						getCell = row.getCell(7);
-						if (getCell != null) {
-		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		                    reviewOne.setReviewProstarnum(Integer.parseInt(getCell.getStringCellValue()));
-		                }
-						getCell = row.getCell(8);
-						if (getCell != null) {
-		                    getCell.setCellType(HSSFCell.CELL_TYPE_STRING);
-		                    reviewOne.setReviewFrom(Integer.parseInt(getCell.getStringCellValue()));
-		                }
-						reviewList.add(reviewOne);
+						crmWebanalyticsList.add(crmWebanalytics);
 					}
 					is.close();
-					for(MlfrontReview mlfrontReview:reviewList){
-						mlfrontReviewService.insertSelective(mlfrontReview);
+					for(CrmWebanalytics crmWebanalytics:crmWebanalyticsList){
+						crmWebanalyticsService.insertSelective(crmWebanalytics);
 					}
 				}catch (Exception e) {
 					System.out.println("第行出错");
@@ -193,7 +168,7 @@ public class ExcleImportController {
 			e.printStackTrace();
 		}
 	}
-	
+	/*
 	private String getReviewImgUrl(HttpServletRequest res,HttpServletResponse response,String reviewUname) {
 		
         String realPathStr = res.getSession().getServletContext().getRealPath("/");    
