@@ -133,7 +133,7 @@
 			</div>
 		</div>
 		<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
-		
+
 		<!-- common script  -->
 		<jsp:include page="common/backfooter.jsp"></jsp:include>
 		<jsp:include page="modal/deleteModal.jsp"></jsp:include>
@@ -145,9 +145,12 @@
 		<script type="text/javascript">
 		var isCreate = false;
 		var isUpdate = false;
-
 		// init
 		getAllBlockData();
+		bindDateRangeEvent(function(startTime, endTime) {
+			$('#search-start-time').val(startTime);
+			$('#search-end-time').val(endTime);
+		});
 		bindDateTimepicker();
 
 		$(document.body).on('click', '#table-pagination li', function (e) { // pagination a-click
