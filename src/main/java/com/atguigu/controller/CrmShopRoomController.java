@@ -27,8 +27,8 @@ public class CrmShopRoomController {
 	CrmShopRoomService crmShopRoomService;
 	
 	/**
-	 * 20210812
-	 * admin首页
+	 * 20210813
+	 * ShopRoom首页
 	 * */
 	@RequestMapping("/ToCrmShopRoomPage")
 	public String toCrmShopRoomPage(HttpSession session) throws Exception{
@@ -36,7 +36,7 @@ public class CrmShopRoomController {
 		CrmShopRoom mlbackShopRoom =(CrmShopRoom) session.getAttribute(Const.ADMIN_USER);
 		if(mlbackShopRoom==null){
 			//SysUsers对象为空
-			return "back/crmShopRoomLogin";
+			return "back/crmAdminLogin";
 		}else{
 			return "back/crmShopRoomPage";
 		}
@@ -44,7 +44,7 @@ public class CrmShopRoomController {
 	
 	/**
 	 * 2.0
-	 * @author 20210810
+	 * @author 20210813
 	 * @param CrmShopRoom
 	 * @exception 创建新店铺
 	 * */
@@ -67,7 +67,7 @@ public class CrmShopRoomController {
 	
 	/**
 	 * 2.0
-	 * @author 20210810
+	 * @author 20210813
 	 * @param CrmShopRoom
 	 * @exception 创建新店铺
 	 * */
@@ -82,7 +82,7 @@ public class CrmShopRoomController {
 	
 	/**
 	 * 2.0
-	 * @author 20210810
+	 * @author 20210813
 	 * @param CrmShopRoom
 	 * @exception 更新店铺信息
 	 * */
@@ -99,7 +99,7 @@ public class CrmShopRoomController {
 	
 	/**
 	 * 2.0
-	 * @author 20210810
+	 * @author 20210813
 	 * @param CrmShopRoom
 	 * @exception 查看单个店铺
 	 * */
@@ -116,7 +116,7 @@ public class CrmShopRoomController {
 	
 	/**
 	 * 2.0
-	 * @author 20210810
+	 * @author 20210813
 	 * @param CrmShopRoom
 	 * @exception 查看全部店铺
 	 * */
@@ -132,7 +132,7 @@ public class CrmShopRoomController {
 	
 	/**
 	 * 2.0
-	 * @author 20210810
+	 * @author 20210813
 	 * @param CrmShopRoom
 	 * @exception 获取店铺分页列表
 	 * */

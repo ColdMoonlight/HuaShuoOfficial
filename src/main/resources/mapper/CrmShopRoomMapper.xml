@@ -93,8 +93,8 @@
     </if>
     order by shopRoom_id desc
   </select>
-   <!-- selectByPrimaryKey -->
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+   <!-- selectShopRoomInfoAll -->
+  <select id="selectShopRoomInfoAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tb_crm_shoproom order by shopRoom_id desc
