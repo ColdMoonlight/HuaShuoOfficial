@@ -11,15 +11,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.druid.util.StringUtils;
 import com.atguigu.bean.CrmAdmin;
+import com.atguigu.bean.CrmCatalog;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.common.TokenCache;
 import com.atguigu.service.CrmAdminService;
 import com.atguigu.utils.DateUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Controller
 @RequestMapping("/CrmAdmin")
@@ -43,6 +47,22 @@ public class CrmAdminController {
 	}
 	
 	/**
+	 * 20210812
+	 * admin首页
+	 * */
+	@RequestMapping("/ToCrmAdminPage")
+	public String toCrmAdminPage(HttpSession session) throws Exception{
+		
+		CrmAdmin mlbackAdmin =(CrmAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/crmAdminLogin";
+		}else{
+			return "back/crmAdminPage";
+		}
+	}
+	
+	/**
 	 * 2.0
 	 * @author 20210810
 	 * @param CrmAdmin
@@ -63,6 +83,28 @@ public class CrmAdminController {
 		}else{
 			return Msg.fail().add("resMsg", "系统错误，请联系管理员");
 		}
+	}
+	
+	/**
+	 * 2.0
+	 * @author 20210810
+	 * @param CrmAdmin
+	 * @exception 创建新用户
+	 * */
+	@RequestMapping(value="/Delete",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg delete(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody CrmAdmin crmAdminReg){
+		//接收参数信息 
+		String nowTime = DateUtil.strTime14s();
+		
+		CrmAdmin crmAdminUpdate = new CrmAdmin();
+		crmAdminUpdate.setAdminMotifytime(nowTime);
+		crmAdminUpdate.setAdminStatus(0);//失效
+		crmAdminUpdate.setAdminId(crmAdminReg.getAdminId());
+		crmAdminService.updateByPrimaryKeySelective(crmAdminUpdate);
+		
+		return Msg.success().add("resMsg", "删除成功");
 	}
 	
 	/**
@@ -113,6 +155,23 @@ public class CrmAdminController {
 		List<CrmAdmin> crmAdminList = crmAdminService.selectAdminInfoAll();
 		return Msg.success().add("crmAdminList", crmAdminList);
 		
+	}
+	
+	/**
+	 * 2.0
+	 * @author 20210810
+	 * @param CrmAdmin
+	 * @exception 获取用户分页列表
+	 * */
+	@RequestMapping(value="/GetAdminByPage",method=RequestMethod.GET)
+	@ResponseBody
+	public Msg getcrmCatalogByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+
+		int PagNum = Const.PAGE_NUM_DEFAULT;
+		PageHelper.startPage(pn, PagNum);
+		List<CrmAdmin> crmAdminList = crmAdminService.selectCrmAdminByPage();
+		PageInfo page = new PageInfo(crmAdminList, PagNum);
+		return Msg.success().add("pageInfo", page);
 	}
 	
 	/**

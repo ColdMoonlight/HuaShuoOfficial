@@ -92,6 +92,15 @@ public class CrmCatalogService {
 		List<CrmCatalog> crmCatalogList = crmCatalogMapper.selectDownListAll();
 		return crmCatalogList;
 	}
-
-
+	/**
+	 * @author Shinelon
+	 * @param CrmCatalog
+	 * @exception 分页查询全部
+	 * 
+	 * */
+	public List<CrmCatalog> selectCrmCatalogByPage() {
+		List<CrmCatalog> crmCatalogList = crmCatalogMapper.selectCrmCatalogByPage();
+		return crmCatalogList;
+	}
+	
 }

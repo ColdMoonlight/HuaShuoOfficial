@@ -66,4 +66,16 @@ public class CrmAdminService {
 		List<CrmAdmin> crmAdminList = crmAdminMapper.selectAdminInfoAll();
 		return crmAdminList;
 	}
+	
+	/**
+	 * @author Shinelon
+	 * @param 
+	 * @exception 获取用户分页信息
+	 * 
+	 * */
+	public List<CrmAdmin> selectCrmAdminByPage() {
+		List<CrmAdmin> crmAdminList = crmAdminMapper.selectCrmAdminByPage();
+		return crmAdminList;
+	}
+	
 }

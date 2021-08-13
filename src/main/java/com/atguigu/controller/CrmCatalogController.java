@@ -10,14 +10,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.atguigu.bean.CrmAdmin;
 import com.atguigu.bean.CrmCatalog;
+import com.atguigu.bean.CrmWebanalytics;
 import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.CrmAdminService;
 import com.atguigu.service.CrmCatalogService;
 import com.atguigu.utils.DateUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Controller
 @RequestMapping("/CrmCatalog")
@@ -49,6 +53,22 @@ public class CrmCatalogController {
 		session.removeAttribute(Const.ADMIN_USER);
 		session.invalidate();
 		return "back/crmAdminLogin";
+	}
+	
+	/**
+	 * 20210812
+	 * Catalog首页
+	 * */
+	@RequestMapping("/ToCrmCatalogPage")
+	public String toCrmCatalogPage(HttpSession session) throws Exception{
+		
+		CrmAdmin mlbackAdmin =(CrmAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(mlbackAdmin==null){
+			//SysUsers对象为空
+			return "back/crmAdminLogin";
+		}else{
+			return "back/crmCatalogPage";
+		}
 	}
 	
 	/**2.0	20200703
@@ -126,6 +146,22 @@ public class CrmCatalogController {
 		
 		return Msg.success().add("resMsg", "创建成功");
 		
+	}
+	
+	/**2.0	20200703
+	 * 后台CrmWebanalytics列表分页list数据
+	 * @param pn
+	 * @return
+	 */
+	@RequestMapping(value="/GetcrmCatalogByPage")
+	@ResponseBody
+	public Msg getcrmCatalogByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+
+		int PagNum = Const.PAGE_NUM_DEFAULT;
+		PageHelper.startPage(pn, PagNum);
+		List<CrmCatalog> crmCatalogList = crmCatalogService.selectCrmCatalogByPage();
+		PageInfo page = new PageInfo(crmCatalogList, PagNum);
+		return Msg.success().add("pageInfo", page);
 	}
 	
 	/**
