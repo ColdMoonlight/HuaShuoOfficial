@@ -16,6 +16,8 @@ public class Const {
     
     public static final String TOKEN_PREFIX="token_";
     
+    public static final Integer PAGE_NUM_DEFAULT=30;
+    
     public static final Integer PAGE_NUM_CATEGORY=30;
     
     public static final Integer PAGE_NUM_SUPERCATE=30;

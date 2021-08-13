@@ -210,6 +210,14 @@
     <include refid="Base_Column_List" />
     from tb_crm_admin order by admin_id desc
   </select>
+  
+  <!-- 查询全部selectAdminInfoAll -->
+  <select id="selectCrmAdminByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_admin order by admin_id desc
+  </select>
+  
   <!-- 多条件查询selectCrmAdminByParameter -->
   <select id="selectCrmAdminByParameter" parameterType="com.atguigu.bean.CrmAdmin" resultMap="BaseResultMap">
     select 

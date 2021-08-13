@@ -24,4 +24,7 @@ public interface CrmAdminMapper {
     
     //根据条件查询用户
     List<CrmAdmin> selectCrmAdminByParameter(CrmAdmin record);
+    
+    //获取用户分页列表
+    List<CrmAdmin> selectCrmAdminByPage();
 }

@@ -27,4 +27,6 @@ public interface CrmCatalogMapper {
 	List<CrmCatalog> selectCrmCatalogByParameter(CrmCatalog crmCatalog);
 
 	List<CrmCatalog> selectDownListAll();
+	
+	List<CrmCatalog> selectCrmCatalogByPage();
 }
