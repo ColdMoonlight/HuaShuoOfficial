@@ -126,7 +126,7 @@ public class ExcleImportController {
 				try {
 					HSSFSheet st = wb.getSheetAt(0);
 					int rowNum = st.getLastRowNum(); //获取Excel最后一行索引，从零开始，所以获取到的是表中最后一行行数减一
-					int colNum = st.getRow(0).getLastCellNum();//获取Excel单行列数
+					int colNum = st.getRow(0).getLastCellNum();//获取Excel单行列数 
 					for(int r=1;r<=rowNum;r++){//读取每一行，第一行为标题，从第二行开始
 						rowCount = r;
 						HSSFRow row = st.getRow(r);
