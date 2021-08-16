@@ -19,6 +19,11 @@
 						<span class="c-option-title">渠道</span>
 						<button class="btn btn-primary btn-create">创建</button>
 					</div>
+					<div class="c-excel-btns" style="margin-top: 1rem">
+						<button class="btn btn-secondary" id="btn-export-tpl">导出模板</button>
+						<button class="btn btn-info" id="btn-import-data">批量导入</button>
+						<button class="btn btn-primary" id="btn-export-data">导出数据</button>
+					</div>
 					<div class="c-table">
 						<div class="c-table-table table-responsive-sm">
 							<table class="table">
@@ -31,6 +36,8 @@
 										<th>产出</th>
 										<th>成交订单</th>
 										<th>流量</th>
+										<th>用户总数</th>
+										<th>新用户数</th>
 										<th>时间</th>
 										<th>操作</th>
 									</tr>
@@ -84,6 +91,18 @@
 												<input class="form-control" id="webanalyticsChannelsellnum" type="text" />
 											</div>
 										</div>
+										<div class="form-group">
+											<label class="col-form-label" for="webanalyticsChannelintousernum">用户总数</label>
+											<div class="controls">
+												<input class="form-control" id="webanalyticsChannelintousernum" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-form-label" for="webanalyticsChannelintousernewnum">新用户数</label>
+											<div class="controls">
+												<input class="form-control" id="webanalyticsChannelintousernewnum" type="text" />
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="card">
@@ -92,7 +111,7 @@
 									</div>
 									<div class="card-body">									
 										<div class="form-group">
-											<label class="col-form-label" for="reviewTime">时间</label>
+											<label class="col-form-label" for="webanalyticsCreatetime">时间</label>
 											<div class="controls">
 												<input type="text" class="form-control datetimepicker" id="webanalyticsCreatetime" placeholder="@exmaple 2020-01-01 12:00:00" autocomplete="off"  />
 											</div>
@@ -137,6 +156,7 @@
 		<!-- common script  -->
 		<jsp:include page="common/backfooter.jsp"></jsp:include>
 		<jsp:include page="modal/deleteModal.jsp"></jsp:include>
+		<jsp:include page="modal/datetimerangeModal.jsp"></jsp:include>
 		<jsp:include page="common/backsidebar.jsp"></jsp:include>
 		<!-- other -->
 		<script type="text/javascript" src="${APP_PATH}/static/back/lib/datetimepicker/moment.min.js"></script>
@@ -218,6 +238,59 @@
 
 			showInitBlock();
 		});
+		// import/export callback
+		$('#btn-export-tpl').on('click', function() {
+			window.location.href = '${APP_PATH}/ExcelImport/ExportWebanalyticsImportDemo';
+		});
+		$('#btn-import-data').on('click', function() {
+			function importExcelData(reqData) {
+				$('.c-mask').show();
+				$.ajax({
+					url: "${APP_PATH}/ExcelImport/ImportWebanalytics",
+					type: "post",
+					data: reqData,
+					processData: false,
+					contentType: false,
+					cache: false,
+					success: function (data) {
+						getAllBlockData();						
+					},
+					error: function (err) {
+						toastr.error(err);
+					},
+					complete: function () {
+						$('.c-mask').hide();
+					}
+				});
+			}
+			var $inputFile = $('<input type="file" accept=".xlsx,.xls"/>');
+			var formData = new FormData();
+
+			$inputFile.click(); // trigger input-file evt
+			$inputFile.on('change', function() {
+				formData.append('file', $inputFile[0].files[0]);
+				formData.append('name', $inputFile.val());
+				importExcelData(formData);				
+			})
+		});
+		$('#btn-export-data').on('click', function() {
+			function initDateRage(start, end) {
+				$('#startTime').val(start);
+				$('#endTime').val(end);
+			}
+			// init
+			var date = new Date();
+			var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
+
+			initDateRage(ymd + ' 00:00:00', ymd + ' 23:59:59');
+			$('#datetimerangeModal').find('.modal-title').html("导出渠道数据").end().modal('show');
+		});
+		$('#datetimerangeModal .btn-ok').on('click', function() {
+			var startTime = $('#startTime').val(),
+				endTime = $('#endTime').val();
+			window.location.href = '${APP_PATH}/ExcleDownload/exportWebanalyticsInfo?webanalyticsCreatetime='+ startTime +'&webanalyticsMotifytime=' + endTime;
+			setTimeout(function(){ $('#datetimerangeModal').modal('hide'); },0);
+		});
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
 			$('.c-create').removeClass('hide');
@@ -234,6 +307,8 @@
 			$('#webanalyticsChannelsellmoney').val('');
 			$('#webanalyticsChannelsellnum').val('');
 			$('#webanalyticsChannelflowlnum').val('');
+			$('#webanalyticsChannelintousernum').val('');
+			$('#webanalyticsChannelintousernewnum').val('');
 
 			$('#webanalyticsCreatetime').val('');
 			
@@ -248,6 +323,8 @@
 			data.webanalyticsChannelsellmoney = $('#webanalyticsChannelsellmoney').val();
 			data.webanalyticsChannelsellnum = $('#webanalyticsChannelsellnum').val();
 			data.webanalyticsChannelflowlnum = $('#webanalyticsChannelflowlnum').val();
+			data.webanalyticsChannelsellnum = $('#webanalyticsChannelintousernum').val();
+			data.webanalyticsChannelflowlnum = $('#webanalyticsChannelintousernewnum').val();
 
 			data.webanalyticsCreatetime = $('#webanalyticsCreatetime').val();
 
@@ -264,6 +341,8 @@
 			$('#webanalyticsChannelsellmoney').val(data.webanalyticsChannelsellmoney);
 			$('#webanalyticsChannelsellnum').val(data.webanalyticsChannelsellnum);
 			$('#webanalyticsChannelflowlnum').val(data.webanalyticsChannelflowlnum);
+			$('#webanalyticsChannelintousernum').val(data.webanalyticsChannelintousernum);
+			$('#webanalyticsChannelintousernewnum').val(data.webanalyticsChannelintousernewnum);
 			
 			$('#webanalyticsCreatetime').val(data.webanalyticsCreatetime);
 
@@ -410,6 +489,8 @@
 					'<td>' + data[i].webanalyticsChannelsellmoney + '</td>' +
 					'<td>' + data[i].webanalyticsChannelsellnum + '</td>' +
 					'<td>' + data[i].webanalyticsChannelflowlnum + '</td>' +
+					'<td>' + data[i].webanalyticsChannelintousernum + '</td>' +
+					'<td>' + data[i].webanalyticsChannelintousernewnum + '</td>' +
 					'<td>' + data[i].webanalyticsCreatetime + '</td>' +					
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].webanalyticsId + '">' +
