@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDataFormat;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -98,7 +100,15 @@ public class ExcleImportController {
         row.createCell(5).setCellValue(16);//
         row.createCell(6).setCellValue(66.32);//
         row.createCell(7).setCellValue("哪个网站");//
-        row.createCell(8).setCellValue("2021-08-13 10:56:49");//
+        
+        //设置导出excel 日期格式为文本
+        HSSFCellStyle textStyle = wb.createCellStyle();
+        HSSFDataFormat format = wb.createDataFormat();
+        textStyle.setDataFormat(format.getFormat("@"));
+        cell = row.createCell(8);
+        cell.setCellStyle(textStyle);
+        cell.setCellType(CellType.STRING);
+        cell.setCellValue("2021-08-13 10:56:49");//
         
 		try {
 			OutputStream out =rep.getOutputStream();
