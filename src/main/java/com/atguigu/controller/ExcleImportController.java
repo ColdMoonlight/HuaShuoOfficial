@@ -53,38 +53,51 @@ public class ExcleImportController {
 	@RequestMapping(value="/ExportWebanalyticsImportDemo",method=RequestMethod.GET)
 	public void exportWebanalyticsImportDemo(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
 		
-		rep.setContentType("application/octet-stream");
 		String nowTime = DateUtil.strTime14();
+		rep.setContentType("application/octet-stream");
 		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"WebanalyticsDemo.xls");
 		
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet("sheet0");
 		HSSFRow row = sheet.createRow(0);
-		HSSFCell cell = row.createCell(0);
 		
+		HSSFCell cell = row.createCell(0);
 		cell.setCellValue("webanalytics_channelName");
+		
 	    cell = row.createCell(1);
 	    cell.setCellValue("webanalytics_channelInvestMoney");
+	    
 	    cell = row.createCell(2);
-	    cell.setCellValue("webanalytics_channelflowlNum");
+	    cell.setCellValue("webanalytics_channelintoUserNum");
+	    
 	    cell = row.createCell(3);
-	    cell.setCellValue("webanalytics_channelSellNum");
+	    cell.setCellValue("webanalytics_channelintoUserNewNum");
+	    
 	    cell = row.createCell(4);
-	    cell.setCellValue("webanalytics_channelSellMoney");
+	    cell.setCellValue("webanalytics_channelflowlNum");
+	    
 	    cell = row.createCell(5);
-	    cell.setCellValue("webanalytics_brandName");
+	    cell.setCellValue("webanalytics_channelSellNum");
+	    
 	    cell = row.createCell(6);
-	    cell.setCellValue("webanalytics_createTime");
+	    cell.setCellValue("webanalytics_channelSellMoney");
+	    
 	    cell = row.createCell(7);
+	    cell.setCellValue("webanalytics_brandName");
+	    
+	    cell = row.createCell(8);
+	    cell.setCellValue("webanalytics_createTime");
 	    
         row = sheet.createRow(1);
         row.createCell(0).setCellValue("channelName");//
         row.createCell(1).setCellValue(266.32);//
-        row.createCell(2).setCellValue(6523);//
-        row.createCell(3).setCellValue(16);//
-        row.createCell(4).setCellValue(66.32);//
-        row.createCell(5).setCellValue("哪个网站");//
-        row.createCell(6).setCellValue("2021-08-13 10:56:49");//
+        row.createCell(2).setCellValue(1000);//
+        row.createCell(3).setCellValue(100);//
+        row.createCell(4).setCellValue(6523);//
+        row.createCell(5).setCellValue(16);//
+        row.createCell(6).setCellValue(66.32);//
+        row.createCell(7).setCellValue("哪个网站");//
+        row.createCell(8).setCellValue("2021-08-13 10:56:49");//
         
 		try {
 			OutputStream out =rep.getOutputStream();
@@ -113,7 +126,7 @@ public class ExcleImportController {
 				try {
 					HSSFSheet st = wb.getSheetAt(0);
 					int rowNum = st.getLastRowNum(); //获取Excel最后一行索引，从零开始，所以获取到的是表中最后一行行数减一
-					int colNum = st.getRow(0).getLastCellNum();//获取Excel列数
+					int colNum = st.getRow(0).getLastCellNum();//获取Excel单行列数 
 					for(int r=1;r<=rowNum;r++){//读取每一行，第一行为标题，从第二行开始
 						rowCount = r;
 						HSSFRow row = st.getRow(r);
@@ -134,21 +147,29 @@ public class ExcleImportController {
 		                }
 						getCell = row.getCell(2);
 						if(getCell != null) {
-		                    crmWebanalytics.setWebanalyticsChannelflowlnum(Integer.parseInt(getCell.getStringCellValue()));
+		                    crmWebanalytics.setWebanalyticsChannelintousernum(Integer.parseInt(getCell.getStringCellValue()));
 		                }
 						getCell = row.getCell(3);
 						if(getCell != null) {
-		                    crmWebanalytics.setWebanalyticsChannelsellnum(getCell.getStringCellValue());
+		                    crmWebanalytics.setWebanalyticsChannelintousernewnum(Integer.parseInt(getCell.getStringCellValue()));
 		                }
 						getCell = row.getCell(4);
 						if(getCell != null) {
-		                    crmWebanalytics.setWebanalyticsChannelsellmoney(new BigDecimal(getCell.getStringCellValue()));
+		                    crmWebanalytics.setWebanalyticsChannelflowlnum(Integer.parseInt(getCell.getStringCellValue()));
 		                }
 						getCell = row.getCell(5);
 						if(getCell != null) {
-		                    crmWebanalytics.setWebanalyticsBrandname(getCell.getStringCellValue());
+		                    crmWebanalytics.setWebanalyticsChannelsellnum(getCell.getStringCellValue());
 		                }
 						getCell = row.getCell(6);
+						if(getCell != null) {
+		                    crmWebanalytics.setWebanalyticsChannelsellmoney(new BigDecimal(getCell.getStringCellValue()));
+		                }
+						getCell = row.getCell(7);
+						if(getCell != null) {
+		                    crmWebanalytics.setWebanalyticsBrandname(getCell.getStringCellValue());
+		                }
+						getCell = row.getCell(8);
 						if(getCell != null) {
 		                    crmWebanalytics.setWebanalyticsCreatetime(getCell.getStringCellValue());
 		                }
@@ -159,7 +180,7 @@ public class ExcleImportController {
 						crmWebanalyticsService.insertSelective(crmWebanalytics);
 					}
 				}catch (Exception e) {
-					System.out.println("第行出错");
+					System.out.println("第"+rowCount+"行出错");
 					e.printStackTrace();
 				}
 			}

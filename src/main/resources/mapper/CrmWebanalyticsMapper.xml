@@ -5,6 +5,8 @@
     <id column="webanalytics_id" jdbcType="INTEGER" property="webanalyticsId" />
     <result column="webanalytics_channelName" jdbcType="VARCHAR" property="webanalyticsChannelname" />
     <result column="webanalytics_channelInvestMoney" jdbcType="DECIMAL" property="webanalyticsChannelinvestmoney" />
+    <result column="webanalytics_channelintoUserNum" jdbcType="INTEGER" property="webanalyticsChannelintousernum" />
+    <result column="webanalytics_channelintoUserNewNum" jdbcType="INTEGER" property="webanalyticsChannelintousernewnum" />
     <result column="webanalytics_channelflowlNum" jdbcType="INTEGER" property="webanalyticsChannelflowlnum" />
     <result column="webanalytics_channelSellNum" jdbcType="VARCHAR" property="webanalyticsChannelsellnum" />
     <result column="webanalytics_channelSellMoney" jdbcType="DECIMAL" property="webanalyticsChannelsellmoney" />
@@ -13,7 +15,8 @@
     <result column="webanalytics_motifyTime" jdbcType="VARCHAR" property="webanalyticsMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    webanalytics_id, webanalytics_channelName, webanalytics_channelInvestMoney, webanalytics_channelflowlNum, 
+    webanalytics_id, webanalytics_channelName, webanalytics_channelInvestMoney, 
+    webanalytics_channelintoUserNum, webanalytics_channelintoUserNewNum, webanalytics_channelflowlNum, 
     webanalytics_channelSellNum, webanalytics_channelSellMoney, webanalytics_brandName, 
     webanalytics_createTime, webanalytics_motifyTime
   </sql>
@@ -21,12 +24,13 @@
   
   <insert id="insert" parameterType="com.atguigu.bean.CrmWebanalytics">
     insert into tb_crm_webanalytics (webanalytics_id, webanalytics_channelName, 
-      webanalytics_channelInvestMoney, webanalytics_channelflowlNum, 
+      webanalytics_channelInvestMoney,webanalytics_channelintoUserNum, webanalytics_channelintoUserNewNum, webanalytics_channelflowlNum, 
       webanalytics_channelSellNum, webanalytics_channelSellMoney, 
       webanalytics_brandName, webanalytics_createTime, 
       webanalytics_motifyTime)
     values (#{webanalyticsId,jdbcType=INTEGER}, #{webanalyticsChannelname,jdbcType=VARCHAR}, 
-      #{webanalyticsChannelinvestmoney,jdbcType=DECIMAL}, #{webanalyticsChannelflowlnum,jdbcType=INTEGER}, 
+      #{webanalyticsChannelinvestmoney,jdbcType=DECIMAL},#{webanalytics_channelintoUserNum,jdbcType=INTEGER}, 
+      #{webanalytics_channelintoUserNewNum,jdbcType=INTEGER}, #{webanalyticsChannelflowlnum,jdbcType=INTEGER}, 
       #{webanalyticsChannelsellnum,jdbcType=VARCHAR}, #{webanalyticsChannelsellmoney,jdbcType=DECIMAL}, 
       #{webanalyticsBrandname,jdbcType=VARCHAR}, #{webanalyticsCreatetime,jdbcType=VARCHAR}, 
       #{webanalyticsMotifytime,jdbcType=VARCHAR})
@@ -35,6 +39,8 @@
     update tb_crm_webanalytics
     set webanalytics_channelName = #{webanalyticsChannelname,jdbcType=VARCHAR},
       webanalytics_channelInvestMoney = #{webanalyticsChannelinvestmoney,jdbcType=DECIMAL},
+      webanalytics_channelintoUserNum = #{webanalyticsChannelintousernum,jdbcType=INTEGER},
+      webanalytics_channelintoUserNewNum = #{webanalyticsChannelintousernewnum,jdbcType=INTEGER},
       webanalytics_channelflowlNum = #{webanalyticsChannelflowlnum,jdbcType=INTEGER},
       webanalytics_channelSellNum = #{webanalyticsChannelsellnum,jdbcType=VARCHAR},
       webanalytics_channelSellMoney = #{webanalyticsChannelsellmoney,jdbcType=DECIMAL},
@@ -56,6 +62,12 @@
       </if>
       <if test="webanalyticsChannelinvestmoney != null">
         webanalytics_channelInvestMoney,
+      </if>
+      <if test="webanalyticsChannelintousernum != null">
+        webanalytics_channelintoUserNum,
+      </if>
+      <if test="webanalyticsChannelintousernewnum != null">
+        webanalytics_channelintoUserNewNum,
       </if>
       <if test="webanalyticsChannelflowlnum != null">
         webanalytics_channelflowlNum,
@@ -85,6 +97,12 @@
       </if>
       <if test="webanalyticsChannelinvestmoney != null">
         #{webanalyticsChannelinvestmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="webanalyticsChannelintousernum != null">
+        #{webanalyticsChannelintousernum,jdbcType=INTEGER},
+      </if>
+      <if test="webanalyticsChannelintousernewnum != null">
+        #{webanalyticsChannelintousernewnum,jdbcType=INTEGER},
       </if>
       <if test="webanalyticsChannelflowlnum != null">
         #{webanalyticsChannelflowlnum,jdbcType=INTEGER},
@@ -122,6 +140,12 @@
       </if>
       <if test="webanalyticsChannelinvestmoney != null">
         webanalytics_channelInvestMoney = #{webanalyticsChannelinvestmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="webanalyticsChannelintousernum != null">
+        webanalytics_channelintoUserNum = #{webanalyticsChannelintousernum,jdbcType=INTEGER},
+      </if>
+      <if test="webanalyticsChannelintousernewnum != null">
+        webanalytics_channelintoUserNewNum = #{webanalyticsChannelintousernewnum,jdbcType=INTEGER},
       </if>
       <if test="webanalyticsChannelflowlnum != null">
         webanalytics_channelflowlNum = #{webanalyticsChannelflowlnum,jdbcType=INTEGER},
