@@ -55,6 +55,7 @@ public class CrmCatalogController {
 	}
 	
 	/**
+	 * 2.0
 	 * 20210812
 	 * Catalog首页
 	 * */
@@ -70,7 +71,7 @@ public class CrmCatalogController {
 		}
 	}
 	
-	/**2.0	20200703
+	/**3.0	20200703
 	 * 后台CrmCatalog列表分页list数据
 	 * @param pn
 	 * @return
@@ -117,7 +118,7 @@ public class CrmCatalogController {
 	}
 	
 	/**
-	 * 2.0
+	 * 4.0
 	 * @author 20210810
 	 * @param CrmCatalog
 	 * @exception 创建新用户
@@ -147,7 +148,7 @@ public class CrmCatalogController {
 		
 	}
 	
-	/**2.0	20200703
+	/**5.0	20200703
 	 * 后台CrmWebanalytics列表分页list数据
 	 * @param pn
 	 * @return
@@ -164,7 +165,7 @@ public class CrmCatalogController {
 	}
 	
 	/**
-	 * 3.0
+	 * 6.0
 	 * @author 20210810
 	 * @param CrmAdmin
 	 * @exception 查看单个用户
@@ -181,7 +182,7 @@ public class CrmCatalogController {
 	}
 	
 	/**
-	 * 4.0
+	 * 7.0
 	 * @author 20210810
 	 * @param CrmAdmin
 	 * @exception 查看单个用户
@@ -198,7 +199,7 @@ public class CrmCatalogController {
 	}
 	
 	/**
-	 * 4.0
+	 * 8.0
 	 * @author 20210810
 	 * @param 
 	 * @exception 获取全部的下拉菜单
@@ -210,6 +211,46 @@ public class CrmCatalogController {
 		//查询 全部菜单列表
 		List<CrmCatalog> crmSuperCatalogdownList = crmCatalogService.selectDownListAll();
 		return Msg.success().add("crmSuperCatalogdownList", crmSuperCatalogdownList);
+	}
+	
+	/**
+	 * 9.0
+	 * @author 20210810
+	 * @param 
+	 * @exception 获取全部的下拉菜单
+	 * */
+	@RequestMapping(value="/GetCatalogPanelConfigList",method=RequestMethod.GET)
+	@ResponseBody
+	public Msg GetCatalogPanelConfigList(HttpServletResponse rep,HttpServletRequest res,HttpSession session){
+		
+		
+		//查询 全部菜单列表
+		List<CrmCatalog> crmCatalogList  = crmCatalogService.selectDownListAll();
+		
+		List<CrmCatalog> CrmCatalogdownFirst =new ArrayList<CrmCatalog>();
+		for(CrmCatalog CrmCatalogOne :crmCatalogList){
+			Integer CatalogParentId = CrmCatalogOne.getCatalogParentId();
+			if(CatalogParentId>0){
+				//System.out.println("CatalogParentId:"+CatalogParentId);
+			}else{
+				//筛选出一级菜单(patentId=-1)的类，//第一级别的导航
+				//存到list中，存一下这些ids,这些是一级类
+				CrmCatalogdownFirst.add(CrmCatalogOne);//一级类list;
+			}
+		}
+		
+		List<List<CrmCatalog>> CrmCatalogSuperList =new ArrayList<List<CrmCatalog>>();
+		for(CrmCatalog CatalogFirstOne :CrmCatalogdownFirst){
+			Integer CatalogFirstId = CatalogFirstOne.getCatalogId();
+			CrmCatalog CrmCatalogSecReq = new CrmCatalog();
+			CrmCatalogSecReq.setCatalogParentId(CatalogFirstId);
+			
+			List<CrmCatalog> CrmCatalogNowSecondList = crmCatalogService.selectCrmCatalogByParameter(CrmCatalogSecReq);
+			//System.out.println("操作说明:客户查询-本二级的菜单完毕Catalog-菜单");
+			
+			CrmCatalogSuperList.add(CrmCatalogNowSecondList);
+		}
+		return Msg.success().add("CrmCatalogdownFirst", CrmCatalogdownFirst).add("CrmCatalogSuperList", CrmCatalogSuperList);
 	}
 	
 }

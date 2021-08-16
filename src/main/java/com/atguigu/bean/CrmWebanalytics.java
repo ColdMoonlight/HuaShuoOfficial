@@ -8,6 +8,10 @@ public class CrmWebanalytics {
     private String webanalyticsChannelname;
 
     private BigDecimal webanalyticsChannelinvestmoney;
+    
+    private Integer webanalyticsChannelintousernum;
+    
+    private Integer webanalyticsChannelintousernewnum;
 
     private Integer webanalyticsChannelflowlnum;
 
@@ -45,7 +49,23 @@ public class CrmWebanalytics {
         this.webanalyticsChannelinvestmoney = webanalyticsChannelinvestmoney;
     }
 
-    public Integer getWebanalyticsChannelflowlnum() {
+    public Integer getWebanalyticsChannelintousernum() {
+		return webanalyticsChannelintousernum;
+	}
+
+	public void setWebanalyticsChannelintousernum(Integer webanalyticsChannelintousernum) {
+		this.webanalyticsChannelintousernum = webanalyticsChannelintousernum;
+	}
+
+	public Integer getWebanalyticsChannelintousernewnum() {
+		return webanalyticsChannelintousernewnum;
+	}
+
+	public void setWebanalyticsChannelintousernewnum(Integer webanalyticsChannelintousernewnum) {
+		this.webanalyticsChannelintousernewnum = webanalyticsChannelintousernewnum;
+	}
+
+	public Integer getWebanalyticsChannelflowlnum() {
         return webanalyticsChannelflowlnum;
     }
 
@@ -92,4 +112,39 @@ public class CrmWebanalytics {
     public void setWebanalyticsMotifytime(String webanalyticsMotifytime) {
         this.webanalyticsMotifytime = webanalyticsMotifytime == null ? null : webanalyticsMotifytime.trim();
     }
+
+	public CrmWebanalytics() {
+		super();
+	}
+
+	public CrmWebanalytics(Integer webanalyticsId, String webanalyticsChannelname,
+			BigDecimal webanalyticsChannelinvestmoney, Integer webanalyticsChannelintousernum,
+			Integer webanalyticsChannelintousernewnum, Integer webanalyticsChannelflowlnum,
+			String webanalyticsChannelsellnum, BigDecimal webanalyticsChannelsellmoney, String webanalyticsBrandname,
+			String webanalyticsCreatetime, String webanalyticsMotifytime) {
+		super();
+		this.webanalyticsId = webanalyticsId;
+		this.webanalyticsChannelname = webanalyticsChannelname;
+		this.webanalyticsChannelinvestmoney = webanalyticsChannelinvestmoney;
+		this.webanalyticsChannelintousernum = webanalyticsChannelintousernum;
+		this.webanalyticsChannelintousernewnum = webanalyticsChannelintousernewnum;
+		this.webanalyticsChannelflowlnum = webanalyticsChannelflowlnum;
+		this.webanalyticsChannelsellnum = webanalyticsChannelsellnum;
+		this.webanalyticsChannelsellmoney = webanalyticsChannelsellmoney;
+		this.webanalyticsBrandname = webanalyticsBrandname;
+		this.webanalyticsCreatetime = webanalyticsCreatetime;
+		this.webanalyticsMotifytime = webanalyticsMotifytime;
+	}
+
+	@Override
+	public String toString() {
+		return "CrmWebanalytics [webanalyticsId=" + webanalyticsId + ", webanalyticsChannelname="
+				+ webanalyticsChannelname + ", webanalyticsChannelinvestmoney=" + webanalyticsChannelinvestmoney
+				+ ", webanalyticsChannelintousernum=" + webanalyticsChannelintousernum
+				+ ", webanalyticsChannelintousernewnum=" + webanalyticsChannelintousernewnum
+				+ ", webanalyticsChannelflowlnum=" + webanalyticsChannelflowlnum + ", webanalyticsChannelsellnum="
+				+ webanalyticsChannelsellnum + ", webanalyticsChannelsellmoney=" + webanalyticsChannelsellmoney
+				+ ", webanalyticsBrandname=" + webanalyticsBrandname + ", webanalyticsCreatetime="
+				+ webanalyticsCreatetime + ", webanalyticsMotifytime=" + webanalyticsMotifytime + "]";
+	}
 }
