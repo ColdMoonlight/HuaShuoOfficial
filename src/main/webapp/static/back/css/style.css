@@ -2739,7 +2739,8 @@ a.btn.disabled,fieldset:disabled a.btn {
     transition: none;
   }
 }
-.fade:not(.show) {
+.fade:not(.show),
+.fade:not(.in), {
     opacity: 0;
 }
 .collapse {

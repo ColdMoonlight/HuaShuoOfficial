@@ -104,13 +104,19 @@
 										<div class="card-title-name">所属部门  & 分管店铺  & 菜单权限</div>
 									</div>
 									<div class="card-body">
-										<div class="nav nav-tabs" role="tablist">
-										  	<div class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#department">部门</div>
-										  	<div class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#shoproom">店铺</div>
-										  	<div class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#menurole">菜单权限</div>
-										</div>
+										<ul class="nav nav-tabs" role="tablist">
+											<li role="presentation" class="nav-item active">
+										  		<div class="nav-link" role="tab" data-toggle="tab" data-target="#department">部门</div>
+										  	</li>
+										  	<li role="presentation" class="nav-item">
+										  		<div class="nav-link" role="tab" data-toggle="tab" data-target="#shoproom">店铺</div>
+										  	</li>
+										  	<li role="presentation" class="nav-item">
+										  		<div class="nav-link" role="tab" data-toggle="tab" data-target="#menurole">菜单权限</div>
+										  	</li>
+										</ul>
 										<div class="tab-content">
-											<div class="tab-pane fade show active" id="department" role="tabpanel">
+											<div class="tab-pane active" id="department" role="tabpanel">
 												<div class="department-radio-box"></div>
 											</div>
 											<div class="tab-pane fade" id="shoproom" role="tabpanel">
