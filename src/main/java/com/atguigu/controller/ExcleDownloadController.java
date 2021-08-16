@@ -56,45 +56,59 @@ public class ExcleDownloadController {
 			@RequestParam(value = "webanalyticsMotifytime") String webanalyticsMotifytime,
 			HttpSession session){
 		
-		rep.setContentType("application/octet-stream");
-		
 		String nowTime = DateUtil.strTime14();
+		rep.setContentType("application/octet-stream");
 		rep.setHeader("Content-Disposition", "attachment;filename="+nowTime+"WebanalyticsInfo.xls");
 		
-		HSSFWorkbook wb = new HSSFWorkbook();
-		
-		HSSFSheet sheet = wb.createSheet("sheet0");
-		
-		HSSFRow row = sheet.createRow(0);
-		
-		HSSFCell cell = row.createCell(0);
-		
 		CrmWebanalytics crmWebanalyticsReq = new CrmWebanalytics();
-		
 		crmWebanalyticsReq.setWebanalyticsCreatetime(webanalyticsCreatetime);
 		crmWebanalyticsReq.setWebanalyticsMotifytime(webanalyticsMotifytime);
 		List<CrmWebanalytics> crmWebanalyticsList= crmWebanalyticsService.selectCrmWebanalyticsByParameter(crmWebanalyticsReq);
 		
-		System.out.println("highPayIFList.size():"+crmWebanalyticsList.size());
+		System.out.println("crmWebanalyticsList.size():" + crmWebanalyticsList.size());
+		//Excel 文档对象
+		HSSFWorkbook wb = new HSSFWorkbook();
+		//Excel 表
+		HSSFSheet sheet = wb.createSheet("sheet0");
+		//Excel 行
+		HSSFRow row = sheet.createRow(0);
 		
-		cell.setCellValue("webanalytics_id");
+		//Excel 格子单元
+		HSSFCell cell = row.createCell(0);
+		cell.setCellValue("序号");
+		
 	    cell = row.createCell(1);
-		cell.setCellValue("webanalytics_channelName");
+		cell.setCellValue("webanalytics_id");
+		
 	    cell = row.createCell(2);
-	    cell.setCellValue("webanalytics_channelInvestMoney");
+		cell.setCellValue("webanalytics_channelName");
+		
 	    cell = row.createCell(3);
-	    cell.setCellValue("webanalytics_channelflowlNum");
+	    cell.setCellValue("webanalytics_channelInvestMoney");
+	    
 	    cell = row.createCell(4);
-	    cell.setCellValue("webanalytics_channelSellNum");
+	    cell.setCellValue("webanalytics_channelintoUserNum");
+	    
 	    cell = row.createCell(5);
-	    cell.setCellValue("webanalytics_channelSellMoney");
+	    cell.setCellValue("webanalytics_channelintoUserNewNum");
+	    
 	    cell = row.createCell(6);
-	    cell.setCellValue("webanalytics_brandName");
+	    cell.setCellValue("webanalytics_channelflowlNum");
+	    
 	    cell = row.createCell(7);
-	    cell.setCellValue("webanalytics_createTime");
+	    cell.setCellValue("webanalytics_channelSellNum");
+	    
 	    cell = row.createCell(8);
-	    cell.setCellValue("webanalytics_motifyTime");
+	    cell.setCellValue("webanalytics_channelSellMoney");
+	    
 	    cell = row.createCell(9);
+	    cell.setCellValue("webanalytics_brandName");
+	    
+	    cell = row.createCell(10);
+	    cell.setCellValue("webanalytics_createTime");
+	    
+	    cell = row.createCell(11);
+	    cell.setCellValue("webanalytics_motifyTime");
 	    
 	    CrmWebanalytics crmWebanalyticsOne = new CrmWebanalytics();
 	    for (int i = 0; i < crmWebanalyticsList.size(); i++) {
@@ -104,12 +118,14 @@ public class ExcleDownloadController {
 	        row.createCell(1).setCellValue(crmWebanalyticsOne.getWebanalyticsId());
 	        row.createCell(2).setCellValue(crmWebanalyticsOne.getWebanalyticsChannelname());
 	        row.createCell(3).setCellValue(crmWebanalyticsOne.getWebanalyticsChannelinvestmoney()+"");
-	        row.createCell(4).setCellValue(crmWebanalyticsOne.getWebanalyticsChannelflowlnum());
-	        row.createCell(5).setCellValue(crmWebanalyticsOne.getWebanalyticsChannelsellnum());
-	        row.createCell(6).setCellValue(crmWebanalyticsOne.getWebanalyticsChannelsellmoney()+"");
-	        row.createCell(7).setCellValue(crmWebanalyticsOne.getWebanalyticsBrandname());
-	        row.createCell(8).setCellValue(crmWebanalyticsOne.getWebanalyticsCreatetime());
-	        row.createCell(9).setCellValue(crmWebanalyticsOne.getWebanalyticsMotifytime());
+	        row.createCell(4).setCellValue(crmWebanalyticsOne.getWebanalyticsChannelintousernum());
+	        row.createCell(5).setCellValue(crmWebanalyticsOne.getWebanalyticsChannelintousernewnum());
+	        row.createCell(6).setCellValue(crmWebanalyticsOne.getWebanalyticsChannelflowlnum());
+	        row.createCell(7).setCellValue(crmWebanalyticsOne.getWebanalyticsChannelsellnum());
+	        row.createCell(8).setCellValue(crmWebanalyticsOne.getWebanalyticsChannelsellmoney()+"");
+	        row.createCell(9).setCellValue(crmWebanalyticsOne.getWebanalyticsBrandname());
+	        row.createCell(10).setCellValue(crmWebanalyticsOne.getWebanalyticsCreatetime());
+	        row.createCell(11).setCellValue(crmWebanalyticsOne.getWebanalyticsMotifytime());
 	    }
 		try {
 			OutputStream out =rep.getOutputStream();
