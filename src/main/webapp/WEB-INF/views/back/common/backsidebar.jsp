@@ -17,10 +17,27 @@ function renderSideBarMenu(data) {
 		}
 		return '';
 	}
+	
+	function generateSecondCheckMenu(data) {
+		var secondCheckMenuHtml;
+		if (data.length) {
+			data.forEach(function(item, idx) {
+				secondCheckMenuHtml += '<tr><td>' +
+						'<input class="menu-checkbox-input" type="checkbox" data-id="'+ item.catalogId +'" data-name='+ item.catalogName +'" data-url="'+ item.catalogUrl +'">' +
+					'</td>' +
+				  	'<td></td>' +
+				  	'<td>' + item.catalogName + '</td>' +
+				  '</tr>';
+			});
+
+		  return secondCheckMenuHtml;
+		}
+		return '';
+	}
 
 	var firstArrData = data.CrmCatalogdownFirst;
 	var secondMapData = data.CrmCatalogSuperList;
-	var menuHtml
+	var menuHtml, checkMenuHtml;
 	if (firstArrData.length) {
 		menuHtml = '<ul class="c-sidebar-nav">';
 		menuHtml +=	'<li class="c-sidebar-nav-item">' +
@@ -40,12 +57,20 @@ function renderSideBarMenu(data) {
 				(generateSecondMenu(secondMapData && secondMapData[idx])) +
 				(secondMapData && secondMapData[idx].length ? '<div class="icon"></div>' : '') +
 			'</li>';
+
+			checkMenuHtml += '<tr><td>' +
+					'<input class="menu-checkbox-input" type="checkbox" data-id="'+ item.catalogId +'" data-name='+ item.catalogName +'" data-url="'+ item.catalogUrl +'">' +
+				'</td>' +
+			  	'<td>' + (item.catalogName || '--') + '</td>' +
+			  	'<td></td>' +
+			  '</tr>' + generateSecondCheckMenu(secondMapData && secondMapData[idx]);
 		});
 		menuHtml += '</ul>';
 	} else {
 		menuHtml = '没有目录数据...';
 	}
 	$SIDEBAR_MENU.html(menuHtml);
+	$('.menu-checkbox tbody').html(checkMenuHtml);
 	!isInitMenu && addSidebarEvent();
 }
 function initSideBarMenu() {

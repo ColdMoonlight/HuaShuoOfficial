@@ -1836,12 +1836,6 @@ input[type="search"] {
   -moz-appearance: none;
   appearance: none;
 }
-input[type="radio"],
-input[type="checkbox"] {
-  margin: 4px 0 0;
-  margin-top: 1px \9;
-  line-height: normal;
-}
 input[type="radio"][disabled],
 input[type="checkbox"][disabled],
 input[type="radio"].disabled,
@@ -1861,21 +1855,12 @@ select[multiple],
 select[size] {
   height: auto;
 }
-input[type="file"]:focus,
-input[type="radio"]:focus,
-input[type="checkbox"]:focus {
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
 output {
   display: block;
   padding-top: 7px;
   font-size: 14px;
   line-height: 1.42857143;
   color: #555555;
-}
-.form-check {
-	padding-left: 1.25rem;
 }
 .form-control {
   display: block;
@@ -1982,14 +1967,6 @@ fieldset[disabled] .checkbox label {
   margin-bottom: 0;
   font-weight: 400;
   cursor: pointer;
-}
-.radio input[type="radio"],
-.radio-inline input[type="radio"],
-.checkbox input[type="checkbox"],
-.checkbox-inline input[type="checkbox"] {
-  position: absolute;
-  margin-top: 4px \9;
-  margin-left: -20px;
 }
 .radio + .radio,
 .checkbox + .checkbox {
@@ -2762,9 +2739,8 @@ a.btn.disabled,fieldset:disabled a.btn {
     transition: none;
   }
 }
-
-.fade:not(.in) {
-  opacity: 0;
+.fade:not(.show) {
+    opacity: 0;
 }
 .collapse {
   display: none;
