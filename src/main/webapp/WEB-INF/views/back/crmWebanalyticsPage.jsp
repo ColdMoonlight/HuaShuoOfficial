@@ -36,6 +36,8 @@
 										<th>产出</th>
 										<th>成交订单</th>
 										<th>流量</th>
+										<th>用户总数</th>
+										<th>新用户数</th>
 										<th>时间</th>
 										<th>操作</th>
 									</tr>
@@ -87,6 +89,18 @@
 											<label class="col-form-label" for="webanalyticsChannelsellnum">成交单数</label>
 											<div class="controls">
 												<input class="form-control" id="webanalyticsChannelsellnum" type="text" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-form-label" for="webanalyticsChannelintousernum">用户总数</label>
+											<div class="controls">
+												<input class="form-control" id="webanalyticsChannelintousernum" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-form-label" for="webanalyticsChannelintousernewnum">新用户数</label>
+											<div class="controls">
+												<input class="form-control" id="webanalyticsChannelintousernewnum" type="text" />
 											</div>
 										</div>
 									</div>
@@ -293,6 +307,8 @@
 			$('#webanalyticsChannelsellmoney').val('');
 			$('#webanalyticsChannelsellnum').val('');
 			$('#webanalyticsChannelflowlnum').val('');
+			$('#webanalyticsChannelintousernum').val('');
+			$('#webanalyticsChannelintousernewnum').val('');
 
 			$('#webanalyticsCreatetime').val('');
 			
@@ -307,6 +323,8 @@
 			data.webanalyticsChannelsellmoney = $('#webanalyticsChannelsellmoney').val();
 			data.webanalyticsChannelsellnum = $('#webanalyticsChannelsellnum').val();
 			data.webanalyticsChannelflowlnum = $('#webanalyticsChannelflowlnum').val();
+			data.webanalyticsChannelsellnum = $('#webanalyticsChannelintousernum').val();
+			data.webanalyticsChannelflowlnum = $('#webanalyticsChannelintousernewnum').val();
 
 			data.webanalyticsCreatetime = $('#webanalyticsCreatetime').val();
 
@@ -323,6 +341,8 @@
 			$('#webanalyticsChannelsellmoney').val(data.webanalyticsChannelsellmoney);
 			$('#webanalyticsChannelsellnum').val(data.webanalyticsChannelsellnum);
 			$('#webanalyticsChannelflowlnum').val(data.webanalyticsChannelflowlnum);
+			$('#webanalyticsChannelintousernum').val(data.webanalyticsChannelintousernum);
+			$('#webanalyticsChannelintousernewnum').val(data.webanalyticsChannelintousernewnum);
 			
 			$('#webanalyticsCreatetime').val(data.webanalyticsCreatetime);
 
@@ -469,6 +489,8 @@
 					'<td>' + data[i].webanalyticsChannelsellmoney + '</td>' +
 					'<td>' + data[i].webanalyticsChannelsellnum + '</td>' +
 					'<td>' + data[i].webanalyticsChannelflowlnum + '</td>' +
+					'<td>' + data[i].webanalyticsChannelintousernum + '</td>' +
+					'<td>' + data[i].webanalyticsChannelintousernewnum + '</td>' +
 					'<td>' + data[i].webanalyticsCreatetime + '</td>' +					
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].webanalyticsId + '">' +
