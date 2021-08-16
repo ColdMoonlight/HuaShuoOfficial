@@ -46,7 +46,21 @@ public class CrmWebanalyticsController {
 			return "back/crmWebanalyticsPage";
 		}
 	}
-	
+	 /**
+	   * 20210812
+	   * CrmWebanalytics 首页
+	   * */
+	  @RequestMapping("/ToCrmWebanalyticsDetailPage")
+	  public String ToCrmWebanalyticsDetailPage(HttpSession session) throws Exception{
+	    
+	    CrmAdmin mlbackAdmin =(CrmAdmin) session.getAttribute(Const.ADMIN_USER);
+	    if(mlbackAdmin==null){
+	      //SysUsers对象为空
+	      return "back/crmAdminLogin";
+	    }else{
+	      return "back/crmWebanalyticsDetailPage";
+	    }
+	  }
 	/**
 	 * 2.0
 	 * @author 20210812

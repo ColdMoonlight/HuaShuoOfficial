@@ -81,6 +81,7 @@ public class CrmCatalogController {
 	public Msg getCrmCatalogByAdminId(HttpSession session) {
 		
 		CrmAdmin nowCrmAdmin = (CrmAdmin) session.getAttribute(Const.ADMIN_USER);
+		String cateLogIds = nowCrmAdmin.getAdminMenuIdstr();
 		
 		List<CrmCatalog> crmCatalogList = new ArrayList<CrmCatalog>();
 		
@@ -88,6 +89,14 @@ public class CrmCatalogController {
 		if(departmentId==99){
 			//这个是超级用户
 			crmCatalogList = crmCatalogService.selectCrmCatalogSuper();
+		}else{
+			//其他用户菜单权限
+			String[] cateLogArr = cateLogIds.split(",");
+			for(String cateLogId : cateLogArr){
+				int id = Integer.parseInt(cateLogId);
+				CrmCatalog crmCatalog = crmCatalogService.selectByPrimaryKey(id);
+				crmCatalogList.add(crmCatalog);
+			}
 		}
 		
 		List<CrmCatalog> CrmCatalogdownFirst =new ArrayList<CrmCatalog>();
@@ -109,9 +118,19 @@ public class CrmCatalogController {
 			CrmCatalogSecReq.setCatalogParentId(CatalogFirstId);
 			
 			List<CrmCatalog> CrmCatalogNowSecondList = crmCatalogService.selectCrmCatalogByParameter(CrmCatalogSecReq);
-			//System.out.println("操作说明:客户查询-本二级的菜单完毕Catalog-菜单");
-			
-			CrmCatalogSuperList.add(CrmCatalogNowSecondList);
+			if(departmentId==99){
+				//超级用户
+				CrmCatalogSuperList.add(CrmCatalogNowSecondList);
+			}else{
+				//其他用户，只显示有权限二级菜单
+				List<CrmCatalog> crmCatalogSuperListTemp =new ArrayList<CrmCatalog>();
+				for(CrmCatalog catalogFirstSecond :CrmCatalogNowSecondList){
+					if(cateLogIds.contains(catalogFirstSecond.getCatalogId()+"")){
+						crmCatalogSuperListTemp.add(catalogFirstSecond);
+					}
+				}
+				CrmCatalogSuperList.add(crmCatalogSuperListTemp);
+			}
 		}
 			
 		return Msg.success().add("CrmCatalogdownFirst", CrmCatalogdownFirst).add("CrmCatalogSuperList", CrmCatalogSuperList);
