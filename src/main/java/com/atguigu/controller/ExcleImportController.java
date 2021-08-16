@@ -13,6 +13,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -143,27 +144,27 @@ public class ExcleImportController {
 		                }
 						getCell = row.getCell(1);
 						if(getCell != null) {
-		                    crmWebanalytics.setWebanalyticsChannelinvestmoney(new BigDecimal(getCell.getStringCellValue()));
+		                    crmWebanalytics.setWebanalyticsChannelinvestmoney(new BigDecimal(getCell.getNumericCellValue()));
 		                }
 						getCell = row.getCell(2);
 						if(getCell != null) {
-		                    crmWebanalytics.setWebanalyticsChannelintousernum(Integer.parseInt(getCell.getStringCellValue()));
+		                    crmWebanalytics.setWebanalyticsChannelintousernum((int)getCell.getNumericCellValue());
 		                }
 						getCell = row.getCell(3);
 						if(getCell != null) {
-		                    crmWebanalytics.setWebanalyticsChannelintousernewnum(Integer.parseInt(getCell.getStringCellValue()));
+		                    crmWebanalytics.setWebanalyticsChannelintousernewnum((int)getCell.getNumericCellValue());
 		                }
 						getCell = row.getCell(4);
 						if(getCell != null) {
-		                    crmWebanalytics.setWebanalyticsChannelflowlnum(Integer.parseInt(getCell.getStringCellValue()));
+		                    crmWebanalytics.setWebanalyticsChannelflowlnum((int)getCell.getNumericCellValue());
 		                }
 						getCell = row.getCell(5);
 						if(getCell != null) {
-		                    crmWebanalytics.setWebanalyticsChannelsellnum(getCell.getStringCellValue());
+		                    crmWebanalytics.setWebanalyticsChannelsellnum((int)getCell.getNumericCellValue()+"");
 		                }
 						getCell = row.getCell(6);
 						if(getCell != null) {
-		                    crmWebanalytics.setWebanalyticsChannelsellmoney(new BigDecimal(getCell.getStringCellValue()));
+		                    crmWebanalytics.setWebanalyticsChannelsellmoney(new BigDecimal(getCell.getNumericCellValue()));
 		                }
 						getCell = row.getCell(7);
 						if(getCell != null) {

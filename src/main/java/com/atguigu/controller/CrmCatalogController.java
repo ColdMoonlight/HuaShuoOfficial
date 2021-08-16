@@ -122,7 +122,7 @@ public class CrmCatalogController {
 				//超级用户
 				CrmCatalogSuperList.add(CrmCatalogNowSecondList);
 			}else{
-				//其他用户，之显示有权限二级菜单
+				//其他用户，只显示有权限二级菜单
 				List<CrmCatalog> crmCatalogSuperListTemp =new ArrayList<CrmCatalog>();
 				for(CrmCatalog catalogFirstSecond :CrmCatalogNowSecondList){
 					if(cateLogIds.contains(catalogFirstSecond.getCatalogId()+"")){
