@@ -170,7 +170,7 @@ public class ExcleImportController {
 		                }
 						getCell = row.getCell(5);
 						if(getCell != null) {
-		                    crmWebanalytics.setWebanalyticsChannelsellnum((int)getCell.getNumericCellValue()+"");
+		                    crmWebanalytics.setWebanalyticsChannelsellnum((int)getCell.getNumericCellValue());
 		                }
 						getCell = row.getCell(6);
 						if(getCell != null) {
