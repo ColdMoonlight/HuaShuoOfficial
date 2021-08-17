@@ -1,5 +1,6 @@
 package com.atguigu.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -190,14 +191,53 @@ public class CrmWebanalyticsController {
 		 * 准备遍历,
 		 * 取出品牌名，网站名，时间参数，查询全部，
 		 * */
-		List<List<CrmWebanalytics>> CrmWebanalyticsAllList =new ArrayList<List<CrmWebanalytics>>();
-		String brandnameOne="";
-		String channelname="";
+		List<CrmWebanalytics> CrmWebanalyticsAllList =new ArrayList<CrmWebanalytics>();
 		for(CrmWebanalytics crmWebanalyticsOne:crmWebanalyticsBrandList){
+			CrmWebanalytics crmWebanalyticsOneRes = new CrmWebanalytics();
+			String brandnameOne="";
+			String channelnameOne="";
 			brandnameOne= crmWebanalyticsOne.getWebanalyticsBrandname();
-			channelname = crmWebanalyticsOne.getWebanalyticsChannelname();
-			List<CrmWebanalytics> crmWebanalyticsOneBrandAndChannelList = crmWebanalyticsService.selectCrmWebanalyticsByParameter(crmWebanalyticsReq);
-			CrmWebanalyticsAllList.add(crmWebanalyticsOneBrandAndChannelList);
+			channelnameOne = crmWebanalyticsOne.getWebanalyticsChannelname();
+			
+			crmWebanalyticsOneRes.setWebanalyticsBrandname(brandnameOne);
+			crmWebanalyticsOneRes.setWebanalyticsChannelname(channelnameOne);
+			crmWebanalyticsOneRes.setWebanalyticsCreatetime(crmWebanalyticsReq.getWebanalyticsCreatetime());
+			crmWebanalyticsOneRes.setWebanalyticsMotifytime(crmWebanalyticsReq.getWebanalyticsMotifytime());
+			List<CrmWebanalytics> crmWebanalyticsOneBrandAndChannelList = crmWebanalyticsService.selectCrmWebanalyticsByParameter(crmWebanalyticsOneRes);
+			if(crmWebanalyticsOneBrandAndChannelList.size()>0){
+				
+				BigDecimal webanalyticsChannelinvestmoney = new BigDecimal(0.00);
+				
+				Integer webanalyticsChannelintousernum = 0;
+				
+				Integer webanalyticsChannelintousernewnum = 0;
+				
+				Integer webanalyticsChannelflowlnum = 0;
+				
+				Integer webanalyticsChannelsellnum = 0;
+				
+				BigDecimal webanalyticsChannelsellmoney = new BigDecimal(0.00);
+				for(CrmWebanalytics CrmWebanalyticsaa :crmWebanalyticsOneBrandAndChannelList){
+					
+					webanalyticsChannelinvestmoney = webanalyticsChannelinvestmoney.add(CrmWebanalyticsaa.getWebanalyticsChannelinvestmoney());
+					webanalyticsChannelintousernum = webanalyticsChannelintousernum+CrmWebanalyticsaa.getWebanalyticsChannelintousernum();
+					webanalyticsChannelintousernewnum = webanalyticsChannelintousernewnum+CrmWebanalyticsaa.getWebanalyticsChannelintousernewnum();
+					webanalyticsChannelflowlnum = webanalyticsChannelflowlnum+CrmWebanalyticsaa.getWebanalyticsChannelflowlnum();
+					webanalyticsChannelsellnum = webanalyticsChannelsellnum+CrmWebanalyticsaa.getWebanalyticsChannelsellnum();
+					webanalyticsChannelsellmoney = webanalyticsChannelsellmoney.add(CrmWebanalyticsaa.getWebanalyticsChannelsellmoney());
+					
+				}
+				crmWebanalyticsOneRes.setWebanalyticsChannelinvestmoney(webanalyticsChannelinvestmoney);
+				crmWebanalyticsOneRes.setWebanalyticsChannelintousernum(webanalyticsChannelintousernum);
+				crmWebanalyticsOneRes.setWebanalyticsChannelintousernewnum(webanalyticsChannelintousernewnum);
+				crmWebanalyticsOneRes.setWebanalyticsChannelflowlnum(webanalyticsChannelflowlnum);
+				crmWebanalyticsOneRes.setWebanalyticsChannelsellnum(webanalyticsChannelsellnum);
+				crmWebanalyticsOneRes.setWebanalyticsChannelsellmoney(webanalyticsChannelsellmoney);
+				
+				System.out.println(crmWebanalyticsOneRes.toString());
+				CrmWebanalyticsAllList.add(crmWebanalyticsOneRes);
+				
+			}
 		}
 		
 		//查询全部渠道详情

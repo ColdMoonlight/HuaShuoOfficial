@@ -15,7 +15,7 @@ public class CrmWebanalytics {
 
     private Integer webanalyticsChannelflowlnum;
 
-    private String webanalyticsChannelsellnum;
+    private Integer webanalyticsChannelsellnum;
 
     private BigDecimal webanalyticsChannelsellmoney;
 
@@ -73,12 +73,12 @@ public class CrmWebanalytics {
         this.webanalyticsChannelflowlnum = webanalyticsChannelflowlnum;
     }
 
-    public String getWebanalyticsChannelsellnum() {
+    public Integer getWebanalyticsChannelsellnum() {
         return webanalyticsChannelsellnum;
     }
 
-    public void setWebanalyticsChannelsellnum(String webanalyticsChannelsellnum) {
-        this.webanalyticsChannelsellnum = webanalyticsChannelsellnum == null ? null : webanalyticsChannelsellnum.trim();
+    public void setWebanalyticsChannelsellnum(Integer webanalyticsChannelsellnum) {
+        this.webanalyticsChannelsellnum = webanalyticsChannelflowlnum;
     }
 
     public BigDecimal getWebanalyticsChannelsellmoney() {
@@ -120,7 +120,7 @@ public class CrmWebanalytics {
 	public CrmWebanalytics(Integer webanalyticsId, String webanalyticsChannelname,
 			BigDecimal webanalyticsChannelinvestmoney, Integer webanalyticsChannelintousernum,
 			Integer webanalyticsChannelintousernewnum, Integer webanalyticsChannelflowlnum,
-			String webanalyticsChannelsellnum, BigDecimal webanalyticsChannelsellmoney, String webanalyticsBrandname,
+			Integer webanalyticsChannelsellnum, BigDecimal webanalyticsChannelsellmoney, String webanalyticsBrandname,
 			String webanalyticsCreatetime, String webanalyticsMotifytime) {
 		super();
 		this.webanalyticsId = webanalyticsId;

@@ -8,7 +8,7 @@
     <result column="webanalytics_channelintoUserNum" jdbcType="INTEGER" property="webanalyticsChannelintousernum" />
     <result column="webanalytics_channelintoUserNewNum" jdbcType="INTEGER" property="webanalyticsChannelintousernewnum" />
     <result column="webanalytics_channelflowlNum" jdbcType="INTEGER" property="webanalyticsChannelflowlnum" />
-    <result column="webanalytics_channelSellNum" jdbcType="VARCHAR" property="webanalyticsChannelsellnum" />
+    <result column="webanalytics_channelSellNum" jdbcType="INTEGER" property="webanalyticsChannelsellnum" />
     <result column="webanalytics_channelSellMoney" jdbcType="DECIMAL" property="webanalyticsChannelsellmoney" />
     <result column="webanalytics_brandName" jdbcType="VARCHAR" property="webanalyticsBrandname" />
     <result column="webanalytics_createTime" jdbcType="VARCHAR" property="webanalyticsCreatetime" />
@@ -31,7 +31,7 @@
     values (#{webanalyticsId,jdbcType=INTEGER}, #{webanalyticsChannelname,jdbcType=VARCHAR}, 
       #{webanalyticsChannelinvestmoney,jdbcType=DECIMAL},#{webanalytics_channelintoUserNum,jdbcType=INTEGER}, 
       #{webanalytics_channelintoUserNewNum,jdbcType=INTEGER}, #{webanalyticsChannelflowlnum,jdbcType=INTEGER}, 
-      #{webanalyticsChannelsellnum,jdbcType=VARCHAR}, #{webanalyticsChannelsellmoney,jdbcType=DECIMAL}, 
+      #{webanalyticsChannelsellnum,jdbcType=INTEGER}, #{webanalyticsChannelsellmoney,jdbcType=DECIMAL}, 
       #{webanalyticsBrandname,jdbcType=VARCHAR}, #{webanalyticsCreatetime,jdbcType=VARCHAR}, 
       #{webanalyticsMotifytime,jdbcType=VARCHAR})
   </insert>
@@ -42,7 +42,7 @@
       webanalytics_channelintoUserNum = #{webanalyticsChannelintousernum,jdbcType=INTEGER},
       webanalytics_channelintoUserNewNum = #{webanalyticsChannelintousernewnum,jdbcType=INTEGER},
       webanalytics_channelflowlNum = #{webanalyticsChannelflowlnum,jdbcType=INTEGER},
-      webanalytics_channelSellNum = #{webanalyticsChannelsellnum,jdbcType=VARCHAR},
+      webanalytics_channelSellNum = #{webanalyticsChannelsellnum,jdbcType=INTEGER},
       webanalytics_channelSellMoney = #{webanalyticsChannelsellmoney,jdbcType=DECIMAL},
       webanalytics_brandName = #{webanalyticsBrandname,jdbcType=VARCHAR},
       webanalytics_createTime = #{webanalyticsCreatetime,jdbcType=VARCHAR},
@@ -108,7 +108,7 @@
         #{webanalyticsChannelflowlnum,jdbcType=INTEGER},
       </if>
       <if test="webanalyticsChannelsellnum != null">
-        #{webanalyticsChannelsellnum,jdbcType=VARCHAR},
+        #{webanalyticsChannelsellnum,jdbcType=INTEGER},
       </if>
       <if test="webanalyticsChannelsellmoney != null">
         #{webanalyticsChannelsellmoney,jdbcType=DECIMAL},
@@ -151,7 +151,7 @@
         webanalytics_channelflowlNum = #{webanalyticsChannelflowlnum,jdbcType=INTEGER},
       </if>
       <if test="webanalyticsChannelsellnum != null">
-        webanalytics_channelSellNum = #{webanalyticsChannelsellnum,jdbcType=VARCHAR},
+        webanalytics_channelSellNum = #{webanalyticsChannelsellnum,jdbcType=INTEGER},
       </if>
       <if test="webanalyticsChannelsellmoney != null">
         webanalytics_channelSellMoney = #{webanalyticsChannelsellmoney,jdbcType=DECIMAL},
