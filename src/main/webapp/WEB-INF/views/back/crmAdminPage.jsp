@@ -292,11 +292,11 @@
 			data.adminAccount = $('#adminAccount').val();
 			data.adminPassword = $('#adminPassword').val();
 
-			var department_kv = $("input[name=department]:checked").val().split('-') || [];
+			var department_kv =  $("input[name=department]:checked").val() && $("input[name=department]:checked").val().split('-') || [];
 			data.adminDepartmentId =  parseInt(department_kv[0]);
 			data.adminDepartmentName = department_kv[1];
 
-			var shoproom_kv = $("input[name=shoproom]:checked").val().split('-') || [];
+			var shoproom_kv = $("input[name=shoproom]:checked").val() && $("input[name=shoproom]:checked").val().split('-') || [];
 			data.adminShopId =  parseInt(shoproom_kv[0]);
 			data.adminShopName = shoproom_kv[1];
 			
