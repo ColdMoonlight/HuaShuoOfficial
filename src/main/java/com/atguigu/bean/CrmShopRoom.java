@@ -4,7 +4,7 @@ public class CrmShopRoom {
     private Integer shoproomId;
 
     private String shoproomName;
-    
+    //
     private Integer shoproomIdDepartmentId;
 
     private String shoproomNameDepartmentName;
