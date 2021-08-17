@@ -320,7 +320,7 @@
 
 			$('#department' + data.adminDepartmentId).prop('checked', true);
 			$('#shoproom' + data.adminShopId).prop('checked', true);
-			
+
 			$('#adminMenuIdstr').val(data.adminMenuIdstr);
 			$('#adminMenuNamestr').val(data.adminMenuNamestr);
 			$('#adminMenuUrlstr').val(data.adminMenuUrlstr);
