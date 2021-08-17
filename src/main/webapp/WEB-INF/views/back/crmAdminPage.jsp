@@ -237,12 +237,13 @@
 		// menu checkbox
 		$('.menu-checkbox').on('change', '.menu-checkbox-input', function() {
 			var $this = $(this);
+
 			var menuIdArr = $('#adminMenuIdstr').val() ? $('#adminMenuIdstr').val().split(',') : [];
 			var menuNameArr = $('#adminMenuNamestr').val() ? $('#adminMenuNamestr').val().split(',') : [];
 			var menuUrlArr = $('#adminMenuUrlstr').val() ? $('#adminMenuUrlstr').val().split(',') : [];
 			var curId = $this.data('id');
-			var curIdx = menuIdArr.indexOf(curId);
-
+			var curIdx = menuIdArr.indexOf(''+curId);
+console.log(menuIdArr, menuNameArr, menuUrlArr)
 			if ($this.prop('checked') && curIdx < 0) {
 				menuIdArr.push(curId);
 				menuNameArr.push($this.data('name'));
@@ -278,6 +279,9 @@
 			$('input[name=shoproom]').prop('checked', false);
 			$('.nav-link').eq(0).click();
 			$('.menu-checkbox-input').prop('checked', false);
+			$('#adminMenuIdstr').val('');
+			$('#adminMenuNamestr').val('');
+			$('#adminMenuUrlstr').val('');
 		}
 		// getFormdData
 		function getFormData() {
@@ -314,9 +318,13 @@
 			$('#adminAccount').val(data.adminAccount);
 			$('#adminPassword').val(data.adminPassword);
 
-
 			$('#department' + data.adminDepartmentId).prop('checked', true);
 			$('#shoproom' + data.adminShopId).prop('checked', true);
+			
+			$('#adminMenuIdstr').val(data.adminMenuIdstr);
+			$('#adminMenuNamestr').val(data.adminMenuNamestr);
+			$('#adminMenuUrlstr').val(data.adminMenuUrlstr);
+			
 			initMenuCheckbox(data.adminMenuIdstr ? data.adminMenuIdstr.split(',') : []);
 		}
 		// callback get all data
