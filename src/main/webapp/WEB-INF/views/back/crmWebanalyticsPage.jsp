@@ -323,8 +323,8 @@
 			data.webanalyticsChannelsellmoney = $('#webanalyticsChannelsellmoney').val();
 			data.webanalyticsChannelsellnum = $('#webanalyticsChannelsellnum').val();
 			data.webanalyticsChannelflowlnum = $('#webanalyticsChannelflowlnum').val();
-			data.webanalyticsChannelsellnum = $('#webanalyticsChannelintousernum').val();
-			data.webanalyticsChannelflowlnum = $('#webanalyticsChannelintousernewnum').val();
+			data.webanalyticsChannelintousernum = $('#webanalyticsChannelintousernum').val();
+			data.webanalyticsChannelintousernewnum = $('#webanalyticsChannelintousernewnum').val();
 
 			data.webanalyticsCreatetime = $('#webanalyticsCreatetime').val();
 
