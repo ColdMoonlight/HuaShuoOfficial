@@ -90,5 +90,10 @@ public class CrmWebanalyticsService {
 		List<CrmWebanalytics> CrmWebanalyticsList = crmWebanalyticsMapper.selectCrmWebanalyticsByPage();
 		return CrmWebanalyticsList;
 	}
+
+	public List<CrmWebanalytics> selectCrmWebanalyticsByBrand(CrmWebanalytics crmWebanalyticsBrand) {
+		List<CrmWebanalytics> CrmWebanalyticsList = crmWebanalyticsMapper.selectCrmWebanalyticsByBrand(crmWebanalyticsBrand);
+		return CrmWebanalyticsList;
+	}
 	
 }

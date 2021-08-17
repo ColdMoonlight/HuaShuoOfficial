@@ -198,10 +198,10 @@
     from tb_crm_webanalytics 
     where webanalytics_id > 0 
     <if test="webanalyticsChannelname != null">
-      and webanalytics_channelName = #{webanalyticsChannelname,jdbcType=VARCHAR},
+      and webanalytics_channelName = #{webanalyticsChannelname,jdbcType=VARCHAR}
     </if>
     <if test="webanalyticsBrandname != null">
-      and webanalytics_brandName = #{webanalyticsBrandname,jdbcType=VARCHAR},
+      and webanalytics_brandName = #{webanalyticsBrandname,jdbcType=VARCHAR}
     </if>
     <if test="webanalyticsCreatetime != null">
     	<if test="webanalyticsMotifytime != null">
@@ -209,5 +209,13 @@
       	</if>
     </if>
     order by webanalytics_id desc
+  </select>
+  
+  <!-- 多条件查询selectCrmWebanalyticsByBrand -->
+  <select id="selectCrmWebanalyticsByBrand" parameterType="com.atguigu.bean.CrmWebanalytics" resultMap="BaseResultMap">
+	  SELECT webanalytics_channelName ,webanalytics_brandName
+		FROM tb_crm_webanalytics 
+		WHERE webanalytics_brandName = #{webanalyticsBrandname,jdbcType=VARCHAR}
+		GROUP BY webanalytics_channelName
   </select>
 </mapper>

@@ -1,11 +1,10 @@
 package com.atguigu.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.atguigu.bean.CrmAdmin;
 import com.atguigu.bean.CrmWebanalytics;
 import com.atguigu.common.Const;
@@ -165,6 +163,45 @@ public class CrmWebanalyticsController {
 		//查询全部渠道详情
 		List<CrmWebanalytics> crmWebanalyticsList = crmWebanalyticsService.selectCrmWebanalyticsByParameter(crmWebanalyticsReg);
 		return Msg.success().add("crmWebanalyticsList", crmWebanalyticsList);
+		
+	}
+	
+	/**
+	 * 2.0
+	 * @author 20210812
+	 * @param CrmWebanalytics
+	 * @exception 按时间查询
+	 * */
+	@RequestMapping(value="/GetCrmWebanalyticsInfoByRangeTimeAndBrand",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg GetCrmWebanalyticsInfoByRangeTimeAndBrand(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody CrmWebanalytics crmWebanalyticsReq){
+		
+		//选查询渠道总数
+		String BrandName = crmWebanalyticsReq.getWebanalyticsBrandname();
+		
+		CrmWebanalytics crmWebanalyticsBrand = new CrmWebanalytics();
+		crmWebanalyticsBrand.setWebanalyticsBrandname(BrandName);
+		
+		List<CrmWebanalytics> crmWebanalyticsBrandList = crmWebanalyticsService.selectCrmWebanalyticsByBrand(crmWebanalyticsBrand);
+		
+		/**
+		 * 
+		 * 准备遍历,
+		 * 取出品牌名，网站名，时间参数，查询全部，
+		 * */
+		List<List<CrmWebanalytics>> CrmWebanalyticsAllList =new ArrayList<List<CrmWebanalytics>>();
+		String brandnameOne="";
+		String channelname="";
+		for(CrmWebanalytics crmWebanalyticsOne:crmWebanalyticsBrandList){
+			brandnameOne= crmWebanalyticsOne.getWebanalyticsBrandname();
+			channelname = crmWebanalyticsOne.getWebanalyticsChannelname();
+			List<CrmWebanalytics> crmWebanalyticsOneBrandAndChannelList = crmWebanalyticsService.selectCrmWebanalyticsByParameter(crmWebanalyticsReq);
+			CrmWebanalyticsAllList.add(crmWebanalyticsOneBrandAndChannelList);
+		}
+		
+		//查询全部渠道详情
+		return Msg.success().add("crmWebanalyticsBrandList", crmWebanalyticsBrandList).add("CrmWebanalyticsAllList", CrmWebanalyticsAllList);
 		
 	}
 
