@@ -27,4 +27,6 @@ public interface CrmWebanalyticsMapper {
     
     //分页查询
     List<CrmWebanalytics> selectCrmWebanalyticsByPage();
+    
+	List<CrmWebanalytics> selectCrmWebanalyticsByBrand(CrmWebanalytics crmWebanalyticsBrand);
 }
