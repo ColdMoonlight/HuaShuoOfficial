@@ -4,21 +4,26 @@
   <resultMap id="BaseResultMap" type="com.atguigu.bean.CrmShopRoom">
     <id column="shopRoom_id" jdbcType="INTEGER" property="shoproomId" />
     <result column="shopRoom_Name" jdbcType="VARCHAR" property="shoproomName" />
+    <result column="shoproomId_departmentId" jdbcType="INTEGER" property="shoproomIdDepartmentId" />
+    <result column="shoproomName_departmentName" jdbcType="VARCHAR" property="shoproomNameDepartmentName" />
     <result column="shopRoom_createTime" jdbcType="VARCHAR" property="shoproomCreatetime" />
     <result column="shopRoom_motifyTime" jdbcType="VARCHAR" property="shoproomMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    shopRoom_id, shopRoom_Name, shopRoom_createTime, shopRoom_motifyTime
+    shopRoom_id, shopRoom_Name, shoproomId_departmentId, shoproomName_departmentName, shopRoom_createTime, shopRoom_motifyTime
   </sql>
   <insert id="insert" parameterType="com.atguigu.bean.CrmShopRoom">
-    insert into tb_crm_shoproom (shopRoom_id, shopRoom_Name, shopRoom_createTime, 
+    insert into tb_crm_shoproom (shopRoom_id, shopRoom_Name, shoproomId_departmentId, shoproomName_departmentName, shopRoom_createTime, 
       shopRoom_motifyTime)
-    values (#{shoproomId,jdbcType=INTEGER}, #{shoproomName,jdbcType=VARCHAR}, #{shoproomCreatetime,jdbcType=VARCHAR}, 
-      #{shoproomMotifytime,jdbcType=VARCHAR})
+    values (#{shoproomId,jdbcType=INTEGER}, #{shoproomName,jdbcType=VARCHAR}, 
+    #{shoproomIdDepartmentId,jdbcType=INTEGER}, #{shoproomNameDepartmentName,jdbcType=VARCHAR},
+    #{shoproomCreatetime,jdbcType=VARCHAR}, #{shoproomMotifytime,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmShopRoom">
     update tb_crm_shoproom
     set shopRoom_Name = #{shoproomName,jdbcType=VARCHAR},
+      shoproomId_departmentId = #{shoproomIdDepartmentId,jdbcType=INTEGER},
+      shoproomName_departmentName = #{shoproomNameDepartmentName,jdbcType=VARCHAR},
       shopRoom_createTime = #{shoproomCreatetime,jdbcType=VARCHAR},
       shopRoom_motifyTime = #{shoproomMotifytime,jdbcType=VARCHAR}
     where shopRoom_id = #{shoproomId,jdbcType=INTEGER}
@@ -33,6 +38,12 @@
       <if test="shoproomName != null">
         shopRoom_Name,
       </if>
+      <if test="shoproomIdDepartmentId != null">
+        shoproomId_departmentId,
+      </if>
+      <if test="shoproomNameDepartmentName != null">
+        shoproomName_departmentName,
+      </if>
       <if test="shoproomCreatetime != null">
         shopRoom_createTime,
       </if>
@@ -46,6 +57,12 @@
       </if>
       <if test="shoproomName != null">
         #{shoproomName,jdbcType=VARCHAR},
+      </if>
+      <if test="shoproomIdDepartmentId != null">
+        #{shoproomIdDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="shoproomNameDepartmentName != null">
+        #{shoproomNameDepartmentName,jdbcType=VARCHAR},
       </if>
       <if test="shoproomCreatetime != null">
         #{shoproomCreatetime,jdbcType=VARCHAR},
@@ -66,6 +83,12 @@
     <set>
       <if test="shoproomName != null">
         shopRoom_Name = #{shoproomName,jdbcType=VARCHAR},
+      </if>
+      <if test="shoproomIdDepartmentId != null">
+        shoproomId_departmentId = #{shoproomIdDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="shoproomNameDepartmentName != null">
+        shoproomName_departmentName = #{shoproomNameDepartmentName,jdbcType=VARCHAR},
       </if>
       <if test="shoproomCreatetime != null">
         shopRoom_createTime = #{shoproomCreatetime,jdbcType=VARCHAR},
