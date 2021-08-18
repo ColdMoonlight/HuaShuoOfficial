@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.CrmProductSellInfoMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.CrmProductSellInfo">
+    <id column="productSellInfo_id" jdbcType="INTEGER" property="productsellinfoId" />
+    <result column="productSellInfo_brandName" jdbcType="VARCHAR" property="productsellinfoBrandname" />
+    <result column="productSellInfo_plateNum" jdbcType="VARCHAR" property="productsellinfoPlatenum" />
+    <result column="productSellInfo_productType" jdbcType="VARCHAR" property="productsellinfoProducttype" />
+    <result column="productSellInfo_productId" jdbcType="INTEGER" property="productsellinfoProductid" />
+    <result column="productSellInfo_productName" jdbcType="VARCHAR" property="productsellinfoProductname" />
+    <result column="productSellInfo_productSku" jdbcType="VARCHAR" property="productsellinfoProductsku" />
+    <result column="productSellInfo_productMarkPrice" jdbcType="DECIMAL" property="productsellinfoProductmarkprice" />
+    <result column="productSellInfo_productRealPrice" jdbcType="DECIMAL" property="productsellinfoProductrealprice" />
+    <result column="productSellInfo_couponPrice" jdbcType="DECIMAL" property="productsellinfoCouponprice" />
+    <result column="productSellInfo_couponCode" jdbcType="VARCHAR" property="productsellinfoCouponcode" />
+    <result column="productSellInfo_productSellTime" jdbcType="VARCHAR" property="productsellinfoProductselltime" />
+    <result column="productSellInfo_motifyTime" jdbcType="VARCHAR" property="productsellinfoMotifytime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    productSellInfo_id, productSellInfo_brandName, productSellInfo_plateNum, productSellInfo_productType, 
+    productSellInfo_productId, productSellInfo_productName, productSellInfo_productSku, 
+    productSellInfo_productMarkPrice, productSellInfo_productRealPrice, productSellInfo_couponPrice, 
+    productSellInfo_couponCode, productSellInfo_productSellTime, productSellInfo_motifyTime
+  </sql>
+  
+  <insert id="insert" parameterType="com.atguigu.bean.CrmProductSellInfo">
+    insert into tb_crm_productsellinfo (productSellInfo_id, productSellInfo_brandName, 
+      productSellInfo_plateNum, productSellInfo_productType, 
+      productSellInfo_productId, productSellInfo_productName, 
+      productSellInfo_productSku, productSellInfo_productMarkPrice, 
+      productSellInfo_productRealPrice, productSellInfo_couponPrice, 
+      productSellInfo_couponCode, productSellInfo_productSellTime, 
+      productSellInfo_motifyTime)
+    values (#{productsellinfoId,jdbcType=INTEGER}, #{productsellinfoBrandname,jdbcType=VARCHAR}, 
+      #{productsellinfoPlatenum,jdbcType=VARCHAR}, #{productsellinfoProducttype,jdbcType=VARCHAR}, 
+      #{productsellinfoProductid,jdbcType=INTEGER}, #{productsellinfoProductname,jdbcType=VARCHAR}, 
+      #{productsellinfoProductsku,jdbcType=VARCHAR}, #{productsellinfoProductmarkprice,jdbcType=DECIMAL}, 
+      #{productsellinfoProductrealprice,jdbcType=DECIMAL}, #{productsellinfoCouponprice,jdbcType=DECIMAL}, 
+      #{productsellinfoCouponcode,jdbcType=VARCHAR}, #{productsellinfoProductselltime,jdbcType=VARCHAR}, 
+      #{productsellinfoMotifytime,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmProductSellInfo">
+    update tb_crm_productsellinfo
+    set productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR},
+      productSellInfo_plateNum = #{productsellinfoPlatenum,jdbcType=VARCHAR},
+      productSellInfo_productType = #{productsellinfoProducttype,jdbcType=VARCHAR},
+      productSellInfo_productId = #{productsellinfoProductid,jdbcType=INTEGER},
+      productSellInfo_productName = #{productsellinfoProductname,jdbcType=VARCHAR},
+      productSellInfo_productSku = #{productsellinfoProductsku,jdbcType=VARCHAR},
+      productSellInfo_productMarkPrice = #{productsellinfoProductmarkprice,jdbcType=DECIMAL},
+      productSellInfo_productRealPrice = #{productsellinfoProductrealprice,jdbcType=DECIMAL},
+      productSellInfo_couponPrice = #{productsellinfoCouponprice,jdbcType=DECIMAL},
+      productSellInfo_couponCode = #{productsellinfoCouponcode,jdbcType=VARCHAR},
+      productSellInfo_productSellTime = #{productsellinfoProductselltime,jdbcType=VARCHAR},
+      productSellInfo_motifyTime = #{productsellinfoMotifytime,jdbcType=VARCHAR}
+    where productSellInfo_id = #{productsellinfoId,jdbcType=INTEGER}
+  </update>
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="productsellinfoId" parameterType="com.atguigu.bean.CrmProductSellInfo">
+    insert into tb_crm_productsellinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productsellinfoId != null">
+        productSellInfo_id,
+      </if>
+      <if test="productsellinfoBrandname != null">
+        productSellInfo_brandName,
+      </if>
+      <if test="productsellinfoPlatenum != null">
+        productSellInfo_plateNum,
+      </if>
+      <if test="productsellinfoProducttype != null">
+        productSellInfo_productType,
+      </if>
+      <if test="productsellinfoProductid != null">
+        productSellInfo_productId,
+      </if>
+      <if test="productsellinfoProductname != null">
+        productSellInfo_productName,
+      </if>
+      <if test="productsellinfoProductsku != null">
+        productSellInfo_productSku,
+      </if>
+      <if test="productsellinfoProductmarkprice != null">
+        productSellInfo_productMarkPrice,
+      </if>
+      <if test="productsellinfoProductrealprice != null">
+        productSellInfo_productRealPrice,
+      </if>
+      <if test="productsellinfoCouponprice != null">
+        productSellInfo_couponPrice,
+      </if>
+      <if test="productsellinfoCouponcode != null">
+        productSellInfo_couponCode,
+      </if>
+      <if test="productsellinfoProductselltime != null">
+        productSellInfo_productSellTime,
+      </if>
+      <if test="productsellinfoMotifytime != null">
+        productSellInfo_motifyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productsellinfoId != null">
+        #{productsellinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="productsellinfoBrandname != null">
+        #{productsellinfoBrandname,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoPlatenum != null">
+        #{productsellinfoPlatenum,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoProducttype != null">
+        #{productsellinfoProducttype,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoProductid != null">
+        #{productsellinfoProductid,jdbcType=INTEGER},
+      </if>
+      <if test="productsellinfoProductname != null">
+        #{productsellinfoProductname,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoProductsku != null">
+        #{productsellinfoProductsku,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoProductmarkprice != null">
+        #{productsellinfoProductmarkprice,jdbcType=DECIMAL},
+      </if>
+      <if test="productsellinfoProductrealprice != null">
+        #{productsellinfoProductrealprice,jdbcType=DECIMAL},
+      </if>
+      <if test="productsellinfoCouponprice != null">
+        #{productsellinfoCouponprice,jdbcType=DECIMAL},
+      </if>
+      <if test="productsellinfoCouponcode != null">
+        #{productsellinfoCouponcode,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoProductselltime != null">
+        #{productsellinfoProductselltime,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoMotifytime != null">
+        #{productsellinfoMotifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_crm_productsellinfo
+    where productSellInfo_id = #{productsellinfoId,jdbcType=INTEGER}
+  </delete>
+  <!-- updateByPrimaryKeySelective -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.CrmProductSellInfo">
+    update tb_crm_productsellinfo
+    <set>
+      <if test="productsellinfoBrandname != null">
+        productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoPlatenum != null">
+        productSellInfo_plateNum = #{productsellinfoPlatenum,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoProducttype != null">
+        productSellInfo_productType = #{productsellinfoProducttype,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoProductid != null">
+        productSellInfo_productId = #{productsellinfoProductid,jdbcType=INTEGER},
+      </if>
+      <if test="productsellinfoProductname != null">
+        productSellInfo_productName = #{productsellinfoProductname,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoProductsku != null">
+        productSellInfo_productSku = #{productsellinfoProductsku,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoProductmarkprice != null">
+        productSellInfo_productMarkPrice = #{productsellinfoProductmarkprice,jdbcType=DECIMAL},
+      </if>
+      <if test="productsellinfoProductrealprice != null">
+        productSellInfo_productRealPrice = #{productsellinfoProductrealprice,jdbcType=DECIMAL},
+      </if>
+      <if test="productsellinfoCouponprice != null">
+        productSellInfo_couponPrice = #{productsellinfoCouponprice,jdbcType=DECIMAL},
+      </if>
+      <if test="productsellinfoCouponcode != null">
+        productSellInfo_couponCode = #{productsellinfoCouponcode,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoProductselltime != null">
+        productSellInfo_productSellTime = #{productsellinfoProductselltime,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellinfoMotifytime != null">
+        productSellInfo_motifyTime = #{productsellinfoMotifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where productSellInfo_id = #{productsellinfoId,jdbcType=INTEGER}
+  </update>
+  <!-- selectByPrimaryKey -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_productsellinfo
+    where productSellInfo_id = #{productsellinfoId,jdbcType=INTEGER}
+  </select>
+  <!-- selectCrmProductSellInfoAll -->
+  <select id="selectCrmProductSellInfoAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_productsellinfo order by productSellInfo_id desc
+  </select>
+  <!-- selectCrmProductSellInfoByParameter -->
+  <select id="selectCrmProductSellInfoByParameter" parameterType="com.atguigu.bean.CrmProductSellInfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_productsellinfo
+    where productSellInfo_id > 0
+    <if test="productsellinfoBrandname != null">
+      and productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
+    </if>
+    <if test="productsellinfoPlatenum != null">
+      and productSellInfo_plateNum = #{productsellinfoPlatenum,jdbcType=VARCHAR}
+    </if>
+    <if test="productsellinfoProducttype != null">
+      and productSellInfo_productType = #{productsellinfoProducttype,jdbcType=VARCHAR}
+    </if>
+    <if test="productsellinfoProductid != null">
+      and productSellInfo_productId = #{productsellinfoProductid,jdbcType=INTEGER}
+    </if>
+    <if test="productsellinfoProductname != null">
+      and productSellInfo_productName = #{productsellinfoProductname,jdbcType=VARCHAR}
+    </if>
+    <if test="productsellinfoProductsku != null">
+      and productSellInfo_productSku = #{productsellinfoProductsku,jdbcType=VARCHAR}
+    </if>
+    <if test="productsellinfoCouponcode != null">
+      and productSellInfo_couponCode = #{productsellinfoCouponcode,jdbcType=VARCHAR}
+    </if>
+    <if test="productsellinfoProductselltime != null">
+      and productSellInfo_productSellTime = #{productsellinfoProductselltime,jdbcType=VARCHAR}
+    </if>
+    <if test="productsellinfoMotifytime != null">
+      and productSellInfo_motifyTime = #{productsellinfoMotifytime,jdbcType=VARCHAR}
+    </if>
+    order by productSellInfo_id desc
+  </select>
+  <!-- selectCrmProductSellInfoByPage -->
+  <select id="selectCrmProductSellInfoByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_productsellinfo order by productSellInfo_id desc
+  </select>
+  
+  
+</mapper>
