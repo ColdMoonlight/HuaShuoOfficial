@@ -18,7 +18,7 @@
 						<label class="col-form-label" style="float: left; margin-left: 1rem;" for="c-dropdown-website">Website</label>
 						<div class="controls col-md-9" style="padding-left: .5rem;">
 							<select class="form-control" id="c-dropdown-website">
-								<option value="megalook">megalook</option>
+								<option value="megalookhairWebsite">megalookhairWebsite</option>
 								<option value="arabella">arabella</option>
 								<option value="ayiyi">ayiyi</option>
 							</select>
@@ -38,6 +38,15 @@
 							<input class="form-control daterangetimepicker" type="text" placeholder="@exmaple 2020-01-01 00:00:00 - 2020-01-01 23:59:59" >
 						</div>
 					</div>
+				</div>
+				<div class="">
+					<div class="form-group row">
+					<button class="btn btn-primary btn-select">查询</button>
+					</div>
+				</div>
+				
+				<div class="c-mask">
+					<div class="spinner-border"></div>
 				</div>
 			</div>
 		</div>
@@ -65,7 +74,81 @@
 			$('#search-start-time').val(startTime);
 			$('#search-end-time').val(endTime);
 		});
+		
+		
+		// create collection
+		$('.btn-select').on('click', function () {
+			console.log("--------------");
+			var reqData = getFormData();
+			console.log(reqData);
+			getSelectDate(reqData);});
 
+		// getFormdData
+		function getFormData() {
+			var data = {};
+			data.webanalyticsBrandname = $('#c-dropdown-website').val();
+			data.webanalyticsCreatetime = $('#search-start-time').val();
+			data.webanalyticsMotifytime = $('#search-end-time').val();
+			return data;
+		}
+		
+		// callback get one data
+		function getSelectDate(reqData) {
+			$.ajax({
+				url: "${APP_PATH}/CrmWebanalytics/GetCrmWebanalyticsInfoByRangeTimeAndBrand",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify(reqData),
+				success: function (data) {
+					if (data.code == 100) {
+						//renderTablezsh(data.extend);
+						callback(data.extend.crmShopRoom);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get SHOP-ROOM data, please refresh the page to get again!');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		
+		// init table-list
+		function renderTablezsh(data) {
+			var crmWebanalyticsBrandList = data.extend.crmWebanalyticsBrandList;
+			console.log(crmWebanalyticsBrandList);
+			console.log("-----------------------------------");
+			var CrmWebanalyticsAllList = data.extend.CrmWebanalyticsAllList
+			console.log(CrmWebanalyticsAllList);
+			console.log("-----------------------------------");
+			var htmlStr = '';
+			for (var i = 0, len = data.length; i < len; i += 1) {
+				htmlStr += '<tr><td>' + data[i].adminId + '</td>' +
+					'<td>' + data[i].adminName + '</td>' +
+					'<td>' + data[i].adminAccount + '</td>' +
+					'<td>' + (data[i].adminDepartmentName ? data[i].adminDepartmentName + ' - ' + data[i].adminDepartmentId : '--') + '</td>' +
+					'<td>' + (data[i].adminDepartmentName ? data[i].adminShopName + ' - ' + data[i].adminShopId : '--') + '</td>' +
+					'<td><a class="badge '+ (data[i].adminStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].adminStatus ? 'enable' : 'disable') + '</a></td>' +
+					'<td>' +
+						'<button class="btn btn-primary btn-edit" data-id="' + data[i].adminId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
+							'</svg>' +
+						'</button>' +
+						'<button class="btn btn-danger btn-delete" data-id="' + data[i].adminId + '">' +
+							'<svg class="c-icon">' +
+								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
+							'</svg>' +
+						'</button>' +
+					'</td></tr>';
+			}
+			$('.c-table-table tbody').html(htmlStr);
+		}
 		</script>
 	</body>
 </html>
