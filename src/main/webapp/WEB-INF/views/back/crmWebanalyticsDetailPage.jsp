@@ -45,8 +45,8 @@
 					</div>
 				</div>
 				
-				<div class="c-mask">
-					<div class="spinner-border"></div>
+				<div class="c-table">
+					<div class="table-detail"></div>
 				</div>
 			</div>
 		</div>
@@ -102,8 +102,7 @@
 				data: JSON.stringify(reqData),
 				success: function (data) {
 					if (data.code == 100) {
-						//renderTablezsh(data.extend);
-						callback(data.extend.crmShopRoom);
+						renderTable(data);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
@@ -119,35 +118,33 @@
 		}
 		
 		// init table-list
-		function renderTablezsh(data) {
-			var crmWebanalyticsBrandList = data.extend.crmWebanalyticsBrandList;
-			console.log(crmWebanalyticsBrandList);
+		function renderTable(data) {
+			var crmWebanalyticsBrandListData = data.extend.crmWebanalyticsBrandList;
+			console.log(crmWebanalyticsBrandListData);
 			console.log("-----------------------------------");
-			var CrmWebanalyticsAllList = data.extend.CrmWebanalyticsAllList
-			console.log(CrmWebanalyticsAllList);
+			var CrmWebanalyticsAllListData = data.extend.CrmWebanalyticsAllList;
+			console.log(CrmWebanalyticsAllListData);
 			console.log("-----------------------------------");
+			var AllMoney=0;
+			var AllNum=0;
 			var htmlStr = '';
-			for (var i = 0, len = data.length; i < len; i += 1) {
-				htmlStr += '<tr><td>' + data[i].adminId + '</td>' +
-					'<td>' + data[i].adminName + '</td>' +
-					'<td>' + data[i].adminAccount + '</td>' +
-					'<td>' + (data[i].adminDepartmentName ? data[i].adminDepartmentName + ' - ' + data[i].adminDepartmentId : '--') + '</td>' +
-					'<td>' + (data[i].adminDepartmentName ? data[i].adminShopName + ' - ' + data[i].adminShopId : '--') + '</td>' +
-					'<td><a class="badge '+ (data[i].adminStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].adminStatus ? 'enable' : 'disable') + '</a></td>' +
-					'<td>' +
-						'<button class="btn btn-primary btn-edit" data-id="' + data[i].adminId + '">' +
-							'<svg class="c-icon">' +
-								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-pencil"></use>' +
-							'</svg>' +
-						'</button>' +
-						'<button class="btn btn-danger btn-delete" data-id="' + data[i].adminId + '">' +
-							'<svg class="c-icon">' +
-								'<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-trash"></use>' +
-							'</svg>' +
-						'</button>' +
-					'</td></tr>';
+			for (var i = 0, len = CrmWebanalyticsAllListData.length; i < len; i += 1) {
+				AllMoney=AllMoney+CrmWebanalyticsAllListData[i].webanalyticsChannelsellmoney;
 			}
-			$('.c-table-table tbody').html(htmlStr);
+			for (var i = 0, len = CrmWebanalyticsAllListData.length; i < len; i += 1) {
+				var baifenbi =CrmWebanalyticsAllListData[i].webanalyticsChannelsellmoney/AllMoney*100;
+				htmlStr += '<tr><td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsBrandname + '&nbsp;&nbsp;</td>' +
+					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelname + '&nbsp;&nbsp;</td>' +
+					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelinvestmoney + '&nbsp;&nbsp;</td>' +
+					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelintousernum + '&nbsp;&nbsp;</td>' +
+					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelintousernewnum + '&nbsp;&nbsp;</td>' +
+					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelflowlnum + '&nbsp;&nbsp;</td>' +
+					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelsellnum + '&nbsp;&nbsp;</td>' +
+					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelsellmoney + '&nbsp;&nbsp;</td>' +
+					'<td>&nbsp;&nbsp;' + baifenbi.toFixed(2) + '%&nbsp;&nbsp;</td>' +
+					'</tr>';
+			}
+			$('.table-detail').html(htmlStr);
 		}
 		</script>
 	</body>

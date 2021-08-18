@@ -234,24 +234,7 @@ public class CrmWebanalyticsController {
 				
 			}
 		}
-//		
-//		CrmWebanalytics[] array = new CrmWebanalytics[CrmWebanalyticsAllList.size()];
-//
-//	    //使用for循环得到数组
-//		Integer num = CrmWebanalyticsAllList.size();
-//		for(int i = 0;i<num-1;i++){
-//			for(int j=0;j<num-i-1;j++){
-//				if(array[j].getWebanalyticsChannelsellnum()< array[j+1].getWebanalyticsChannelsellnum()){
-//					CrmWebanalytics  temp = array[j];
-//					array[j] = array[j+1];
-//					array[j+1] = temp;
-//				}
-//				
-//			}
-//		}
-//		
-		
-		
+
 		//查询全部渠道详情
 		return Msg.success().add("crmWebanalyticsBrandList", crmWebanalyticsBrandList).add("CrmWebanalyticsAllList", CrmWebanalyticsAllList);
 		
