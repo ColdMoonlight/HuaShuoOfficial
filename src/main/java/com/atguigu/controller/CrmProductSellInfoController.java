@@ -126,7 +126,7 @@ public class CrmProductSellInfoController {
 		int PagNum = Const.PAGE_NUM_DEFAULT;
 		PageHelper.startPage(pn, PagNum);
 		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByPage();
-		PageInfo page = new PageInfo(crmProductSellInfoList, PagNum);
+		PageInfo<CrmProductSellInfo> page = new PageInfo<CrmProductSellInfo>(crmProductSellInfoList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
 	
@@ -145,7 +145,7 @@ public class CrmProductSellInfoController {
 		PageHelper.startPage(pn, PagNum);
 		//根据条件查询信息
 		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByParameter(crmProductSellInfoReq);
-		PageInfo page = new PageInfo(crmProductSellInfoList, PagNum);
+		PageInfo<CrmProductSellInfo> page = new PageInfo<CrmProductSellInfo>(crmProductSellInfoList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
 	

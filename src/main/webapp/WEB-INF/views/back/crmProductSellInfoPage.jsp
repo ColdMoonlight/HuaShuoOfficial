@@ -32,6 +32,7 @@
 										<th>id</th>
 										<th>网站</th>
 										<th>单号</th>
+										<th>销售时间</th>
 										<th>产品类别</th>
 										<th>产品id</th>
 										<th>产品名称</th>
@@ -40,7 +41,6 @@
 										<th>产品实价</th>
 										<th>优惠金额</th>
 										<th>优惠券</th>
-										<th>销售时间</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -78,7 +78,7 @@
 										<div class="form-group">
 											<label class="col-form-label" for="productsellinfoProductid">产品id</label>
 											<div class="controls">
-												<input class="form-control" id="productsellinfoProductid" type="text" />
+												<input class="form-control" id="productsellinfoProductid" type="number" min="0" />
 											</div>
 										</div>
 										<div class="form-group">
@@ -96,19 +96,19 @@
 										<div class="form-group">
 											<label class="col-form-label" for="productsellinfoProductmarkprice">产品标价</label>
 											<div class="controls">
-												<input class="form-control" id="productsellinfoProductmarkprice" />
+												<input class="form-control" id="productsellinfoProductmarkprice" type="number" min="0" />
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-form-label" for="productsellinfoProductrealprice">产品实价</label>
 											<div class="controls">
-												<input class="form-control" id="productsellinfoProductrealprice" />
+												<input class="form-control" id="productsellinfoProductrealprice" type="number" min="0" />
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-form-label" for="productsellinfoCouponprice">优惠金额</label>
 											<div class="controls">
-												<input class="form-control" id="productsellinfoCouponprice" />
+												<input class="form-control" id="productsellinfoCouponprice" type="number" min="0" />
 											</div>
 										</div>
 										<div class="form-group">
@@ -186,7 +186,7 @@
 		bindDateRangeEvent(function(startTime, endTime) {
 			$('#search-start-time').val(startTime);
 			$('#search-end-time').val(endTime);
-		});
+		}); 
 		bindDateTimepicker();
 
 		$(document.body).on('click', '#table-pagination li', function (e) { // pagination a-click
@@ -392,7 +392,31 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get Analytics table-list, please refresh the page to get again!');
+					toastr.error('Failed to get ProductSellInfo table-list, please refresh the page to get again!');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+	    //  callback get all
+		function getProductSellInfo(val) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByPage",
+				type: "post",
+				data: "pn=" + getPageNum(),
+				success: function (data) {
+					if (data.code == 100) {
+						renderTable(data.extend.pageInfo.list);
+						renderTablePagination(data.extend.pageInfo);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get ProductSellInfo table-list, please refresh the page to get again!');
 				},
 				complete: function () {
 					$('.c-mask').hide();
@@ -503,6 +527,7 @@
 				}
 			});
 		}
+		
 		// init table-list
 		function renderTable(data) {
 			var htmlStr = '';
@@ -510,6 +535,7 @@
 				htmlStr += '<tr><td>' + data[i].productsellinfoId + '</td>' +
 					'<td>' + data[i].productsellinfoBrandname + '</td>' +
 					'<td>' + data[i].productsellinfoPlatenum + '</td>' +
+					'<td>' + data[i].productsellinfoProductselltime + '</td>' +
 					'<td>' + data[i].productsellinfoProducttype + '</td>' +
 					'<td>' + data[i].productsellinfoProductid + '</td>' +
 					'<td>' + data[i].productsellinfoProductname + '</td>' +
@@ -518,7 +544,6 @@
 					'<td>' + data[i].productsellinfoProductrealprice + '</td>' +
 					'<td>' + data[i].productsellinfoCouponprice + '</td>' +			
 					'<td>' + data[i].productsellinfoCouponcode + '</td>' +
-					'<td>' + data[i].productsellinfoProductselltime + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].productsellinfoId + '">' +
 							'<svg class="c-icon">' +
@@ -533,6 +558,18 @@
 					'</td></tr>';
 			}
 			$('.c-table-table tbody').html(htmlStr);
+		}
+		// get Data for table
+		function getTabSearchData($this) {
+			var dataVal = $this.data('val');
+			if (dataVal && dataVal.ProductSellInfo) {
+				//$('#coupon-name').val(dataVal.coupon || '');
+				//getSearchProductSellInfoData();
+			} else {
+				//$('#coupon-name').val('');
+				initActiveItemNum();
+				getProductSellInfo();
+			}
 		}
 		</script>
 	</body>

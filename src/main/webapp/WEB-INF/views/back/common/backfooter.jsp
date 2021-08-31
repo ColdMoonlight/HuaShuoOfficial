@@ -129,7 +129,13 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 	function isLeapYear(value) {
 		return moment([value]).isLeapYear();
 	}
-	
+	// initial activeItem
+	function initActiveItemNum() {
+		$('.c-table-tab-tempory').html('');
+		$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
+		// setActiveItemNum(0);
+		// setPageNum(1);
+	}
 	/* pageNum */
 	function getPageNum() {
 		return storage.getItem('pageNum') || 1

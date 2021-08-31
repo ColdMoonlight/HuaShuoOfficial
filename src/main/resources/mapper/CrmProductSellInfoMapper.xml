@@ -207,34 +207,35 @@
     select 
     <include refid="Base_Column_List" />
     from tb_crm_productsellinfo
-    where productSellInfo_id > 0
-    <if test="productsellinfoBrandname != null">
-      and productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
-    </if>
-    <if test="productsellinfoPlatenum != null">
-      and productSellInfo_plateNum = #{productsellinfoPlatenum,jdbcType=VARCHAR}
-    </if>
-    <if test="productsellinfoProducttype != null">
-      and productSellInfo_productType = #{productsellinfoProducttype,jdbcType=VARCHAR}
-    </if>
-    <if test="productsellinfoProductid != null">
-      and productSellInfo_productId = #{productsellinfoProductid,jdbcType=INTEGER}
-    </if>
-    <if test="productsellinfoProductname != null">
-      and productSellInfo_productName = #{productsellinfoProductname,jdbcType=VARCHAR}
-    </if>
-    <if test="productsellinfoProductsku != null">
-      and productSellInfo_productSku = #{productsellinfoProductsku,jdbcType=VARCHAR}
-    </if>
-    <if test="productsellinfoCouponcode != null">
-      and productSellInfo_couponCode = #{productsellinfoCouponcode,jdbcType=VARCHAR}
-    </if>
-    <if test="productsellinfoProductselltime != null">
-      and productSellInfo_productSellTime = #{productsellinfoProductselltime,jdbcType=VARCHAR}
-    </if>
-    <if test="productsellinfoMotifytime != null">
-      and productSellInfo_motifyTime = #{productsellinfoMotifytime,jdbcType=VARCHAR}
-    </if>
+    <where>
+	    <if test="productsellinfoBrandname != null">
+	      productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
+	    </if>
+	    <if test="productsellinfoPlatenum != null">
+	      and productSellInfo_plateNum = #{productsellinfoPlatenum,jdbcType=VARCHAR}
+	    </if>
+	    <if test="productsellinfoProducttype != null">
+	      and productSellInfo_productType = #{productsellinfoProducttype,jdbcType=VARCHAR}
+	    </if>
+	    <if test="productsellinfoProductid != null">
+	      and productSellInfo_productId = #{productsellinfoProductid,jdbcType=INTEGER}
+	    </if>
+	    <if test="productsellinfoProductname != null">
+	      and productSellInfo_productName = #{productsellinfoProductname,jdbcType=VARCHAR}
+	    </if>
+	    <if test="productsellinfoProductsku != null">
+	      and productSellInfo_productSku = #{productsellinfoProductsku,jdbcType=VARCHAR}
+	    </if>
+	    <if test="productsellinfoCouponcode != null">
+	      and productSellInfo_couponCode = #{productsellinfoCouponcode,jdbcType=VARCHAR}
+	    </if>
+	    <if test="productsellinfoProductselltime != null">
+	      and productSellInfo_productSellTime = #{productsellinfoProductselltime,jdbcType=VARCHAR}
+	    </if>
+	    <if test="productsellinfoMotifytime != null">
+	      and productSellInfo_motifyTime = #{productsellinfoMotifytime,jdbcType=VARCHAR}
+	    </if>
+    </where>
     order by productSellInfo_id desc
   </select>
   <!-- selectCrmProductSellInfoByPage -->

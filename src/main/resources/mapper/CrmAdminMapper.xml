@@ -6,9 +6,9 @@
     <result column="admin_account" jdbcType="VARCHAR" property="adminAccount" />
     <result column="admin_password" jdbcType="VARCHAR" property="adminPassword" />
     <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
-    <result column="admin_department_id" jdbcType="INTEGER" property="adminDepartmentId" />
+    <result column="admin_department_idStr" jdbcType="VARCHAR" property="adminDepartmentIdStr" />
     <result column="admin_department_name" jdbcType="VARCHAR" property="adminDepartmentName" />
-    <result column="admin_shop_id" jdbcType="INTEGER" property="adminShopId" />
+    <result column="admin_shop_idStr" jdbcType="VARCHAR" property="adminShopIdStr" />
     <result column="admin_shop_name" jdbcType="VARCHAR" property="adminShopName" />
     <result column="admin_status" jdbcType="INTEGER" property="adminStatus" />
     <result column="admin_menu_idStr" jdbcType="VARCHAR" property="adminMenuIdstr" />
@@ -18,20 +18,20 @@
     <result column="admin_motifyTime" jdbcType="VARCHAR" property="adminMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    admin_id, admin_account, admin_password, admin_name, admin_department_id, admin_department_name, 
-    admin_shop_id, admin_shop_name, admin_status, admin_menu_idStr, admin_menu_nameStr, 
+    admin_id, admin_account, admin_password, admin_name, admin_department_idStr, admin_department_name, 
+    admin_shop_idStr, admin_shop_name, admin_status, admin_menu_idStr, admin_menu_nameStr, 
     admin_menu_urlStr, admin_createTime, admin_motifyTime
   </sql>
   
   <insert id="insert" parameterType="com.atguigu.bean.CrmAdmin">
     insert into tb_crm_admin (admin_id, admin_account, admin_password, 
-      admin_name, admin_department_id, admin_department_name, 
-      admin_shop_id, admin_shop_name, admin_status, 
+      admin_name, admin_department_idStr, admin_department_name, 
+      admin_shop_idStr, admin_shop_name, admin_status, 
       admin_menu_idStr, admin_menu_nameStr, admin_menu_urlStr, 
       admin_createTime, admin_motifyTime)
     values (#{adminId,jdbcType=INTEGER}, #{adminAccount,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
-      #{adminName,jdbcType=VARCHAR}, #{adminDepartmentId,jdbcType=INTEGER}, #{adminDepartmentName,jdbcType=VARCHAR}, 
-      #{adminShopId,jdbcType=INTEGER}, #{adminShopName,jdbcType=VARCHAR}, #{adminStatus,jdbcType=INTEGER}, 
+      #{adminName,jdbcType=VARCHAR}, #{adminDepartmentIdStr,jdbcType=VARCHAR}, #{adminDepartmentName,jdbcType=VARCHAR}, 
+      #{adminShopIdStr,jdbcType=VARCHAR}, #{adminShopName,jdbcType=VARCHAR}, #{adminStatus,jdbcType=INTEGER}, 
       #{adminMenuIdstr,jdbcType=VARCHAR}, #{adminMenuNamestr,jdbcType=VARCHAR}, #{adminMenuUrlstr,jdbcType=VARCHAR}, 
       #{adminCreatetime,jdbcType=VARCHAR}, #{adminMotifytime,jdbcType=VARCHAR})
   </insert>
@@ -40,9 +40,9 @@
     set admin_account = #{adminAccount,jdbcType=VARCHAR},
       admin_password = #{adminPassword,jdbcType=VARCHAR},
       admin_name = #{adminName,jdbcType=VARCHAR},
-      admin_department_id = #{adminDepartmentId,jdbcType=INTEGER},
+      admin_department_idStr = #{adminDepartmentIdStr,jdbcType=VARCHAR},
       admin_department_name = #{adminDepartmentName,jdbcType=VARCHAR},
-      admin_shop_id = #{adminShopId,jdbcType=INTEGER},
+      admin_shop_idStr = #{adminShopIdStr,jdbcType=VARCHAR},
       admin_shop_name = #{adminShopName,jdbcType=VARCHAR},
       admin_status = #{adminStatus,jdbcType=INTEGER},
       admin_menu_idStr = #{adminMenuIdstr,jdbcType=VARCHAR},
@@ -69,14 +69,14 @@
       <if test="adminName != null">
         admin_name,
       </if>
-      <if test="adminDepartmentId != null">
-        admin_department_id,
+      <if test="adminDepartmentIdStr != null">
+        admin_department_idStr,
       </if>
       <if test="adminDepartmentName != null">
         admin_department_name,
       </if>
-      <if test="adminShopId != null">
-        admin_shop_id,
+      <if test="adminShopIdStr != null">
+        admin_shop_idStr,
       </if>
       <if test="adminShopName != null">
         admin_shop_name,
@@ -113,14 +113,14 @@
       <if test="adminName != null">
         #{adminName,jdbcType=VARCHAR},
       </if>
-      <if test="adminDepartmentId != null">
-        #{adminDepartmentId,jdbcType=INTEGER},
+      <if test="adminDepartmentIdStr != null">
+        #{adminDepartmentIdStr,jdbcType=VARCHAR},
       </if>
       <if test="adminDepartmentName != null">
         #{adminDepartmentName,jdbcType=VARCHAR},
       </if>
-      <if test="adminShopId != null">
-        #{adminShopId,jdbcType=INTEGER},
+      <if test="adminShopIdStr != null">
+        #{adminShopIdStr,jdbcType=VARCHAR},
       </if>
       <if test="adminShopName != null">
         #{adminShopName,jdbcType=VARCHAR},
@@ -163,14 +163,14 @@
       <if test="adminName != null">
         admin_name = #{adminName,jdbcType=VARCHAR},
       </if>
-      <if test="adminDepartmentId != null">
-        admin_department_id = #{adminDepartmentId,jdbcType=INTEGER},
+      <if test="adminDepartmentIdStr != null">
+        admin_department_idStr = #{adminDepartmentIdStr,jdbcType=VARCHAR},
       </if>
       <if test="adminDepartmentName != null">
         admin_department_name = #{adminDepartmentName,jdbcType=VARCHAR},
       </if>
-      <if test="adminShopId != null">
-        admin_shop_id = #{adminShopId,jdbcType=INTEGER},
+      <if test="adminShopIdStr != null">
+        admin_shop_idStr = #{adminShopIdStr,jdbcType=VARCHAR},
       </if>
       <if test="adminShopName != null">
         admin_shop_name = #{adminShopName,jdbcType=VARCHAR},
@@ -208,14 +208,14 @@
   <select id="selectAdminInfoAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_crm_admin order by admin_department_id,admin_shop_id,admin_id desc
+    from tb_crm_admin order by admin_department_idStr,admin_shop_idStr,admin_id desc
   </select>
   
   <!-- 查询全部selectAdminInfoAll -->
   <select id="selectCrmAdminByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_crm_admin order by admin_department_id,admin_shop_id,admin_id desc
+    from tb_crm_admin order by admin_status desc, admin_department_idStr,admin_shop_idStr,admin_id desc
   </select>
   
   <!-- 多条件查询selectCrmAdminByParameter -->
@@ -227,6 +227,9 @@
     <if test="adminPassword != null">
         and admin_password = #{adminPassword,jdbcType=VARCHAR}
     </if>
+    <if test="adminStatus != null">
+        and admin_status = #{adminStatus,jdbcType=INTEGER}
+      </if>
   </select>
   
 </mapper>

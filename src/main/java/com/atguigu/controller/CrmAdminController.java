@@ -185,6 +185,7 @@ public class CrmAdminController {
 			@RequestBody CrmAdmin crmAdminReg){
 		//接收参数信息 
 		CrmAdmin crmAdminGet = new CrmAdmin();
+		crmAdminGet.setAdminStatus(1);//有效
 		crmAdminGet.setAdminAccount(crmAdminReg.getAdminAccount());
 		List<CrmAdmin> CrmAdminGetresList = crmAdminService.selectCrmAdminByParameter(crmAdminGet);
 		if(!(CrmAdminGetresList.size()>0)){
