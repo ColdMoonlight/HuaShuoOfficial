@@ -27,7 +27,6 @@
 										<th>昵称</th>
 										<th>账号</th>
 										<th>部门</th>
-										<th>店铺</th>
 										<th>状态</th>
 										<th>操作</th>
 									</tr>
@@ -51,7 +50,7 @@
 						<div class="row">
 							<input id="adminId" hidden>
 							<!-- left panel  -->
-							<div class="left-panel col-lg-7 col-md-12">
+							<div class="left-panel col-lg-8 col-md-12">
 								<div class="card">
 									<div class="card-title">
 										<div class="card-title-name">通用</div>
@@ -72,12 +71,59 @@
 												</label>
 											</div>
 										</div>
+										<div class="form-group">
+											<label class="col-form-label" for="adminDepartmentId">所属部门</label>
+											<div class="controls">
+												<select class="form-control department-list" id="adminDepartmentId" type="text"></select>
+											</div>
+										</div>
 									</div>
 								</div>
-								
+
+								<div class="card">
+									<div class="card-title">
+										<div class="card-title-name">可管理部门  & 可管理店铺  & 菜单权限</div>
+									</div>
+									<div class="card-body">
+										<div class="card-box">
+											<h3>可管理部门</h3>
+											<input hidden name="adminDepartmentIdStr" id="adminDepartmentIdStr" />
+											<input hidden name="adminDepartmentNameStr" id="adminDepartmentNameStr" />
+											<style>
+												.department-checkbox, .shoproom-checkbox { display: flex; flex-wrap: wrap; }
+												.department-checkbox .form-check, .shoproom-checkbox .form-check { margin-left: .5rem; }
+											</style>
+											<div class="department-checkbox"></div>											
+										</div>
+										<div class="card-box">
+											<h3>可管理店铺</h3>
+											<input hidden name="adminShopIdStr" id="adminShopIdStr" />
+											<input hidden name="adminShopNameStr" id="adminShopNameStr" />
+											<div class="shoproom-checkbox"></div>
+										</div>
+										<div class="card-box">
+											<h3>菜单权限</h3>
+											<input hidden name="adminMenuIdstr" id="adminMenuIdstr" />
+											<input hidden name="adminMenuNamestr" id="adminMenuNamestr" />
+											<input hidden name="adminMenuUrlstr" id="adminMenuUrlstr" />
+											<div class="menu-checkbox table-responsive-sm">
+												<table class="table">
+													<thead>
+														<tr>
+															<th>操作</th>
+															<th>父级</th>
+															<th>菜单名</th>
+														</tr>
+													</thead>
+													<tbody></tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 							<!-- right panel  -->
-							<div class="right-panel col-lg-5 col-md-12">								
+							<div class="right-panel col-lg-4 col-md-12">								
 								<div class="card">
 									<div class="card-title">
 										<div class="card-title-name">账号 & 密码</div>
@@ -98,51 +144,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-12 col-md-12">
-								<div class="card">
-									<div class="card-title">
-										<div class="card-title-name">所属部门  & 分管店铺  & 菜单权限</div>
-									</div>
-									<div class="card-body">
-										<ul class="nav nav-tabs" role="tablist">
-											<li role="presentation" class="nav-item active">
-										  		<div class="nav-link" role="tab" data-toggle="tab" data-target="#department">部门</div>
-										  	</li>
-										  	<li role="presentation" class="nav-item">
-										  		<div class="nav-link" role="tab" data-toggle="tab" data-target="#shoproom">店铺</div>
-										  	</li>
-										  	<li role="presentation" class="nav-item">
-										  		<div class="nav-link" role="tab" data-toggle="tab" data-target="#menurole">菜单权限</div>
-										  	</li>
-										</ul>
-										<div class="tab-content">
-											<div class="tab-pane active" id="department" role="tabpanel">
-												<div class="department-radio-box"></div>
-											</div>
-											<div class="tab-pane fade" id="shoproom" role="tabpanel">
-												<div class="shoproom-radio-box"></div>
-											</div>
-											<div class="tab-pane fade" id="menurole" role="tabpanel">
-												<input hidden name="adminMenuIdstr" id="adminMenuIdstr" />
-												<input hidden name="adminMenuNamestr" id="adminMenuNamestr" />
-												<input hidden name="adminMenuUrlstr" id="adminMenuUrlstr" />
-												<div class="menu-checkbox table-responsive-sm">
-													<table class="table">
-														<thead>
-															<tr>
-																<th>操作</th>
-																<th>父级</th>
-																<th>菜单名</th>
-															</tr>
-														</thead>
-														<tbody></tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -238,26 +240,68 @@
 		$('.menu-checkbox').on('change', '.menu-checkbox-input', function() {
 			var $this = $(this);
 
-			var menuIdArr = $('#adminMenuIdstr').val() ? $('#adminMenuIdstr').val().split(',') : [];
-			var menuNameArr = $('#adminMenuNamestr').val() ? $('#adminMenuNamestr').val().split(',') : [];
-			var menuUrlArr = $('#adminMenuUrlstr').val() ? $('#adminMenuUrlstr').val().split(',') : [];
+			var idArr = $('#adminMenuIdstr').val() ? $('#adminMenuIdstr').val().split(',') : [];
+			var nameArr = $('#adminMenuNamestr').val() ? $('#adminMenuNamestr').val().split(',') : [];
+			var urlArr = $('#adminMenuUrlstr').val() ? $('#adminMenuUrlstr').val().split(',') : [];
 			var curId = $this.data('id');
-			var curIdx = menuIdArr.indexOf(''+curId);
+			var curIdx = idArr.indexOf(''+curId);
 
 			if ($this.prop('checked') && curIdx < 0) {
-				menuIdArr.push(curId);
-				menuNameArr.push($this.data('name'));
-				menuUrlArr.push($this.data('url'));
+				idArr.push(curId);
+				nameArr.push($this.data('name'));
+				urlArr.push($this.data('url'));
 			}
 
 			if (!$this.prop('checked') && curIdx > -1) {
-				menuIdArr.splice(curIdx, 1);
-				menuNameArr.splice(curIdx, 1);
-				menuUrlArr.splice(curIdx, 1);
+				idArr.splice(curIdx, 1);
+				nameArr.splice(curIdx, 1);
+				urlArr.splice(curIdx, 1);
 			}
-			$('#adminMenuIdstr').val(menuIdArr.join(','));
-			$('#adminMenuNamestr').val(menuNameArr.join(','));
-			$('#adminMenuUrlstr').val(menuUrlArr.join(','));
+			$('#adminMenuIdstr').val(idArr.join(','));
+			$('#adminMenuNamestr').val(nameArr.join(','));
+			$('#adminMenuUrlstr').val(urlArr.join(','));
+		});
+		// department checkbox
+		$('.department-checkbox').on('change', '.department-checkbox-input', function() {
+			var $this = $(this);
+
+			var idArr = $('#adminDepartmentIdStr').val() ? $('#adminDepartmentIdStr').val().split(',') : [];
+			var nameArr = $('#adminDepartmentNameStr').val() ? $('#adminDepartmentNameStr').val().split(',') : [];
+			var curId = $this.data('id');
+			var curIdx = idArr.indexOf(''+curId);
+
+			if ($this.prop('checked') && curIdx < 0) {
+				idArr.push(curId);
+				nameArr.push($this.data('name'));
+			}
+
+			if (!$this.prop('checked') && curIdx > -1) {
+				idArr.splice(curIdx, 1);
+				nameArr.splice(curIdx, 1);
+			}
+			$('#adminDepartmentIdStr').val(idArr.join(','));
+			$('#adminDepartmentNameStr').val(nameArr.join(','));
+		});
+		// shoproom checkbox
+		$('.department-checkbox').on('change', '.department-checkbox-input', function() {
+			var $this = $(this);
+
+			var idArr = $('#adminShopIdStr').val() ? $('#adminShopIdStr').val().split(',') : [];
+			var nameArr = $('#adminShopNameStr').val() ? $('#adminShopNameStr').val().split(',') : [];
+			var curId = $this.data('id');
+			var curIdx = idArr.indexOf(''+curId);
+
+			if ($this.prop('checked') && curIdx < 0) {
+				idArr.push(curId);
+				nameArr.push($this.data('name'));
+			}
+
+			if (!$this.prop('checked') && curIdx > -1) {
+				idArr.splice(curIdx, 1);
+				nameArr.splice(curIdx, 1);
+			}
+			$('#adminShopIdStr').val(idArr.join(','));
+			$('#adminShopNameStr').val(nameArr.join(','));
 		});
 		function showCreateBlock() {
 			$('.c-init').addClass('hide');
@@ -275,13 +319,20 @@
 			$('#adminStatus').prop('checked', false);
 			$('#adminAccount').val('');
 			$('#adminPassword').val('');
-			$('input[name=department]').prop('checked', false);
-			$('input[name=shoproom]').prop('checked', false);
-			$('.nav-link').eq(0).click();
+			$('#adminDepartmentId').val('-1');
+
 			$('.menu-checkbox-input').prop('checked', false);
 			$('#adminMenuIdstr').val('');
 			$('#adminMenuNamestr').val('');
 			$('#adminMenuUrlstr').val('');
+
+			$('.department-checkbox-input').prop('checked', false);
+			$('#adminDepartmentIdStr').val('');
+			$('#adminDepartmentNameStr').val('');
+
+			$('.shoproom-checkbox-input').prop('checked', false);
+			$('#adminShopIdStr').val('');
+			$('#adminShopNameStr').val('');
 		}
 		// getFormdData
 		function getFormData() {
@@ -292,13 +343,14 @@
 			data.adminAccount = $('#adminAccount').val();
 			data.adminPassword = $('#adminPassword').val();
 
-			var department_kv =  $("input[name=department]:checked").val() && $("input[name=department]:checked").val().split('-') || [];
-			data.adminDepartmentId =  parseInt(department_kv[0]);
-			data.adminDepartmentName = department_kv[1];
+			data.adminDepartmentId = $('#adminDepartmentId').val();
+			data.adminDepartmentName = $('#adminDepartmentId').find("option:selected").data('name');
 
-			var shoproom_kv = $("input[name=shoproom]:checked").val() && $("input[name=shoproom]:checked").val().split('-') || [];
-			data.adminShopId =  parseInt(shoproom_kv[0]);
-			data.adminShopName = shoproom_kv[1];
+			data.adminDepartmentIdStr = $('#adminDepartmentIdStr').val();
+			data.adminDepartmentNameStr = $('#adminDepartmentNameStr').val();
+
+			data.adminShopIdStr = $('#adminShopIdStr').val();
+			data.adminShopNameStr = $('#adminShopNameStr').val();
 			
 			data.adminMenuIdstr = $('#adminMenuIdstr').val();
 			data.adminMenuNamestr = $('#adminMenuNamestr').val();
@@ -309,7 +361,13 @@
 		// initFormData
 		function initFormData(data) {
 			function initMenuCheckbox(idArr) {
-				idArr.forEach(function(item) { $('.menu-checkbox-input[data-id='+ item +']').prop('checked', true); });
+				idArr.forEach(function(item) { item+'' && $('.menu-checkbox-input[data-id='+ item +']').length > 0 && $('.menu-checkbox-input[data-id='+ item +']').prop('checked', true); });
+			}
+			function initDepartmentCheckbox(idArr) {
+				idArr.forEach(function(item) { item+'' && $('.department-checkbox-input[data-id='+ item +']').length > 0 && $('.department-checkbox-input[data-id='+ item +']').prop('checked', true); });
+			}
+			function initShoproomCheckbox(idArr) {
+				idArr.forEach(function(item) { item+'' && $('.shoproom-checkbox-input[data-id='+ item +']').length > 0 && $('.shoproom-checkbox-input[data-id='+ item +']').prop('checked', true); });
 			}
 			// init
 			$('#adminId').val(data.adminId);
@@ -318,14 +376,20 @@
 			$('#adminAccount').val(data.adminAccount);
 			$('#adminPassword').val(data.adminPassword);
 
-			$('#department' + data.adminDepartmentId).prop('checked', true);
-			$('#shoproom' + data.adminShopId).prop('checked', true);
+			$('#adminDepartmentId').val(data.adminDepartmentId);
 
 			$('#adminMenuIdstr').val(data.adminMenuIdstr);
 			$('#adminMenuNamestr').val(data.adminMenuNamestr);
 			$('#adminMenuUrlstr').val(data.adminMenuUrlstr);
-			
 			initMenuCheckbox(data.adminMenuIdstr ? data.adminMenuIdstr.split(',') : []);
+
+			$('#adminDepartmentIdStr').val(data.adminDepartmentIdStr);
+			$('#adminDepartmentNameStr').val(data.adminDepartmentNameStr);
+			initDepartmentCheckbox(data.adminDepartmentIdStr ? data.adminDepartmentIdStr.split(',') : []);
+
+			$('#adminShopIdStr').val(data.adminShopIdStr);
+			$('#adminShopNameStr').val(data.adminShopNameStr);
+			initShoproomCheckbox(data.adminShopIdStr ? data.adminShopIdStr.split(',') : []);
 		}
 		// callback get all data
 		function getAllBlockData() {
@@ -508,7 +572,6 @@
 					'<td>' + data[i].adminName + '</td>' +
 					'<td>' + data[i].adminAccount + '</td>' +
 					'<td>' + (data[i].adminDepartmentName ? data[i].adminDepartmentName + ' - ' + data[i].adminDepartmentId : '--') + '</td>' +
-					'<td>' + (data[i].adminDepartmentName ? data[i].adminShopName + ' - ' + data[i].adminShopId : '--') + '</td>' +
 					'<td><a class="badge '+ (data[i].adminStatus ? 'badge-success': 'badge-danger') +'" href="javascript:;">' + (data[i].adminStatus ? 'enable' : 'disable') + '</a></td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].adminId + '">' +
@@ -528,24 +591,27 @@
 		// render department list
 		function renderDepartmentList(data) {
 			var htmlStr = '';
+			var optionStr = '<option value="-1">请选择所属部门</option>';
 			for (var i = 0; i < data.length; i += 1) {
 				htmlStr += '<div class="form-check">' +
-				  '<input class="form-check-input" id="department'+ data[i].departmentId +'" type="radio" name="department" value="' + data[i].departmentId + '-' + data[i].departmentName + '">' +
+				  '<input class="form-check-input department-checkbox-input" id="department'+ data[i].departmentId +'" type="checkbox" name="department" data-id="' + data[i].departmentId + '" data-name="'+ data[i].departmentName +'">' +
 				  '<label class="form-check-label" for="department'+ data[i].departmentId +'">' + data[i].departmentName + '</label>' +
 				'</div>';
+				optionStr += '<option value="'+ data[i].departmentId +'" data-name="' + data[i].departmentName + '">' + data[i].departmentName + '</option>';
 			}
-			$('.department-radio-box').html(htmlStr);
+			$('.department-checkbox').html(htmlStr);
+			$('.department-list').html(optionStr);
 		}
 		// render shoproom list
 		function renderShoproomList(data) {
 			var htmlStr = '';
 			for (var i = 0; i < data.length; i += 1) {
 				htmlStr += '<div class="form-check">' +
-				  '<input class="form-check-input" id="shoproom'+ data[i].shoproomId +'" type="radio" name="shoproom" value="' + data[i].shoproomId + '-' + data[i].shoproomName + '">' +
+				  '<input class="form-check-input shoproom-checkbox-input" id="shoproom'+ data[i].shoproomId +'" type="checkbox" name="shoproom" data-id="' + data[i].shoproomId + '" data-name="'+ data[i].shoproomName +'">' +
 				  '<label class="form-check-label" for="shoproom'+ data[i].shoproomId +'">' + data[i].shoproomName + '</label>' +
 				'</div>';
 			}
-			$('.shoproom-radio-box').html(htmlStr);
+			$('.shoproom-checkbox').html(htmlStr);
 		}
 		// render menu-role tables
 		</script>
