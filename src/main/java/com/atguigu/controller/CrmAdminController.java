@@ -72,6 +72,14 @@ public class CrmAdminController {
 	public Msg insertSelective(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
 			@RequestBody CrmAdmin crmAdminReg){
 		//接收参数信息 
+		
+		//先查询账号是否重复
+		CrmAdmin crmAdminRepeate = new CrmAdmin();
+		crmAdminRepeate.setAdminAccount(crmAdminReg.getAdminAccount());
+		List<CrmAdmin> crmAdminList = crmAdminService.selectCrmAdminByParameter(crmAdminRepeate);
+		if(crmAdminList.size() >0){
+			return Msg.fail().add("resMsg", "账号重复");
+		}
 		String nowTime = DateUtil.strTime14s();
 		crmAdminReg.setAdminCreatetime(nowTime);
 		crmAdminReg.setAdminMotifytime(nowTime);
@@ -185,11 +193,15 @@ public class CrmAdminController {
 			@RequestBody CrmAdmin crmAdminReg){
 		//接收参数信息 
 		CrmAdmin crmAdminGet = new CrmAdmin();
-		crmAdminGet.setAdminStatus(1);//有效
+		//crmAdminGet.setAdminStatus(1);//有效
 		crmAdminGet.setAdminAccount(crmAdminReg.getAdminAccount());
 		List<CrmAdmin> CrmAdminGetresList = crmAdminService.selectCrmAdminByParameter(crmAdminGet);
 		if(!(CrmAdminGetresList.size()>0)){
 			return Msg.fail().add("resMsg", "账号不存在");
+		}else{
+			if(CrmAdminGetresList.get(0).getAdminStatus()!=1){
+				return Msg.fail().add("resMsg", "账号无效");
+			}
 		}
 		crmAdminGet.setAdminPassword(crmAdminReg.getAdminPassword());
 		List<CrmAdmin> crmAdminListNameAndPwd = crmAdminService.selectCrmAdminByParameter(crmAdminGet);

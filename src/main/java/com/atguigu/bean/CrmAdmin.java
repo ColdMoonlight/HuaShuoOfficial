@@ -8,14 +8,18 @@ public class CrmAdmin {
     private String adminPassword;
 
     private String adminName;
-
-    private String adminDepartmentIdStr;
+    
+    private Integer adminDepartmentId;
 
     private String adminDepartmentName;
 
+    private String adminDepartmentIdStr;
+
+    private String adminDepartmentNameStr;
+
     private String adminShopIdStr;
 
-    private String adminShopName;
+    private String adminShopNameStr;
 
     private Integer adminStatus;
 
@@ -61,7 +65,23 @@ public class CrmAdmin {
         this.adminName = adminName == null ? null : adminName.trim();
     }
 
-    public String getAdminDepartmentIdStr() {
+    public Integer getAdminDepartmentId() {
+		return adminDepartmentId;
+	}
+
+	public void setAdminDepartmentId(Integer adminDepartmentId) {
+		this.adminDepartmentId = adminDepartmentId;
+	}
+
+	public String getAdminDepartmentName() {
+		return adminDepartmentName;
+	}
+
+	public void setAdminDepartmentName(String adminDepartmentName) {
+		this.adminDepartmentName = adminDepartmentName;
+	}
+
+	public String getAdminDepartmentIdStr() {
         return adminDepartmentIdStr;
     }
 
@@ -69,12 +89,12 @@ public class CrmAdmin {
         this.adminDepartmentIdStr = adminDepartmentIdStr;
     }
 
-    public String getAdminDepartmentName() {
-        return adminDepartmentName;
+    public String getAdminDepartmentNameStr() {
+        return adminDepartmentNameStr;
     }
 
-    public void setAdminDepartmentName(String adminDepartmentName) {
-        this.adminDepartmentName = adminDepartmentName == null ? null : adminDepartmentName.trim();
+    public void setAdminDepartmentNameStr(String adminDepartmentNameStr) {
+        this.adminDepartmentNameStr = adminDepartmentNameStr == null ? null : adminDepartmentNameStr.trim();
     }
 
     public String getAdminShopIdStr() {
@@ -85,12 +105,12 @@ public class CrmAdmin {
         this.adminShopIdStr = adminShopIdStr;
     }
 
-    public String getAdminShopName() {
-        return adminShopName;
+    public String getAdminShopNameStr() {
+        return adminShopNameStr;
     }
 
-    public void setAdminShopName(String adminShopName) {
-        this.adminShopName = adminShopName == null ? null : adminShopName.trim();
+    public void setAdminShopNameStr(String adminShopNameStr) {
+        this.adminShopNameStr = adminShopNameStr == null ? null : adminShopNameStr.trim();
     }
 
     public Integer getAdminStatus() {
@@ -146,18 +166,21 @@ public class CrmAdmin {
 	}
 
 	public CrmAdmin(Integer adminId, String adminAccount, String adminPassword, String adminName,
-			String adminDepartmentIdStr, String adminDepartmentName, String adminShopIdStr, String adminShopName,
-			Integer adminStatus, String adminMenuIdstr, String adminMenuNamestr, String adminMenuUrlstr,
-			String adminCreatetime, String adminMotifytime) {
+			Integer adminDepartmentId, String adminDepartmentName, String adminDepartmentIdStr,
+			String adminDepartmentNameStr, String adminShopIdStr, String adminShopNameStr, Integer adminStatus,
+			String adminMenuIdstr, String adminMenuNamestr, String adminMenuUrlstr, String adminCreatetime,
+			String adminMotifytime) {
 		super();
 		this.adminId = adminId;
 		this.adminAccount = adminAccount;
 		this.adminPassword = adminPassword;
 		this.adminName = adminName;
-		this.adminDepartmentIdStr = adminDepartmentIdStr;
+		this.adminDepartmentId = adminDepartmentId;
 		this.adminDepartmentName = adminDepartmentName;
+		this.adminDepartmentIdStr = adminDepartmentIdStr;
+		this.adminDepartmentNameStr = adminDepartmentNameStr;
 		this.adminShopIdStr = adminShopIdStr;
-		this.adminShopName = adminShopName;
+		this.adminShopNameStr = adminShopNameStr;
 		this.adminStatus = adminStatus;
 		this.adminMenuIdstr = adminMenuIdstr;
 		this.adminMenuNamestr = adminMenuNamestr;
@@ -169,11 +192,13 @@ public class CrmAdmin {
 	@Override
 	public String toString() {
 		return "CrmAdmin [adminId=" + adminId + ", adminAccount=" + adminAccount + ", adminPassword=" + adminPassword
-				+ ", adminName=" + adminName + ", adminDepartmentIdStr=" + adminDepartmentIdStr + ", adminDepartmentName="
-				+ adminDepartmentName + ", adminShopIdStr=" + adminShopIdStr + ", adminShopName=" + adminShopName
-				+ ", adminStatus=" + adminStatus + ", adminMenuIdstr=" + adminMenuIdstr + ", adminMenuNamestr="
-				+ adminMenuNamestr + ", adminMenuUrlstr=" + adminMenuUrlstr + ", adminCreatetime=" + adminCreatetime
-				+ ", adminMotifytime=" + adminMotifytime + "]";
+				+ ", adminName=" + adminName + ", adminDepartmentId=" + adminDepartmentId + ", adminDepartmentName="
+				+ adminDepartmentName + ", adminDepartmentIdStr=" + adminDepartmentIdStr + ", adminDepartmentNameStr="
+				+ adminDepartmentNameStr + ", adminShopIdStr=" + adminShopIdStr + ", adminShopNameStr="
+				+ adminShopNameStr + ", adminStatus=" + adminStatus + ", adminMenuIdstr=" + adminMenuIdstr
+				+ ", adminMenuNamestr=" + adminMenuNamestr + ", adminMenuUrlstr=" + adminMenuUrlstr
+				+ ", adminCreatetime=" + adminCreatetime + ", adminMotifytime=" + adminMotifytime + "]";
 	}
-    
+
+	
 }
