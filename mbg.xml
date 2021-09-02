@@ -49,5 +49,7 @@
 		<table tableName="tb_crm_shopRoom" domainObjectName="CrmShopRoom" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_crm_productsellinfo" domainObjectName="CrmProductSellInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
+		
+		<table tableName="tb_market_sensationInfo" domainObjectName="MarketSensationInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 	</context>
 </generatorConfiguration>
