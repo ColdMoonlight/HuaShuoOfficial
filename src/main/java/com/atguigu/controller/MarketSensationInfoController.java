@@ -118,7 +118,7 @@ public class MarketSensationInfoController {
 	}
 	
 	/**2.0	20210902
-	 * 后台MarketSensationInfo列表分页list数据
+	 * 后台MarketSensationInfo列表分页list数据 
 	 * @param pn
 	 * @return
 	 */
