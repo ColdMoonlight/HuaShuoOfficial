@@ -228,7 +228,7 @@
     from tb_market_sensationinfo order by sensationInfo_salesNum desc, sensationInfo_outputPrice desc, sensationInfo_id desc
   </select>
   
-  <!-- 多条件查询selectMarketSensationInfoByParameter  -->
+  <!-- 多条件查询selectMarketSensationInfoByParameter -->
   <select id="selectMarketSensationInfoByParameter" parameterType="com.atguigu.bean.MarketSensationInfo" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
