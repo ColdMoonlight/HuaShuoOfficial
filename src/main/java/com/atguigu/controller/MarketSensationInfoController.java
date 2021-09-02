@@ -103,7 +103,7 @@ public class MarketSensationInfoController {
 	/**
 	 * 2.0
 	 * @author 20210902
-	 * @param MarketSensationInfo
+	 * @param MarketSensationInfo 
 	 * @exception 查看单个渠道
 	 * */
 	@RequestMapping(value="/GetOneMarketSensationInfoDetailById",method=RequestMethod.POST)
