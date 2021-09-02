@@ -221,7 +221,7 @@
     from tb_market_sensationinfo order by sensationInfo_salesNum desc, sensationInfo_outputPrice desc, sensationInfo_id desc
   </select>
   
-  <!-- 分页查询selectMarketSensationInfoByPage  -->
+  <!-- 分页查询selectMarketSensationInfoByPage -->
   <select id="selectMarketSensationInfoByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
