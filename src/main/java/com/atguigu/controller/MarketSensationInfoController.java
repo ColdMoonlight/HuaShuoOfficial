@@ -1,5 +1,7 @@
 package com.atguigu.controller;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -124,11 +126,26 @@ public class MarketSensationInfoController {
 	 */
 	@RequestMapping(value="/GetMarketSensationInfoByPage")
 	@ResponseBody
-	public Msg getMarketSensationInfoByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+	public Msg getMarketSensationInfoByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "sortType", defaultValue = "desc") String sortType,
+			@RequestParam(value = "sortColumn", defaultValue = "sensationinfoId") String sortColumn,
+			HttpSession session) {
 
 		int PagNum = Const.PAGE_NUM_DEFAULT;
 		PageHelper.startPage(pn, PagNum);
 		List<MarketSensationInfo> marketSensationInfoList = marketSensationInfoService.selectMarketSensationInfoByPage();
+		
+		//先按销售单数降序排序，再按id降序排序 这种方法不能排除空段
+		//marketSensationInfoList.sort(Comparator.comparing(MarketSensationInfo::getSensationinfoSalesnum).thenComparing(MarketSensationInfo::getSensationinfoId).reversed());
+		/*marketSensationInfoList.sort(new Comparator<MarketSensationInfo>(){
+            @Override
+            public int compare(MarketSensationInfo arg0 , MarketSensationInfo arg1) {
+                 //这里是根据ID来排序，所以它为空的要剔除掉
+                 if (arg0.getSensationinfoId()== null || arg1.getSensationinfoId()== null) return 0;
+                
+                 return arg0.getSensationinfoId().compareTo( arg1.getSensationinfoId()); //这是顺序
+           }               
+		});*/ 
 		PageInfo<MarketSensationInfo> page = new PageInfo<MarketSensationInfo>(marketSensationInfoList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
