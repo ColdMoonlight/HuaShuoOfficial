@@ -600,3 +600,90 @@
   outline: 0;
   box-shadow: 0 0 0 0.1rem rgba(13, 110, 253, 0.25);
 }
+
+
+/* search block  */
+.c-search {
+	position: relative;
+}
+.c-search>.c-icon {
+	position: absolute;
+	left: .6rem;
+    top: 1.1rem;
+    fill: #ccc;
+    font-size: 1.8rem;
+    z-index: 9;
+    cursor: pointer;
+}
+.c-search>.c-icon:hover {
+	fill: #e55353;
+}
+.c-search>.form-control {
+	display: flex;
+	padding-left: 2rem;
+	height: auto;
+}
+.c-search>.form-control input,
+.c-search>.form-control select {
+	border: none;
+	flex-grow: 1;
+	display: inline-block;
+	padding: .5rem;
+	border-color: #ccc;
+	outline: none;
+	box-shadow: 0 0 1px #3d3d3d;
+}
+.c-search>.form-control select {
+	margin-left: 1rem;
+	border-width: 2px;
+}
+.c-search>.form-control input:focus,
+.c-search>.form-control select:focus {
+	border-radius: .25rem;
+}
+
+/* table-tab */
+.c-table-tab {
+	display: flex;
+	box-shadow: 0 1px 1px 1px #ccc;
+}
+.c-table-tab-list {
+	display: flex;
+}
+.c-table-tab-item {
+	position: relative;
+	box-sizing: border-box;
+	padding: 1.2rem;
+	margin-right: .6rem;
+	cursor: pointer;
+}
+.c-table-tab-item:nth-of-type(1) {
+	margin-left: 1rem;
+}
+.c-table-tab-item.active::after {
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	content: '';
+	display: block;
+	width: 100%;
+	height: 2px;
+	background-color: #5c6ac4;
+}
+.c-table-tab-tempory .c-table-tab-item.active::after {
+	background-color: #3d3d3d;
+}
+.delete-table-tab-item:hover {
+	color: #2eb85c;
+}
+.delete-table-tab-item {
+	position: absolute;
+	top: .5rem;
+	right: .1rem;
+	display: inline-block;
+	width: 1.25rem;
+	height: 1.25rem;
+	text-align: center;
+	color: #ccc;
+	border-radius: 50%;
+}

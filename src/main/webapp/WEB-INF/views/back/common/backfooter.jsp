@@ -129,13 +129,7 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 	function isLeapYear(value) {
 		return moment([value]).isLeapYear();
 	}
-	// initial activeItem
-	function initActiveItemNum() {
-		$('.c-table-tab-tempory').html('');
-		$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
-		// setActiveItemNum(0);
-		// setPageNum(1);
-	}
+
 	/* pageNum */
 	function getPageNum() {
 		return storage.getItem('pageNum') || 1
@@ -226,6 +220,120 @@ hash:g}),0):void 0===e[c]?e[c]=!0:e[c].onload&&(e[c].abort(),delete e[c].onload,
 		}
 	}
 
+	/* table tab list for storage */
+	function renderTabItems() {
+		var products = getStorageList(),
+			len = products.length,
+			htmlStr = '',
+			activeNum = parseInt(getActiveItemNum());
+
+		if (len > 0) {
+			for (var i = 0; i < len; i += 1) {
+				var $item = createTableTabItem(products[i]);
+				$item.attr('data-idx', i+1);
+
+				if (activeNum == i + 1) {
+					$item.addClass('active')
+				}
+
+				htmlStr += $item[0].outerHTML;
+			}
+
+			$('.c-table-tab-list').append(htmlStr);
+		}
+		// check activeItem exsits or not.
+		if ($('.c-table-tab-item.active').length < 1) {
+			$('.c-table-tab-item').eq(0).addClass('active');
+		}
+
+		getTabSearchData($('.c-table-tab-item.active'));
+	}
+	// check new item
+	function checkNewItem(val) {
+		var storageList = getStorageList();
+		if (storageList.length >= 6) {
+			// save-search-item num <= 6
+			toastr.info('You can add up to six search records！');
+			return true;
+		}
+			
+		var filterArr = storageList.filter(function(item) {
+			if (JSON.stringify(val) === JSON.stringify(item)) {
+				return item;
+			}
+		});
+
+		if (filterArr.length > 0) {
+			toastr.info('You can not add it repeatedly！');
+			return true;
+		}
+		return false;
+	}
+	// initial activeItem
+	function initActiveItemNum() {
+		$('.c-table-tab-tempory').html('');
+		$('.c-table-tab-item').removeClass('active').eq(0).addClass('active');
+		// setActiveItemNum(0);
+		// setPageNum(1);
+	}
+	// add table tab item
+	function addTableTabItem(val, idx) {
+		var $tableTabItem = createTableTabItem(val).addClass('active');
+		$('.c-table-tab-item').removeClass('active');
+		idx && $tableTabItem.attr('data-idx', idx);
+		$('.c-table-tab-list').append($tableTabItem);
+	}
+	// generate table tab item
+	function createTableTabItem(val) {
+		var textArr = [];
+		for (var key in val) {
+			val[key] && isNaN(val[key]) && textArr.push(val[key]);
+		}
+
+		return $('<div class="c-table-tab-item">' + textArr.join("-") + '<div class="delete-table-tab-item c-icon">x</div></div>').attr('data-val', JSON.stringify(val));
+	}
+	// delete table tab item
+	function deleteTableTabItem(e) {
+		e.stopPropagation();
+		var targetEl = $(e.target),
+			parentEl = targetEl.parent('.c-table-tab-item'),
+			itemVal = $(parentEl).data('val');
+
+		deleteStorageItem(itemVal);
+		$(parentEl).remove();
+
+		$('.c-table-tab-item').eq(0).addClass('active');
+		getTabSearchData($('.c-table-tab-item').eq(0));
+	}
+	// get storage list
+	function getStorageList() {
+		return JSON.parse(storage.getItem(storageName)) || [];
+	}
+	// delete one storage
+	function deleteStorageItem(name) {
+		var oldStorageList = getStorageList();
+		var newStorageList = oldStorageList.filter(function (item) {
+			if (JSON.stringify(item) != JSON.stringify(name)) return item;
+		});
+		storage.setItem(storageName, JSON.stringify(newStorageList));
+		setActiveItemNum(0);
+	}
+	// add one storage
+	function addStorageItem(name) {
+		var storageList = getStorageList();
+		storageList.push(name);
+		storage.setItem(storageName, JSON.stringify(storageList));
+		setActiveItemNum(storageList.length);
+	}
+	// tab active-item cache get
+	function getActiveItemNum() {
+		return storage.getItem('itemNum') || 0;
+	}
+	// tab active-item cache set
+	function setActiveItemNum(num) {
+		storage.setItem('itemNum', num);
+	}
+	
 	// initvar
 	var format = 'YYYY-MM-DD HH:mm:ss';
 	var storage = window.localStorage;
