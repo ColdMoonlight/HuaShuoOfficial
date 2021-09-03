@@ -69,7 +69,7 @@ public class MarketSensationDetailOutputController {
 	/**
 	 * 4.0
 	 * @author 20210903
-	 * @param MarketSensationDetailOutput
+	 * @param MarketSensationDetailOutput 
 	 * @exception 删除单条信息
 	 * */
 	@RequestMapping(value="/Delete",method=RequestMethod.POST)
