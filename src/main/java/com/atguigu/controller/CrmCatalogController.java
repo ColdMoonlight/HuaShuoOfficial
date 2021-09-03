@@ -87,7 +87,7 @@ public class CrmCatalogController {
 		
 		Integer departmentId = nowCrmAdmin.getAdminDepartmentId();
 		if(departmentId==4){
-			//这个是超级用户
+			//这个是超级用户 
 			crmCatalogList = crmCatalogService.selectCrmCatalogSuper();
 		}else{
 			//其他用户菜单权限
