@@ -145,7 +145,7 @@
 		// init
 		getAllBlockData();
 		$(document.body).on('click', '#table-pagination li', function (e) { // pagination a-click
-			getTabSearchData($('.c-table-tab-item.active'));
+			getAllBlockData();
 		});
 		getMenuListData();
 		// create collection
