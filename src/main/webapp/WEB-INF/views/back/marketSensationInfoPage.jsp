@@ -626,7 +626,6 @@
 			for (var i = 0; i < data.length; i += 1) {
 				optionStr += '<option value="'+ data[i].shoproomId +'" data-name="' + data[i].shoproomName + '">' + data[i].shoproomName + '</option>';
 			}
-			console.log(optionStr)
 			$('.shop-list').html(optionStr);
 		}		
 		</script>
