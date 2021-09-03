@@ -86,8 +86,8 @@ public class CrmCatalogController {
 		List<CrmCatalog> crmCatalogList = new ArrayList<CrmCatalog>();
 		
 		Integer departmentId = nowCrmAdmin.getAdminDepartmentId();
-		if(departmentId==99){
-			//这个是超级用户
+		if(departmentId==4){
+			//这个是超级用户 
 			crmCatalogList = crmCatalogService.selectCrmCatalogSuper();
 		}else{
 			//其他用户菜单权限
@@ -118,7 +118,7 @@ public class CrmCatalogController {
 			CrmCatalogSecReq.setCatalogParentId(CatalogFirstId);
 			
 			List<CrmCatalog> CrmCatalogNowSecondList = crmCatalogService.selectCrmCatalogByParameter(CrmCatalogSecReq);
-			if(departmentId==99){
+			if(departmentId==4){
 				//超级用户
 				CrmCatalogSuperList.add(CrmCatalogNowSecondList);
 			}else{
