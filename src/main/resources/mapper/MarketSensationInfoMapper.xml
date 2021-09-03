@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.MarketSensationInfoMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.MarketSensationInfo">
+    <id column="sensationInfo_id" jdbcType="INTEGER" property="sensationinfoId" />
+    <result column="sensationInfo_name" jdbcType="VARCHAR" property="sensationinfoName" />
+    <result column="sensationInfo_account" jdbcType="VARCHAR" property="sensationinfoAccount" />
+    <result column="sensationInfo_salesmenId" jdbcType="INTEGER" property="sensationinfoSalesmenid" />
+    <result column="sensationInfo_salesmenName" jdbcType="VARCHAR" property="sensationinfoSalesmenname" />
+    <result column="sensationInfo_shoproomId" jdbcType="INTEGER" property="sensationinfoShoproomid" />
+    <result column="sensationInfo_shoproomName" jdbcType="VARCHAR" property="sensationinfoShoproomname" />
+    <result column="sensationInfo_platform" jdbcType="VARCHAR" property="sensationinfoPlatform" />
+    <result column="sensationInfo_price" jdbcType="DECIMAL" property="sensationinfoPrice" />
+    <result column="sensationInfo_salesNum" jdbcType="INTEGER" property="sensationinfoSalesnum" />
+    <result column="sensationInfo_outputPrice" jdbcType="DECIMAL" property="sensationinfoOutputprice" />
+    <result column="sensationInfo_flowlNum" jdbcType="INTEGER" property="sensationinfoFlowlnum" />
+    <result column="sensationInfo_createTime" jdbcType="VARCHAR" property="sensationinfoCreatetime" />
+    <result column="sensationInfo_updateTime" jdbcType="VARCHAR" property="sensationinfoUpdatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sensationInfo_id, sensationInfo_name, sensationInfo_account, sensationInfo_salesmenId, 
+    sensationInfo_salesmenName, sensationInfo_shoproomId, sensationInfo_shoproomName, 
+    sensationInfo_platform, sensationInfo_price, sensationInfo_salesNum, sensationInfo_outputPrice, 
+    sensationInfo_flowlNum, sensationInfo_createTime, sensationInfo_updateTime
+  </sql>
+ 
+  <insert id="insert" parameterType="com.atguigu.bean.MarketSensationInfo">
+    insert into tb_market_sensationinfo (sensationInfo_id, sensationInfo_name, 
+      sensationInfo_account, sensationInfo_salesmenId, 
+      sensationInfo_salesmenName, sensationInfo_shoproomId, 
+      sensationInfo_shoproomName, sensationInfo_platform, 
+      sensationInfo_price, sensationInfo_salesNum, 
+      sensationInfo_outputPrice, sensationInfo_flowlNum, 
+      sensationInfo_createTime, sensationInfo_updateTime
+      )
+    values (#{sensationinfoId,jdbcType=INTEGER}, #{sensationinfoName,jdbcType=VARCHAR}, 
+      #{sensationinfoAccount,jdbcType=VARCHAR}, #{sensationinfoSalesmenid,jdbcType=INTEGER}, 
+      #{sensationinfoSalesmenname,jdbcType=VARCHAR}, #{sensationinfoShoproomid,jdbcType=INTEGER}, 
+      #{sensationinfoShoproomname,jdbcType=VARCHAR}, #{sensationinfoPlatform,jdbcType=VARCHAR}, 
+      #{sensationinfoPrice,jdbcType=DECIMAL}, #{sensationinfoSalesnum,jdbcType=INTEGER}, 
+      #{sensationinfoOutputprice,jdbcType=DECIMAL}, #{sensationinfoFlowlnum,jdbcType=INTEGER}, 
+      #{sensationinfoCreatetime,jdbcType=VARCHAR}, #{sensationinfoUpdatetime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.MarketSensationInfo">
+    update tb_market_sensationinfo
+    set sensationInfo_name = #{sensationinfoName,jdbcType=VARCHAR},
+      sensationInfo_account = #{sensationinfoAccount,jdbcType=VARCHAR},
+      sensationInfo_salesmenId = #{sensationinfoSalesmenid,jdbcType=INTEGER},
+      sensationInfo_salesmenName = #{sensationinfoSalesmenname,jdbcType=VARCHAR},
+      sensationInfo_shoproomId = #{sensationinfoShoproomid,jdbcType=INTEGER},
+      sensationInfo_shoproomName = #{sensationinfoShoproomname,jdbcType=VARCHAR},
+      sensationInfo_platform = #{sensationinfoPlatform,jdbcType=VARCHAR},
+      sensationInfo_price = #{sensationinfoPrice,jdbcType=DECIMAL},
+      sensationInfo_salesNum = #{sensationinfoSalesnum,jdbcType=INTEGER},
+      sensationInfo_outputPrice = #{sensationinfoOutputprice,jdbcType=DECIMAL},
+      sensationInfo_flowlNum = #{sensationinfoFlowlnum,jdbcType=INTEGER},
+      sensationInfo_createTime = #{sensationinfoCreatetime,jdbcType=VARCHAR},
+      sensationInfo_updateTime = #{sensationinfoUpdatetime,jdbcType=VARCHAR}
+    where sensationInfo_id = #{sensationinfoId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="sensationinfoId" parameterType="com.atguigu.bean.MarketSensationInfo">
+    insert into tb_market_sensationinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sensationinfoId != null">
+        sensationInfo_id,
+      </if>
+      <if test="sensationinfoName != null">
+        sensationInfo_name,
+      </if>
+      <if test="sensationinfoAccount != null">
+        sensationInfo_account,
+      </if>
+      <if test="sensationinfoSalesmenid != null">
+        sensationInfo_salesmenId,
+      </if>
+      <if test="sensationinfoSalesmenname != null">
+        sensationInfo_salesmenName,
+      </if>
+      <if test="sensationinfoShoproomid != null">
+        sensationInfo_shoproomId,
+      </if>
+      <if test="sensationinfoShoproomname != null">
+        sensationInfo_shoproomName,
+      </if>
+      <if test="sensationinfoPlatform != null">
+        sensationInfo_platform,
+      </if>
+      <if test="sensationinfoPrice != null">
+        sensationInfo_price,
+      </if>
+      <if test="sensationinfoSalesnum != null">
+        sensationInfo_salesNum,
+      </if>
+      <if test="sensationinfoOutputprice != null">
+        sensationInfo_outputPrice,
+      </if>
+      <if test="sensationinfoFlowlnum != null">
+        sensationInfo_flowlNum,
+      </if>
+      <if test="sensationinfoCreatetime != null">
+        sensationInfo_createTime,
+      </if>
+      <if test="sensationinfoUpdatetime != null">
+        sensationInfo_updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sensationinfoId != null">
+        #{sensationinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="sensationinfoName != null">
+        #{sensationinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="sensationinfoAccount != null">
+        #{sensationinfoAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="sensationinfoSalesmenid != null">
+        #{sensationinfoSalesmenid,jdbcType=INTEGER},
+      </if>
+      <if test="sensationinfoSalesmenname != null">
+        #{sensationinfoSalesmenname,jdbcType=VARCHAR},
+      </if>
+      <if test="sensationinfoShoproomid != null">
+        #{sensationinfoShoproomid,jdbcType=INTEGER},
+      </if>
+      <if test="sensationinfoShoproomname != null">
+        #{sensationinfoShoproomname,jdbcType=VARCHAR},
+      </if>
+      <if test="sensationinfoPlatform != null">
+        #{sensationinfoPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="sensationinfoPrice != null">
+        #{sensationinfoPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sensationinfoSalesnum != null">
+        #{sensationinfoSalesnum,jdbcType=INTEGER},
+      </if>
+      <if test="sensationinfoOutputprice != null">
+        #{sensationinfoOutputprice,jdbcType=DECIMAL},
+      </if>
+      <if test="sensationinfoFlowlnum != null">
+        #{sensationinfoFlowlnum,jdbcType=INTEGER},
+      </if>
+      <if test="sensationinfoCreatetime != null">
+        #{sensationinfoCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="sensationinfoUpdatetime != null">
+        #{sensationinfoUpdatetime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_market_sensationinfo
+    where sensationInfo_id = #{sensationinfoId,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- updateByPrimaryKeySelective -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.MarketSensationInfo">
+    update tb_market_sensationinfo
+    <set>
+      <if test="sensationinfoName != null">
+        sensationInfo_name = #{sensationinfoName,jdbcType=VARCHAR},
+      </if>
+      <if test="sensationinfoAccount != null">
+        sensationInfo_account = #{sensationinfoAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="sensationinfoSalesmenid != null">
+        sensationInfo_salesmenId = #{sensationinfoSalesmenid,jdbcType=INTEGER},
+      </if>
+      <if test="sensationinfoSalesmenname != null">
+        sensationInfo_salesmenName = #{sensationinfoSalesmenname,jdbcType=VARCHAR},
+      </if>
+      <if test="sensationinfoShoproomid != null">
+        sensationInfo_shoproomId = #{sensationinfoShoproomid,jdbcType=INTEGER},
+      </if>
+      <if test="sensationinfoShoproomname != null">
+        sensationInfo_shoproomName = #{sensationinfoShoproomname,jdbcType=VARCHAR},
+      </if>
+      <if test="sensationinfoPlatform != null">
+        sensationInfo_platform = #{sensationinfoPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="sensationinfoPrice != null">
+        sensationInfo_price = #{sensationinfoPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="sensationinfoSalesnum != null">
+        sensationInfo_salesNum = #{sensationinfoSalesnum,jdbcType=INTEGER},
+      </if>
+      <if test="sensationinfoOutputprice != null">
+        sensationInfo_outputPrice = #{sensationinfoOutputprice,jdbcType=DECIMAL},
+      </if>
+      <if test="sensationinfoFlowlnum != null">
+        sensationInfo_flowlNum = #{sensationinfoFlowlnum,jdbcType=INTEGER},
+      </if>
+      <if test="sensationinfoCreatetime != null">
+        sensationInfo_createTime = #{sensationinfoCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="sensationinfoUpdatetime != null">
+        sensationInfo_updateTime = #{sensationinfoUpdatetime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sensationInfo_id = #{sensationinfoId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- selectByPrimaryKey -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_market_sensationinfo
+    where sensationInfo_id = #{sensationinfoId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询全部selectMarketSensationInfoAll -->
+  <select id="selectMarketSensationInfoAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_market_sensationinfo order by sensationInfo_salesNum desc, sensationInfo_outputPrice desc, sensationInfo_id desc
+  </select>
+  
+  <!-- 分页查询selectMarketSensationInfoByPage -->
+  <select id="selectMarketSensationInfoByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_market_sensationinfo order by sensationInfo_salesNum desc, sensationInfo_outputPrice desc, sensationInfo_id desc
+  </select>
+  
+  <!-- 多条件查询selectMarketSensationInfoByParameter -->
+  <select id="selectMarketSensationInfoByParameter" parameterType="com.atguigu.bean.MarketSensationInfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_market_sensationinfo 
+    <where>
+      <if test="sensationinfoName != null">
+        sensationInfo_name = #{sensationinfoName,jdbcType=VARCHAR}
+      </if>
+      <if test="sensationinfoAccount != null">
+        and sensationInfo_account = #{sensationinfoAccount,jdbcType=VARCHAR}
+      </if>
+      <if test="sensationinfoSalesmenid != null">
+        and sensationInfo_salesmenId = #{sensationinfoSalesmenid,jdbcType=INTEGER}
+      </if>
+      <if test="sensationinfoSalesmenname != null">
+        and sensationInfo_salesmenName = #{sensationinfoSalesmenname,jdbcType=VARCHAR}
+      </if>
+      <if test="sensationinfoShoproomid != null">
+        and sensationInfo_shoproomId = #{sensationinfoShoproomid,jdbcType=INTEGER}
+      </if>
+      <if test="sensationinfoShoproomname != null">
+        and sensationInfo_shoproomName = #{sensationinfoShoproomname,jdbcType=VARCHAR}
+      </if>
+      <if test="sensationinfoPlatform != null">
+        and sensationInfo_platform = #{sensationinfoPlatform,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by sensationInfo_salesNum desc, sensationInfo_outputPrice desc, sensationInfo_id desc
+  </select>
+</mapper>
