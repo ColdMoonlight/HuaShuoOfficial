@@ -21,6 +21,8 @@ public class CrmProductSellInfo {
 
     private BigDecimal productsellinfoProductrealprice;
 
+    private Integer productsellinfoProductsellnum;
+
     private BigDecimal productsellinfoCouponprice;
 
     private String productsellinfoCouponcode;
@@ -101,6 +103,14 @@ public class CrmProductSellInfo {
         this.productsellinfoProductrealprice = productsellinfoProductrealprice;
     }
 
+    public Integer getProductsellinfoProductsellnum() {
+        return productsellinfoProductsellnum;
+    }
+
+    public void setProductsellinfoProductsellnum(Integer productsellinfoProductsellnum) {
+        this.productsellinfoProductsellnum = productsellinfoProductsellnum;
+    }
+
     public BigDecimal getProductsellinfoCouponprice() {
         return productsellinfoCouponprice;
     }
@@ -141,8 +151,8 @@ public class CrmProductSellInfo {
 			String productsellinfoPlatenum, String productsellinfoProducttype, Integer productsellinfoProductid,
 			String productsellinfoProductname, String productsellinfoProductsku,
 			BigDecimal productsellinfoProductmarkprice, BigDecimal productsellinfoProductrealprice,
-			BigDecimal productsellinfoCouponprice, String productsellinfoCouponcode,
-			String productsellinfoProductselltime, String productsellinfoMotifytime) {
+			Integer productsellinfoProductsellnum, BigDecimal productsellinfoCouponprice,
+			String productsellinfoCouponcode, String productsellinfoProductselltime, String productsellinfoMotifytime) {
 		super();
 		this.productsellinfoId = productsellinfoId;
 		this.productsellinfoBrandname = productsellinfoBrandname;
@@ -153,6 +163,7 @@ public class CrmProductSellInfo {
 		this.productsellinfoProductsku = productsellinfoProductsku;
 		this.productsellinfoProductmarkprice = productsellinfoProductmarkprice;
 		this.productsellinfoProductrealprice = productsellinfoProductrealprice;
+		this.productsellinfoProductsellnum = productsellinfoProductsellnum;
 		this.productsellinfoCouponprice = productsellinfoCouponprice;
 		this.productsellinfoCouponcode = productsellinfoCouponcode;
 		this.productsellinfoProductselltime = productsellinfoProductselltime;
@@ -167,8 +178,9 @@ public class CrmProductSellInfo {
 				+ productsellinfoProductid + ", productsellinfoProductname=" + productsellinfoProductname
 				+ ", productsellinfoProductsku=" + productsellinfoProductsku + ", productsellinfoProductmarkprice="
 				+ productsellinfoProductmarkprice + ", productsellinfoProductrealprice="
-				+ productsellinfoProductrealprice + ", productsellinfoCouponprice=" + productsellinfoCouponprice
-				+ ", productsellinfoCouponcode=" + productsellinfoCouponcode + ", productsellinfoProductselltime="
-				+ productsellinfoProductselltime + ", productsellinfoMotifytime=" + productsellinfoMotifytime + "]";
+				+ productsellinfoProductrealprice + ", productsellinfoProductsellnum=" + productsellinfoProductsellnum
+				+ ", productsellinfoCouponprice=" + productsellinfoCouponprice + ", productsellinfoCouponcode="
+				+ productsellinfoCouponcode + ", productsellinfoProductselltime=" + productsellinfoProductselltime
+				+ ", productsellinfoMotifytime=" + productsellinfoMotifytime + "]";
 	}
 }

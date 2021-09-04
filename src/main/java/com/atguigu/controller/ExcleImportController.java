@@ -267,12 +267,15 @@ public class ExcleImportController {
 	    cell.setCellValue("productSellInfo_productRealPrice");
 	    
 	    cell = row.createCell(8);
-	    cell.setCellValue("productSellInfo_couponPrice");
+	    cell.setCellValue("productSellInfo_productSellNum");
 	    
 	    cell = row.createCell(9);
-	    cell.setCellValue("productSellInfo_couponCode");
+	    cell.setCellValue("productSellInfo_couponPrice");
 	    
 	    cell = row.createCell(10);
+	    cell.setCellValue("productSellInfo_couponCode");
+	    
+	    cell = row.createCell(11);
 	    cell.setCellValue("productSellInfo_productSellTime");
 	    
         row = sheet.createRow(1);
@@ -284,15 +287,16 @@ public class ExcleImportController {
         row.createCell(5).setCellValue("productSku");//
         row.createCell(6).setCellValue(166.32);//
         row.createCell(7).setCellValue(66.32);//
-        row.createCell(8).setCellValue(50.32);//
-        row.createCell(9).setCellValue("H50");//
+        row.createCell(8).setCellValue(3);//
+        row.createCell(9).setCellValue(50.32);//
+        row.createCell(10).setCellValue("H50");//
         
         
         //设置导出excel 日期格式为文本
         HSSFCellStyle textStyle = wb.createCellStyle();
         HSSFDataFormat format = wb.createDataFormat();
         textStyle.setDataFormat(format.getFormat("@"));
-        cell = row.createCell(10);
+        cell = row.createCell(11);
         cell.setCellStyle(textStyle);
         cell.setCellType(CellType.STRING);
         cell.setCellValue("2021-08-18 15:56:49");//
@@ -370,13 +374,17 @@ public class ExcleImportController {
 		                }
 						getCell = row.getCell(8);
 						if(getCell != null) {
-							crmProductSellInfo.setProductsellinfoCouponprice(new BigDecimal(getCell.getNumericCellValue()));
+							crmProductSellInfo.setProductsellinfoProductsellnum((int)getCell.getNumericCellValue());
 		                }
 						getCell = row.getCell(9);
 						if(getCell != null) {
-							crmProductSellInfo.setProductsellinfoCouponcode(getCell.getStringCellValue());
+							crmProductSellInfo.setProductsellinfoCouponprice(new BigDecimal(getCell.getNumericCellValue()));
 		                }
 						getCell = row.getCell(10);
+						if(getCell != null) {
+							crmProductSellInfo.setProductsellinfoCouponcode(getCell.getStringCellValue());
+		                }
+						getCell = row.getCell(11);
 						if(getCell != null) {
 							
 							switch(getCell.getCellTypeEnum()){
