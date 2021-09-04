@@ -190,7 +190,7 @@
 		bindDateTimepicker();
 
 		$(document.body).on('click', '#table-pagination li', function (e) { // pagination a-click
-			getTabSearchData($('.c-table-tab-item.active'));
+			getAllBlockData();
 		});
 		// create collection
 		$('.btn-create').on('click', function () {
