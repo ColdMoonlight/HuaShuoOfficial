@@ -17,7 +17,7 @@ public class CrmProductSellInfoService {
 	/**
 	 * @author Shinelon
 	 * @param CrmProductSellInfo
-	 * @exception 新增单条信息
+	 * @exception 新增单条 信息
 	 * 
 	 * */
 	public int insertSelective(CrmProductSellInfo crmProductSellInfo) {
