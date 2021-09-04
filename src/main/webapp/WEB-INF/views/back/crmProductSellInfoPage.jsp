@@ -208,7 +208,7 @@
 			showCreateBlock();
 			isCreate = true;
 		});
-		// edit block
+		// edit block 
 		$(document.body).on('click', '.btn-edit', function (e) {
 			var productsellinfoId = $(this).data('id');
 			getOneBlockData({productsellinfoId: productsellinfoId}, function(resData) {
