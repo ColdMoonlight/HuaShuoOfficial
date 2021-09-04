@@ -127,8 +127,6 @@ public class MarketSensationInfoController {
 	@RequestMapping(value="/GetMarketSensationInfoByPage")
 	@ResponseBody
 	public Msg getMarketSensationInfoByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,
-			@RequestParam(value = "sortType", defaultValue = "desc") String sortType,
-			@RequestParam(value = "sortColumn", defaultValue = "sensationinfoId") String sortColumn,
 			HttpSession session) {
 
 		int PagNum = Const.PAGE_NUM_DEFAULT;

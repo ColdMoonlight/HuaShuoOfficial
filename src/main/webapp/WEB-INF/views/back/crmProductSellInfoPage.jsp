@@ -37,6 +37,7 @@
 										<th>产品id</th>
 										<th>产品名称</th>
 										<th>产品sku</th>
+										<th>数量</th>
 										<th>产品标价</th>
 										<th>产品实价</th>
 										<th>优惠金额</th>
@@ -91,6 +92,12 @@
 											<label class="col-form-label" for="productsellinfoProductsku">产品sku</label>
 											<div class="controls">
 												<input class="form-control" id="productsellinfoProductsku" type="text" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-form-label" for="productsellinfoProductsku">数量</label>
+											<div class="controls">
+												<input class="form-control" id="productsellinfoProductsellnum" type="text" />
 											</div>
 										</div>
 										<div class="form-group">
@@ -201,7 +208,7 @@
 			showCreateBlock();
 			isCreate = true;
 		});
-		// edit block
+		// edit block 
 		$(document.body).on('click', '.btn-edit', function (e) {
 			var productsellinfoId = $(this).data('id');
 			getOneBlockData({productsellinfoId: productsellinfoId}, function(resData) {
@@ -299,7 +306,7 @@
 			var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
 
 			initDateRage(ymd + ' 00:00:00', ymd + ' 23:59:59');
-			$('#datetimerangeModal').find('.modal-title').html("导出渠道数据").end().modal('show');
+			$('#datetimerangeModal').find('.modal-title').html("导出数据").end().modal('show');
 		});
 		$('#datetimerangeModal .btn-ok').on('click', function() {
 			var startTime = $('#startTime').val(),
@@ -327,6 +334,7 @@
 			$('#productsellinfoProductid').val('');
 			$('#productsellinfoProductname').val('');
 			$('#productsellinfoProductsku').val('');
+			$('#productsellinfoProductsellnum').val('');
 			$('#productsellinfoProductmarkprice').val('');
 			$('#productsellinfoProductrealprice').val('');
 			$('#productsellinfoCouponprice').val('');
@@ -346,6 +354,7 @@
 			data.productsellinfoProductid = $('#productsellinfoProductid').val();
 			data.productsellinfoProductname = $('#productsellinfoProductname').val();
 			data.productsellinfoProductsku = $('#productsellinfoProductsku').val();
+			data.productsellinfoProductsellnum = $('#productsellinfoProductsellnum').val();
 			data.productsellinfoProductmarkprice = $('#productsellinfoProductmarkprice').val();
 			data.productsellinfoProductrealprice = $('#productsellinfoProductrealprice').val();
 			data.productsellinfoCouponprice = $('#productsellinfoCouponprice').val();
@@ -367,6 +376,7 @@
 			$('#productsellinfoProductid').val(data.productsellinfoProductid);
 			$('#productsellinfoProductname').val(data.productsellinfoProductname);
 			$('#productsellinfoProductsku').val(data.productsellinfoProductsku);
+			$('#productsellinfoProductsellnum').val(data.productsellinfoProductsellnum);
 			$('#productsellinfoProductmarkprice').val(data.productsellinfoProductmarkprice);
 			$('#productsellinfoProductrealprice').val(data.productsellinfoProductrealprice);
 			$('#productsellinfoCouponprice').val(data.productsellinfoCouponprice);
@@ -533,17 +543,18 @@
 			var htmlStr = '';
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].productsellinfoId + '</td>' +
-					'<td>' + data[i].productsellinfoBrandname + '</td>' +
-					'<td>' + data[i].productsellinfoPlatenum + '</td>' +
-					'<td>' + data[i].productsellinfoProductselltime + '</td>' +
-					'<td>' + data[i].productsellinfoProducttype + '</td>' +
-					'<td>' + data[i].productsellinfoProductid + '</td>' +
-					'<td>' + data[i].productsellinfoProductname + '</td>' +
-					'<td>' + data[i].productsellinfoProductsku + '</td>' +
-					'<td>' + data[i].productsellinfoProductmarkprice + '</td>' +
-					'<td>' + data[i].productsellinfoProductrealprice + '</td>' +
-					'<td>' + data[i].productsellinfoCouponprice + '</td>' +			
-					'<td>' + data[i].productsellinfoCouponcode + '</td>' +
+					'<td>' + (data[i].productsellinfoBrandname || '--') + '</td>' +
+					'<td>' + (data[i].productsellinfoPlatenum || '--') + '</td>' +
+					'<td>' + (data[i].productsellinfoProductselltime || '--') + '</td>' +
+					'<td>' + (data[i].productsellinfoProducttype || '--') + '</td>' +
+					'<td>' + (data[i].productsellinfoProductid || '--') + '</td>' +
+					'<td>' + (data[i].productsellinfoProductname || '--') + '</td>' +
+					'<td>' + (data[i].productsellinfoProductsku || '--') + '</td>' +
+					'<td>' + (data[i].productsellinfoProductsellnum || '--') + '</td>' +
+					'<td>' + (data[i].productsellinfoProductmarkprice || '--') + '</td>' +
+					'<td>' + (data[i].productsellinfoProductrealprice || '--') + '</td>' +
+					'<td>' + (data[i].productsellinfoCouponprice || '--') + '</td>' +			
+					'<td>' + (data[i].productsellinfoCouponcode || '--') + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].productsellinfoId + '">' +
 							'<svg class="c-icon">' +

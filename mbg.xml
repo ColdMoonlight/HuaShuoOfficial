@@ -47,11 +47,13 @@
 		<table tableName="tb_crm_webanalytics" domainObjectName="CrmWebanalytics" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_crm_department" domainObjectName="CrmDepartment" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		<table tableName="tb_crm_shopRoom" domainObjectName="CrmShopRoom" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-		<table tableName="tb_crm_productsellinfo" domainObjectName="CrmProductSellInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		
 		2021-09-02
 		<table tableName="tb_market_sensationInfo" domainObjectName="MarketSensationInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		2021-09-03
 		<table tableName="tb_market_sensationdetailoutput" domainObjectName="MarketSensationDetailOutput" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+		
+		<table tableName="tb_crm_productsellinfo" domainObjectName="CrmProductSellInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
 		-->
 		
 	</context>
