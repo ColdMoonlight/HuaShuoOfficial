@@ -47,6 +47,21 @@ public class CrmProductSellInfoController {
 	}
 	
 	/**
+	 * 2.0	20210818
+	 * CrmProductSellInfo首页
+	 * */
+	@RequestMapping("/ToCrmProductSellInfoAnalysePage")
+	public String toCrmProductSellInfoAnalysePage(HttpSession session) throws Exception{
+		
+		CrmAdmin crmAdmin =(CrmAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(crmAdmin==null){
+			//SysUsers对象为空
+			return "back/crmAdminLogin";
+		}else{
+			return "back/crmProductSellInfoAnalysePage";
+		}
+	}
+	/**
 	 * 2.0
 	 * @author 20210818
 	 * @param CrmProductSellInfo
@@ -203,10 +218,7 @@ public class CrmProductSellInfoController {
 				CrmProductSellInfo p = crmProductSellInfoList.get(i);
 				if(sku.equals(p.getProductsellinfoProductsku())){
 					productSellInfoSameSkuList.add(p);
-					if(i==crmProductSellInfoList.size()-1){
-						//最后一个skuList添加到最终返回的List中
-						productSellInfoFinallList.add(productSellInfoSameSkuList);
-					}
+					
 				}else{
 					//对上一个skuList进行排序，按时间降叙排序
 					productSellInfoSameSkuList.sort(new Comparator<CrmProductSellInfo>(){
@@ -226,11 +238,10 @@ public class CrmProductSellInfoController {
 					sku = p.getProductsellinfoProductsku();
 					productSellInfoSameSkuList = new ArrayList<CrmProductSellInfo>();
 					productSellInfoSameSkuList.add(p);
-					
-					if(i==crmProductSellInfoList.size()-1){
-						//最后一个skuList添加到最终返回的List中
-						productSellInfoFinallList.add(productSellInfoSameSkuList);
-					}
+				}
+				if(i==crmProductSellInfoList.size()-1){
+					//最后一个skuList添加到最终返回的List中
+					productSellInfoFinallList.add(productSellInfoSameSkuList);
 				}
 			}
 			if(productSellInfoFinallList.size() > 0){
