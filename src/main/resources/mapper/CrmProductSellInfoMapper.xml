@@ -274,4 +274,17 @@
     order by productSellInfo_productSku desc
   </select>
   
+  <!-- selectCrmProductSellInfoByDate -->
+  <select id="selectCrmProductSellInfoByDate" parameterType="com.atguigu.bean.CrmProductSellInfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_productsellinfo 
+	<where>
+	    <if test="productsellinfoProductselltime != null">
+	       DATE_FORMAT(productSellInfo_productSellTime,'%Y-%m-%d')=DATE_FORMAT(#{productsellinfoProductselltime,jdbcType=VARCHAR},'%Y-%m-%d')
+	    </if>
+    </where>
+    order by productSellInfo_productSku desc
+  </select>
+  
 </mapper>

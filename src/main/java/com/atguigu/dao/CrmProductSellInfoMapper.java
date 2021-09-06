@@ -27,4 +27,6 @@ public interface CrmProductSellInfoMapper {
     List<CrmProductSellInfo> selectCrmProductSellInfoByPage();
     
     List<CrmProductSellInfo> selectCrmProductSellInfoByRangeTime(CrmProductSellInfo record);
+    
+    List<CrmProductSellInfo> selectCrmProductSellInfoByDate(CrmProductSellInfo record);
 }

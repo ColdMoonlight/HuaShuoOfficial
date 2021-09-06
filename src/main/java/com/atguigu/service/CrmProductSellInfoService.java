@@ -101,4 +101,15 @@ public class CrmProductSellInfoService {
 		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoByRangeTime(crmProductSellInfo);
 		return crmProductSellInfoList;
 	}
+	
+	/**
+	 * @author Shinelon
+	 * @param 
+	 * @exception 查询当天
+	 * 
+	 * */
+	public List<CrmProductSellInfo> selectCrmProductSellInfoByDate(CrmProductSellInfo crmProductSellInfo) {
+		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoByDate(crmProductSellInfo);
+		return crmProductSellInfoList;
+	}
 }
