@@ -261,4 +261,17 @@
     from tb_crm_productsellinfo order by productSellInfo_id desc
   </select>
   
+  <!-- selectCrmProductSellInfoByParameter -->
+  <select id="selectCrmProductSellInfoByRangeTime" parameterType="com.atguigu.bean.CrmProductSellInfo" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_productsellinfo
+    <where>
+	    <if test="productsellinfoProductselltime != null and productsellinfoMotifytime != null">
+	       productSellInfo_productSellTime between #{productsellinfoProductselltime,jdbcType=VARCHAR} and #{productsellinfoMotifytime,jdbcType=VARCHAR}
+	    </if>
+    </where>
+    order by productSellInfo_productSku desc
+  </select>
+  
 </mapper>

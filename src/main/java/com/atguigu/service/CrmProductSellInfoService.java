@@ -91,4 +91,14 @@ public class CrmProductSellInfoService {
 		return crmProductSellInfoList;
 	}
 	
+	/**
+	 * @author Shinelon
+	 * @param 
+	 * @exception 按时间查询按sku排序
+	 * 
+	 * */
+	public List<CrmProductSellInfo> selectCrmProductSellInfoByRangeTime(CrmProductSellInfo crmProductSellInfo) {
+		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoByRangeTime(crmProductSellInfo);
+		return crmProductSellInfoList;
+	}
 }
