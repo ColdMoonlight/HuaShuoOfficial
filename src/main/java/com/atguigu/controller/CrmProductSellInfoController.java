@@ -302,7 +302,7 @@ public class CrmProductSellInfoController {
 						
 					});
 					
-					//排序后添加到最终返回的List中
+					//排序后添加到最终返回的List中 
 					productSellInfoFinallList.add(productSellInfoSameSkuList);
 					//获取新的sku,list,重新进行存储
 					sku = p.getProductsellinfoProductsku();
