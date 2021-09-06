@@ -687,3 +687,12 @@
 	color: #ccc;
 	border-radius: 50%;
 }
+
+.text-overflow {
+	overflow: hidden;
+	white-space: nowrap;
+	width: 100%;
+	max-width: 360px;
+	height: 100%;
+	text-overflow: ellipsis;
+}
