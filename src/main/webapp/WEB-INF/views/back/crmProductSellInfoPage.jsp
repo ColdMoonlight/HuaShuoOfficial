@@ -6,7 +6,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>产品销售数据</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
-		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">	
+		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
 	</head>
 
 	<body class="c-app">
@@ -32,16 +32,11 @@
 										<th>id</th>
 										<th>网站</th>
 										<th>单号</th>
-										<th>销售时间</th>
-										<th>产品类别</th>
-										<th>产品id</th>
-										<th>产品名称</th>
 										<th>产品sku</th>
+										<th>产品名称</th>
 										<th>数量</th>
-										<th>产品标价</th>
 										<th>产品实价</th>
-										<th>优惠金额</th>
-										<th>优惠券</th>
+										<th>销售时间</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -545,16 +540,11 @@
 				htmlStr += '<tr><td>' + data[i].productsellinfoId + '</td>' +
 					'<td>' + (data[i].productsellinfoBrandname || '--') + '</td>' +
 					'<td>' + (data[i].productsellinfoPlatenum || '--') + '</td>' +
-					'<td>' + (data[i].productsellinfoProductselltime || '--') + '</td>' +
-					'<td>' + (data[i].productsellinfoProducttype || '--') + '</td>' +
-					'<td>' + (data[i].productsellinfoProductid || '--') + '</td>' +
-					'<td>' + (data[i].productsellinfoProductname || '--') + '</td>' +
 					'<td>' + (data[i].productsellinfoProductsku || '--') + '</td>' +
+					'<td><div class="text-overflow" title="' + data[i].productsellinfoProductname + '">' + (data[i].productsellinfoProductname || '--') + '</div></td>' +
 					'<td>' + (data[i].productsellinfoProductsellnum || '--') + '</td>' +
-					'<td>' + (data[i].productsellinfoProductmarkprice || '--') + '</td>' +
 					'<td>' + (data[i].productsellinfoProductrealprice || '--') + '</td>' +
-					'<td>' + (data[i].productsellinfoCouponprice || '--') + '</td>' +			
-					'<td>' + (data[i].productsellinfoCouponcode || '--') + '</td>' +
+					'<td>' + (data[i].productsellinfoProductselltime || '--') + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].productsellinfoId + '">' +
 							'<svg class="c-icon">' +

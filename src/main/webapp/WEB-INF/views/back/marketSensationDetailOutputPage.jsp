@@ -400,7 +400,7 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].sensationdetailoutputId + '</td>' +
 					'<td>' + (data[i].sensationdetailoutputSensationinfoname || '--') + '</td>' +
-					'<td><a href="'+ (data[i].sensationdetailoutputOriginallink ? data[i].sensationdetailoutputOriginallink : 'javascript:;') +'">' + (data[i].sensationdetailoutputProduct || '--') + '</a></td>' +
+					'<td>' + (data[i].sensationdetailoutputProduct || '--') + '</td>' +
 					'<td>' + (data[i].sensationdetailoutputPlatenum || '--') + '</td>' +
 					'<td>' + (data[i].sensationdetailoutputSalesprice || '--') + '</td>' +
 					'<td>' + (data[i].sensationdetailoutputShoproomname || '--') + '</td>' +
