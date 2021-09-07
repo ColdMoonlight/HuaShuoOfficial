@@ -1,6 +1,7 @@
 package com.atguigu.controller;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -95,7 +96,10 @@ public class CrmCatalogController {
 			for(String cateLogId : cateLogArr){
 				int id = Integer.parseInt(cateLogId);
 				CrmCatalog crmCatalog = crmCatalogService.selectByPrimaryKey(id);
-				crmCatalogList.add(crmCatalog);
+				//只返回有效菜单
+				if(crmCatalog.getCatalogStatus()==1){
+					crmCatalogList.add(crmCatalog);
+				}
 			}
 		}
 		
@@ -116,10 +120,16 @@ public class CrmCatalogController {
 			Integer CatalogFirstId = CatalogFirstOne.getCatalogId();
 			CrmCatalog CrmCatalogSecReq = new CrmCatalog();
 			CrmCatalogSecReq.setCatalogParentId(CatalogFirstId);
-			
+			CrmCatalogSecReq.setCatalogStatus(1);
 			List<CrmCatalog> CrmCatalogNowSecondList = crmCatalogService.selectCrmCatalogByParameter(CrmCatalogSecReq);
 			if(departmentId==4){
 				//超级用户
+				CrmCatalogNowSecondList.sort(new Comparator<CrmCatalog>(){
+					@Override
+					public int compare(CrmCatalog o1, CrmCatalog o2) {
+						return o1.getCatalogFirthNum()-o2.getCatalogFirthNum();
+					}
+				});
 				CrmCatalogSuperList.add(CrmCatalogNowSecondList);
 			}else{
 				//其他用户，只显示有权限二级菜单
@@ -129,6 +139,12 @@ public class CrmCatalogController {
 						crmCatalogSuperListTemp.add(catalogFirstSecond);
 					}
 				}
+				crmCatalogSuperListTemp.sort(new Comparator<CrmCatalog>(){
+					@Override
+					public int compare(CrmCatalog o1, CrmCatalog o2) {
+						return o1.getCatalogFirthNum()-o2.getCatalogFirthNum();
+					}
+				});
 				CrmCatalogSuperList.add(crmCatalogSuperListTemp);
 			}
 		}

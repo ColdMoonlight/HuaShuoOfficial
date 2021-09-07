@@ -264,7 +264,7 @@ public class CrmProductSellInfoController {
 	 * @author 20210904
 	 * @param CrmProductSellInfo
 	 * @throws Exception 
-	 * @exception 按时间查询 查询当天的sku
+	 * @exception 按时间查询 查询每天的sku
 	 * */
 	@RequestMapping(value="/GetProductSellInfoByDate",method=RequestMethod.POST)
 	@ResponseBody
