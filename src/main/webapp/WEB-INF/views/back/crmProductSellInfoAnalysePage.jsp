@@ -94,13 +94,13 @@
 		function transformPieChart(data) {
 			var pieData = [];
 			data.length && data.forEach(function(item, idx) {
-				if (idx < 5) {
+				if (idx < 10) {
 					item.length && pieData.push({
 						value: item.length,
 						name: item[0].productsellinfoProductsku
 					});					
 				} else {
-					var curItem = pieData[5];
+					var curItem = pieData[10];
 					if (curItem) {
 						curItem.value += item.length;
 					} else {
@@ -143,7 +143,8 @@
 							name: item[0].productsellinfoProductsku
 						});					
 					}
-				});				
+				});
+				barArr.push(dArr);
 			});
 			var $cardBar = $('.card-bar');
 			if (barData.length) {
