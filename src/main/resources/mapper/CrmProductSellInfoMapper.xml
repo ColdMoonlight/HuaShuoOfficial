@@ -245,11 +245,8 @@
 	    <if test="productsellinfoCouponcode != null">
 	      and productSellInfo_couponCode = #{productsellinfoCouponcode,jdbcType=VARCHAR}
 	    </if>
-	    <if test="productsellinfoProductselltime != null">
-	      and productSellInfo_productSellTime = #{productsellinfoProductselltime,jdbcType=VARCHAR}
-	    </if>
-	    <if test="productsellinfoMotifytime != null">
-	      and productSellInfo_motifyTime = #{productsellinfoMotifytime,jdbcType=VARCHAR}
+	    <if test="productsellinfoProductselltime != null and productsellinfoMotifytime != null">
+	      and productSellInfo_productSellTime between #{productsellinfoProductselltime,jdbcType=VARCHAR} and #{productsellinfoMotifytime,jdbcType=VARCHAR}
 	    </if>
     </where>
     order by productSellInfo_id desc
