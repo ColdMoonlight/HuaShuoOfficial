@@ -30,6 +30,7 @@
 				<div class="col-md-12 col-lg-6">
 					<div class="card">
 						<div class="card-chart card-pie"></div>
+						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
 						<div class="card-mask">
 							<div class="spinner-border"></div>
 						</div>
@@ -38,6 +39,7 @@
 				<div class="col-md-12 col-lg-6">
 					<div class="card">
 						<div class="card-chart card-bar"></div>
+						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
 						<div class="card-mask">
 							<div class="spinner-border"></div>
 						</div>
@@ -65,7 +67,7 @@
 
 		function generateChart($el, option) {
 			$el.css('height', 460);
-			option && echarts.init($el[0]).setOption(option);
+			return echarts.init($el[0]).setOption(option);
 		}
 
 		function generatePieChart() {			
@@ -114,6 +116,7 @@
 
 			var $cardPie = $('.card-pie');
 			if (pieData.length) {
+				$cardPie.parent().find('.chart-noresult').addClass('hide');
 				var instance = generateChart($cardPie, {
 				    title: { text: '售卖产品来源（sku）', left: 'center' },
 				    tooltip: { trigger: 'item', formatter: '{a}: {c} ({d}%)' },
@@ -123,7 +126,7 @@
 
 				chartInstance.push(instance);
 			} else {
-				$cardPie.html('该时间范围内，无可用数据...');
+				$cardPie.parent().find('.chart-noresult').removeClass('hide');
 			}
 			$cardPie.parent().find(".card-mask").addClass('hide');
 		}
@@ -148,6 +151,7 @@
 			});
 			var $cardBar = $('.card-bar');
 			if (barData.length) {
+				$cardBar.parent().find('.chart-noresult').addClass('hide');
 				var instance = generateChart($cardBar, {
 				    title: { text: '售卖产品统计（sku）', left: 'center' },
 				    legend: {},
@@ -156,12 +160,11 @@
 				    xAxis: { type: 'date' },
 				    yAxis: {},
 				    series: [ {type: 'bar'}, {type: 'bar'}, {type: 'bar'} ]
-				});
-				
+				});				
 
 				chartInstance.push(instance);
 			} else {
-				$cardBar.html('该时间范围内，无可用数据...');
+				$cardBar.parent().find('.chart-noresult').removeClass('hide');
 			}
 			$cardBar.parent().find(".card-mask").addClass('hide');
 		}
@@ -182,6 +185,7 @@
 			$('#search-start-time').val(startTime);
 			$('#search-end-time').val(endTime);
 			generateChartWithData();
+			chartInstance = [];
 		});	
 		// resize for chart
 		$(window).on('resize', function() {
