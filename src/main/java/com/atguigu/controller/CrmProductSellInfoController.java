@@ -261,10 +261,10 @@ public class CrmProductSellInfoController {
 	}
 	/**
 	 * 6.0
-	 * @author 20210904
+	 * @author 20210907
 	 * @param CrmProductSellInfo
 	 * @throws Exception 
-	 * @exception 按时间查询 查询当天的sku
+	 * @exception 按时间查询 查询每天的sku
 	 * */
 	@RequestMapping(value="/GetProductSellInfoByDate",method=RequestMethod.POST)
 	@ResponseBody
@@ -409,5 +409,33 @@ public class CrmProductSellInfoController {
 			return Msg.success().add("returnMsg", crmProductSellInfoList);
 		}
 		
+	}
+
+	/**
+	 * 6.0
+	 * @author 20210908
+	 * @param CrmProductSellInfo
+	 * @exception 查询某网站下数据
+	 * */
+	@RequestMapping(value="/GetProductSellInfoByBrandNameAndRangeTime",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getProductSellInfoByBrandNameAndRangeTime(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody CrmProductSellInfo crmProductSellInfoReq){
+		
+		CrmProductSellInfo productSellInfoGet = new CrmProductSellInfo();
+		productSellInfoGet.setProductsellinfoBrandname(crmProductSellInfoReq.getProductsellinfoBrandname());
+		productSellInfoGet.setProductsellinfoMotifytime(crmProductSellInfoReq.getProductsellinfoMotifytime());
+		productSellInfoGet.setProductsellinfoProductselltime(productSellInfoGet.getProductsellinfoProductselltime());
+		//按条件查询
+		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByParameter(productSellInfoGet);
+		if(crmProductSellInfoList.size() > 0){
+			crmProductSellInfoList.sort(new Comparator<CrmProductSellInfo>(){
+				@Override
+				public int compare(CrmProductSellInfo o1, CrmProductSellInfo o2) {
+					return o1.getProductsellinfoProductselltime().compareTo(o2.getProductsellinfoProductselltime());
+				}
+			});
+		}
+		return Msg.success().add("resMsg", "返回某个网站下按时间查询该时间段数据，按时间升序排序").add("crmProductSellInfoList", crmProductSellInfoList);
 	}
 }

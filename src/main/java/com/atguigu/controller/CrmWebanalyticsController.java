@@ -2,6 +2,7 @@ package com.atguigu.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -238,6 +239,83 @@ public class CrmWebanalyticsController {
 		//查询全部渠道详情
 		return Msg.success().add("crmWebanalyticsBrandList", crmWebanalyticsBrandList).add("CrmWebanalyticsAllList", CrmWebanalyticsAllList);
 		
+	}
+	
+	/**
+	 * 2.0
+	 * @author 20210908
+	 * @param CrmWebanalytics
+	 * @exception 按时间查询
+	 * */
+	@RequestMapping(value="/GetCrmWebanalyticsInfoByBrandAndRangeTime",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getCrmWebanalyticsInfoByBrandAndRangeTime(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody CrmWebanalytics crmWebanalyticsReq){
+		
+		//选查询渠道总数
+		String brandName = crmWebanalyticsReq.getWebanalyticsBrandname();
+		CrmWebanalytics crmWebanalyticsBrand = new CrmWebanalytics();
+		crmWebanalyticsBrand.setWebanalyticsBrandname(brandName);
+		crmWebanalyticsBrand.setWebanalyticsCreatetime(crmWebanalyticsReq.getWebanalyticsCreatetime());
+		crmWebanalyticsBrand.setWebanalyticsMotifytime(crmWebanalyticsReq.getWebanalyticsMotifytime());
+		
+		List<CrmWebanalytics> crmWebanalyticsBrandList = crmWebanalyticsService.selectCrmWebanalyticsByParameter(crmWebanalyticsBrand);
+		
+		List<CrmWebanalytics> crmWebanalyticsChannelList = null;;
+		List<List<CrmWebanalytics>> crmWebanalyticsFinallList = null;
+		if(crmWebanalyticsBrandList.size()>0){
+			crmWebanalyticsChannelList = new ArrayList<CrmWebanalytics>();
+			crmWebanalyticsFinallList = new ArrayList<List<CrmWebanalytics>>();
+			//将查询出来的网站渠道  按渠道排序
+			crmWebanalyticsBrandList.sort(new Comparator<CrmWebanalytics>(){
+				@Override
+				public int compare(CrmWebanalytics o1, CrmWebanalytics o2) {
+					return o1.getWebanalyticsChannelname().compareTo(o2.getWebanalyticsChannelname());
+				}
+			});
+			String channelName = crmWebanalyticsBrandList.get(0).getWebanalyticsChannelname();
+			for(int i = 0; i < crmWebanalyticsBrandList.size();i++){
+				CrmWebanalytics webanalytics = crmWebanalyticsBrandList.get(i);
+				String cn = webanalytics.getWebanalyticsChannelname();
+				//将相同渠道下的合并为一个list
+				if(cn.equals(channelName)){
+					crmWebanalyticsChannelList.add(webanalytics);
+					
+				}else{
+					//对上一个crmWebanalyticsChannelList进行排序，按时间倒序排序
+					crmWebanalyticsChannelList.sort(new Comparator<CrmWebanalytics>(){
+						@Override
+						public int compare(CrmWebanalytics o1, CrmWebanalytics o2) {
+							return o2.getWebanalyticsCreatetime().compareTo(o1.getWebanalyticsCreatetime());
+						}
+					});
+					crmWebanalyticsFinallList.add(crmWebanalyticsChannelList);
+					crmWebanalyticsChannelList = new ArrayList<CrmWebanalytics>();
+					crmWebanalyticsChannelList.add(webanalytics);
+					channelName = cn;
+				}
+				if(i==crmWebanalyticsBrandList.size()-1){
+					//对上一个crmWebanalyticsChannelList进行排序，按时间倒序排序
+					crmWebanalyticsChannelList.sort(new Comparator<CrmWebanalytics>(){
+						@Override
+						public int compare(CrmWebanalytics o1, CrmWebanalytics o2) {
+							return o2.getWebanalyticsCreatetime().compareTo(o1.getWebanalyticsCreatetime());
+						}
+					});
+					crmWebanalyticsFinallList.add(crmWebanalyticsChannelList);
+				}
+			}
+		}
+		if(crmWebanalyticsFinallList != null && crmWebanalyticsFinallList.size()>0){
+			crmWebanalyticsFinallList.sort(new Comparator<List<CrmWebanalytics>>(){
+				@Override
+				public int compare(List<CrmWebanalytics> o1, List<CrmWebanalytics> o2) {
+					
+					return o2.size() - o1.size();
+				}
+			});
+		}
+		return Msg.success().add("resMsg", "返回某网站下，各渠道汇总，按渠道数量降序排序；相同渠道内按创建时间降序排序；").add("crmWebanalyticsFinallList", crmWebanalyticsFinallList);
 	}
 
 }
