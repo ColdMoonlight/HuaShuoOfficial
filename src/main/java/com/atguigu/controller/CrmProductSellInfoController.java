@@ -286,6 +286,8 @@ public class CrmProductSellInfoController {
 		
 		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByRangeTime(productSellInfoGet);
 		
+		//最终返回List
+		List<List<List<CrmProductSellInfo>>> productSellInfoFinallList=null;
 		if(crmProductSellInfoList.size() > 0){
 			//将数据按照日期升序排序
 			crmProductSellInfoList.sort(new Comparator<CrmProductSellInfo>(){
@@ -299,7 +301,7 @@ public class CrmProductSellInfoController {
 			Date date1 = DateUtil.str2Date(crmProductSellInfoList.get(0).getProductsellinfoProductselltime(), "yyyy-MM-dd") ;
 			
 			//最终返回List
-			List<List<List<CrmProductSellInfo>>> productSellInfoFinallList = new ArrayList<List<List<CrmProductSellInfo>>>();
+			productSellInfoFinallList = new ArrayList<List<List<CrmProductSellInfo>>>();
 			//临时list，用来合并相同日期下相同sku
 			List<CrmProductSellInfo> productSellInfoTempList = new ArrayList<CrmProductSellInfo>();
 			//二级List:相同date的一个list,不同的date新建list
@@ -351,11 +353,21 @@ public class CrmProductSellInfoController {
 						}
 						
 					});
+					
 					productSellInfoSameSkuList = new ArrayList<CrmProductSellInfo>();
-					//获取排序后 添加到最终返回的List中
-					productSellInfoFinallList.add(productSellInfoDateList);
+					
+					//获取排序后 只获取每个dateList最多的三个返回  添加到最终返回的List中
+					List<List<CrmProductSellInfo>> productSellInfoDateListThree =  new ArrayList<List<CrmProductSellInfo>>();
+					for(int m=0;m<productSellInfoDateList.size();m++){
+						if(m<3){
+							productSellInfoDateListThree.add(productSellInfoDateList.get(m));
+						}else{
+							continue;
+						}
+					}
+					productSellInfoFinallList.add(productSellInfoDateListThree);
 					//获取新的sku,list,重新进行存储
-					date1 = DateUtil.str2Date(p.getProductsellinfoProductselltime(), "yyyy-MM-dd");
+					date1 = date2;
 					productSellInfoTempList = new ArrayList<CrmProductSellInfo>();
 					productSellInfoTempList.add(p);
 					productSellInfoDateList = new ArrayList<List<CrmProductSellInfo>>();
@@ -399,15 +411,29 @@ public class CrmProductSellInfoController {
 						}
 						
 					});
-					
-					//获取排序后 添加到最终返回的List中
-					productSellInfoFinallList.add(productSellInfoDateList);
+					//获取排序后 只获取每个dateList最多的三个返回  添加到最终返回的List中
+					List<List<CrmProductSellInfo>> productSellInfoDateListThree =  new ArrayList<List<CrmProductSellInfo>>();
+					for(int m=0;m<productSellInfoDateList.size();m++){
+						if(m<3){
+							productSellInfoDateListThree.add(productSellInfoDateList.get(m));
+						}else{
+							continue;
+						}
+					}
+					productSellInfoFinallList.add(productSellInfoDateListThree);
 				}
 			}
-			return Msg.success().add("returnMsg", productSellInfoFinallList);
-		}else{
-			return Msg.success().add("returnMsg", crmProductSellInfoList);
 		}
+		List<String> productSellInfoFinallDateList = new ArrayList<String>();
+		//获取每天日期
+		if(productSellInfoFinallList != null && productSellInfoFinallList.size() > 0){
+			for(List<List<CrmProductSellInfo>> list :productSellInfoFinallList){
+				productSellInfoFinallDateList.add(list.get(0).get(0).getProductsellinfoProductselltime().substring(0,10));
+			}
+		}
+		return Msg.success().add("resMsg","按时间范围查询数据，返回按天统计相同sku集合,只返回每天三个数量最多sku集合，并返回查询日期集合")
+				.add("productSellInfoFinallDateList", productSellInfoFinallDateList)
+				.add("returnMsg", productSellInfoFinallList);
 		
 	}
 
