@@ -12,42 +12,39 @@
 	<body class="c-app">
 		<jsp:include page="layout/backheader.jsp" flush="true"></jsp:include>
 		<div class="c-main">
-			<div class="c-main-head row">
-				<div class="c-dropdown col-md-6 col-lg-3">
-					<div class="form-group row">
-						<label class="col-form-label" style="float: left; margin-left: 1rem;" for="c-dropdown-website">Website</label>
-						<div class="controls col-md-9" style="padding-left: .5rem;">
-							<select class="form-control" id="c-dropdown-website">
-								<option value="megalookhairWebsite">megalookhairWebsite</option>
-								<option value="arabella">arabella</option>
-								<option value="ayiyi">ayiyi</option>
-							</select>
+			<div class="c-main-head">
+				<div class="row">
+					<div class="c-date-time-range col-md-6 col-lg-6">
+						<div class="form-group">
+							<label class="col-form-label" for="search-time">
+								<svg class="c-icon">
+									<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-av-timer"></use>
+								</svg>
+							</label>
+							<div class="controls">
+								<input hidden id="search-start-time" />
+								<input hidden id="search-end-time" />
+								<input class="form-control daterangetimepicker" type="text" placeholder="@exmaple 2020-01-01 00:00:00 - 2020-01-01 23:59:59" >
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="c-date-time-range">
-					<div class="form-group">
-						<label class="col-form-label" for="search-time">
-							<svg class="c-icon">
-								<use xlink:href="${APP_PATH}/static/back/img/svg/free.svg#cil-av-timer"></use>
-							</svg>
-						</label>
-						<div class="controls">
-							<input hidden id="search-start-time" />
-							<input hidden id="search-end-time" />
-							<input class="form-control daterangetimepicker" type="text" placeholder="@exmaple 2020-01-01 00:00:00 - 2020-01-01 23:59:59" >
-						</div>
+					<div class="col-md-3 col-lg-3">
+						<button class="btn btn-primary btn-select">查询</button>
 					</div>
 				</div>
-				<div class="">
-					<div class="form-group row">
-					<button class="btn btn-primary btn-select">查询</button>
-					</div>
-				</div>
-				
-				<div class="c-table">
-					<div class="table-detail"></div>
-				</div>
+			</div>
+			<div class="c-table">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>网站</th>
+							<th>销量第一</th>
+							<th>销量第二</th>
+							<th>销量第三</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
 			</div>
 		</div>
 		<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
@@ -75,13 +72,11 @@
 			$('#search-end-time').val(endTime);
 		});
 		
-		
+		getAllBlockData(getFormData());
 		// create collection
 		$('.btn-select').on('click', function () {
-			console.log("--------------");
-			var reqData = getFormData();
-			console.log(reqData);
-			getSelectDate(reqData);});
+			getAllBlockData(getFormData());
+		});
 
 		// getFormdData
 		function getFormData() {
@@ -93,7 +88,7 @@
 		}
 		
 		// callback get one data
-		function getSelectDate(reqData) {
+		function getAllBlockData(reqData) {
 			$.ajax({
 				url: "${APP_PATH}/CrmWebanalytics/GetCrmWebanalyticsInfoByRangeTimeAndBrand",
 				type: "post",
@@ -120,11 +115,7 @@
 		// init table-list
 		function renderTable(data) {
 			var crmWebanalyticsBrandListData = data.extend.crmWebanalyticsBrandList;
-			console.log(crmWebanalyticsBrandListData);
-			console.log("-----------------------------------");
 			var CrmWebanalyticsAllListData = data.extend.CrmWebanalyticsAllList;
-			console.log(CrmWebanalyticsAllListData);
-			console.log("-----------------------------------");
 			var AllMoney=0;
 			var AllNum=0;
 			var htmlStr = '';
@@ -133,18 +124,18 @@
 			}
 			for (var i = 0, len = CrmWebanalyticsAllListData.length; i < len; i += 1) {
 				var baifenbi =CrmWebanalyticsAllListData[i].webanalyticsChannelsellmoney/AllMoney*100;
-				htmlStr += '<tr><td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsBrandname + '&nbsp;&nbsp;</td>' +
-					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelname + '&nbsp;&nbsp;</td>' +
-					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelinvestmoney + '&nbsp;&nbsp;</td>' +
-					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelintousernum + '&nbsp;&nbsp;</td>' +
-					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelintousernewnum + '&nbsp;&nbsp;</td>' +
-					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelflowlnum + '&nbsp;&nbsp;</td>' +
-					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelsellnum + '&nbsp;&nbsp;</td>' +
-					'<td>&nbsp;&nbsp;' + CrmWebanalyticsAllListData[i].webanalyticsChannelsellmoney + '&nbsp;&nbsp;</td>' +
-					'<td>&nbsp;&nbsp;' + baifenbi.toFixed(2) + '%&nbsp;&nbsp;</td>' +
+				htmlStr += '<tr><td>' + CrmWebanalyticsAllListData[i].webanalyticsBrandname + '</td>' +
+					'<td>' + CrmWebanalyticsAllListData[i].webanalyticsChannelname + '</td>' +
+					'<td>' + CrmWebanalyticsAllListData[i].webanalyticsChannelinvestmoney + '</td>' +
+					'<td>' + CrmWebanalyticsAllListData[i].webanalyticsChannelsellmoney + '</td>' +
+					'<td>' + CrmWebanalyticsAllListData[i].webanalyticsChannelsellnum + '</td>' +
+					'<td>' + CrmWebanalyticsAllListData[i].webanalyticsChannelflowlnum + '</td>' +
+					'<td>' + CrmWebanalyticsAllListData[i].webanalyticsChannelintousernum + '</td>' +
+					'<td>' + CrmWebanalyticsAllListData[i].webanalyticsChannelintousernewnum + '</td>' +
+					'<td>' + baifenbi.toFixed(2) + '</td>' +
 					'</tr>';
 			}
-			$('.table-detail').html(htmlStr);
+			$('.c-table tbody').html(htmlStr);
 		}
 		</script>
 	</body>

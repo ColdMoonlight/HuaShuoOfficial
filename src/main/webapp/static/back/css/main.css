@@ -479,6 +479,7 @@
 	min-width: 24rem;
     margin-left: .5rem;
 }
+.c-dropdown>.form-group,
 .c-date-time-range>.form-group {
 	display: flex;
     align-items: center;
