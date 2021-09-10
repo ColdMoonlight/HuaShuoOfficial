@@ -355,7 +355,7 @@ public class CrmProductSellInfoController {
 					//获取排序后 添加到最终返回的List中
 					productSellInfoFinallList.add(productSellInfoDateList);
 					//获取新的sku,list,重新进行存储
-					date1 = DateUtil.str2Date(p.getProductsellinfoProductselltime(), "yyyy-MM-dd");
+					date1 = date2;
 					productSellInfoTempList = new ArrayList<CrmProductSellInfo>();
 					productSellInfoTempList.add(p);
 					productSellInfoDateList = new ArrayList<List<CrmProductSellInfo>>();

@@ -263,6 +263,7 @@ public class CrmWebanalyticsController {
 		
 		List<CrmWebanalytics> crmWebanalyticsChannelList = null;;
 		List<List<CrmWebanalytics>> crmWebanalyticsFinallList = null;
+		
 		if(crmWebanalyticsBrandList.size()>0){
 			crmWebanalyticsChannelList = new ArrayList<CrmWebanalytics>();
 			crmWebanalyticsFinallList = new ArrayList<List<CrmWebanalytics>>();
@@ -306,6 +307,7 @@ public class CrmWebanalyticsController {
 				}
 			}
 		}
+		
 		if(crmWebanalyticsFinallList != null && crmWebanalyticsFinallList.size()>0){
 			crmWebanalyticsFinallList.sort(new Comparator<List<CrmWebanalytics>>(){
 				@Override
@@ -315,7 +317,16 @@ public class CrmWebanalyticsController {
 				}
 			});
 		}
-		return Msg.success().add("resMsg", "返回某网站下，各渠道汇总，按渠道数量降序排序；相同渠道内按创建时间降序排序；").add("crmWebanalyticsFinallList", crmWebanalyticsFinallList);
+		//返回各渠道数量汇总
+		List<Integer> crmWebanalyticsFinallNumList = new ArrayList<Integer>();
+		if(crmWebanalyticsFinallList != null && crmWebanalyticsFinallList.size()>0){
+			for(List<CrmWebanalytics> f : crmWebanalyticsFinallList){
+				crmWebanalyticsFinallNumList.add(f.size());
+			}
+		}
+		return Msg.success().add("resMsg", "返回某网站下，各渠道汇总，按渠道数量降序排序；相同渠道内按创建时间降序排序；以及对应的各渠道数量list")
+				.add("crmWebanalyticsFinallList", crmWebanalyticsFinallList)
+				.add("crmWebanalyticsFinallNumList", crmWebanalyticsFinallNumList);
 	}
 
 }
