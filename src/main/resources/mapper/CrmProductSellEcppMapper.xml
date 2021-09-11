@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.dao.CrmProductSellEcppMapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.bean.CrmProductSellEcpp">
+    <id column="productSellEcpp_id" jdbcType="INTEGER" property="productsellecppId" />
+    <result column="productSellEcpp_order_id" jdbcType="INTEGER" property="productsellecppOrderId" />
+    <result column="productSellEcpp_order_sn" jdbcType="VARCHAR" property="productsellecppOrderSn" />
+    <result column="productSellEcpp_track_no" jdbcType="VARCHAR" property="productsellecppTrackNo" />
+    <result column="productSellEcpp_order_amount" jdbcType="DECIMAL" property="productsellecppOrderAmount" />
+    <result column="productSellEcpp_consignee" jdbcType="VARCHAR" property="productsellecppConsignee" />
+    <result column="productSellEcpp_email" jdbcType="VARCHAR" property="productsellecppEmail" />
+    <result column="productSellEcpp_street1" jdbcType="VARCHAR" property="productsellecppStreet1" />
+    <result column="productSellEcpp_street2" jdbcType="VARCHAR" property="productsellecppStreet2" />
+    <result column="productSellEcpp_city" jdbcType="VARCHAR" property="productsellecppCity" />
+    <result column="productSellEcpp_state" jdbcType="VARCHAR" property="productsellecppState" />
+    <result column="productSellEcpp_country" jdbcType="VARCHAR" property="productsellecppCountry" />
+    <result column="productSellEcpp_countryCode" jdbcType="VARCHAR" property="productsellecppCountrycode" />
+    <result column="productSellEcpp_zipCode" jdbcType="VARCHAR" property="productsellecppZipcode" />
+    <result column="productSellEcpp_tel" jdbcType="VARCHAR" property="productsellecppTel" />
+    <result column="productSellEcpp_paid_time" jdbcType="VARCHAR" property="productsellecppPaidTime" />
+    <result column="productSellEcpp_update_time" jdbcType="VARCHAR" property="productsellecppUpdateTime" />
+    <result column="productSellEcpp_goods_sn" jdbcType="VARCHAR" property="productsellecppGoodsSn" />
+    <result column="productSellEcpp_goods_name" jdbcType="VARCHAR" property="productsellecppGoodsName" />
+    <result column="productSellEcpp_goods_qty" jdbcType="VARCHAR" property="productsellecppGoodsQty" />
+    <result column="productSellEcpp_goods_price" jdbcType="VARCHAR" property="productsellecppGoodsPrice" />
+    <result column="productSellEcpp_goods_cost" jdbcType="VARCHAR" property="productsellecppGoodsCost" />
+    <result column="productSellEcpp_createTime" jdbcType="VARCHAR" property="productsellecppCreatetime" />
+    <result column="productSellEcpp_modifyTime" jdbcType="VARCHAR" property="productsellecppModifytime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    productSellEcpp_id, productSellEcpp_order_id, productSellEcpp_order_sn, productSellEcpp_track_no, 
+    productSellEcpp_order_amount, productSellEcpp_consignee, productSellEcpp_email, productSellEcpp_street1, 
+    productSellEcpp_street2, productSellEcpp_city, productSellEcpp_state, productSellEcpp_country, 
+    productSellEcpp_countryCode, productSellEcpp_zipCode, productSellEcpp_tel, productSellEcpp_paid_time, 
+    productSellEcpp_update_time, productSellEcpp_goods_sn, productSellEcpp_goods_name, 
+    productSellEcpp_goods_qty, productSellEcpp_goods_price, productSellEcpp_goods_cost, 
+    productSellEcpp_createTime, productSellEcpp_modifyTime
+  </sql>
+
+  <insert id="insert" parameterType="com.atguigu.bean.CrmProductSellEcpp">
+    insert into tb_crm_productsellecpp (productSellEcpp_id, productSellEcpp_order_id, 
+      productSellEcpp_order_sn, productSellEcpp_track_no, 
+      productSellEcpp_order_amount, productSellEcpp_consignee, 
+      productSellEcpp_email, productSellEcpp_street1, 
+      productSellEcpp_street2, productSellEcpp_city, 
+      productSellEcpp_state, productSellEcpp_country, 
+      productSellEcpp_countryCode, productSellEcpp_zipCode, 
+      productSellEcpp_tel, productSellEcpp_paid_time, 
+      productSellEcpp_update_time, productSellEcpp_goods_sn, 
+      productSellEcpp_goods_name, productSellEcpp_goods_qty, 
+      productSellEcpp_goods_price, productSellEcpp_goods_cost, 
+      productSellEcpp_createTime, productSellEcpp_modifyTime
+      )
+    values (#{productsellecppId,jdbcType=INTEGER}, #{productsellecppOrderId,jdbcType=INTEGER}, 
+      #{productsellecppOrderSn,jdbcType=VARCHAR}, #{productsellecppTrackNo,jdbcType=VARCHAR}, 
+      #{productsellecppOrderAmount,jdbcType=DECIMAL}, #{productsellecppConsignee,jdbcType=VARCHAR}, 
+      #{productsellecppEmail,jdbcType=VARCHAR}, #{productsellecppStreet1,jdbcType=VARCHAR}, 
+      #{productsellecppStreet2,jdbcType=VARCHAR}, #{productsellecppCity,jdbcType=VARCHAR}, 
+      #{productsellecppState,jdbcType=VARCHAR}, #{productsellecppCountry,jdbcType=VARCHAR}, 
+      #{productsellecppCountrycode,jdbcType=VARCHAR}, #{productsellecppZipcode,jdbcType=VARCHAR}, 
+      #{productsellecppTel,jdbcType=VARCHAR}, #{productsellecppPaidTime,jdbcType=VARCHAR}, 
+      #{productsellecppUpdateTime,jdbcType=VARCHAR}, #{productsellecppGoodsSn,jdbcType=VARCHAR}, 
+      #{productsellecppGoodsName,jdbcType=VARCHAR}, #{productsellecppGoodsQty,jdbcType=VARCHAR}, 
+      #{productsellecppGoodsPrice,jdbcType=VARCHAR}, #{productsellecppGoodsCost,jdbcType=VARCHAR}, 
+      #{productsellecppCreatetime,jdbcType=VARCHAR}, #{productsellecppModifytime,jdbcType=VARCHAR}
+      )
+  </insert>
+   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmProductSellEcpp">
+    update tb_crm_productsellecpp
+    set productSellEcpp_order_id = #{productsellecppOrderId,jdbcType=INTEGER},
+      productSellEcpp_order_sn = #{productsellecppOrderSn,jdbcType=VARCHAR},
+      productSellEcpp_track_no = #{productsellecppTrackNo,jdbcType=VARCHAR},
+      productSellEcpp_order_amount = #{productsellecppOrderAmount,jdbcType=DECIMAL},
+      productSellEcpp_consignee = #{productsellecppConsignee,jdbcType=VARCHAR},
+      productSellEcpp_email = #{productsellecppEmail,jdbcType=VARCHAR},
+      productSellEcpp_street1 = #{productsellecppStreet1,jdbcType=VARCHAR},
+      productSellEcpp_street2 = #{productsellecppStreet2,jdbcType=VARCHAR},
+      productSellEcpp_city = #{productsellecppCity,jdbcType=VARCHAR},
+      productSellEcpp_state = #{productsellecppState,jdbcType=VARCHAR},
+      productSellEcpp_country = #{productsellecppCountry,jdbcType=VARCHAR},
+      productSellEcpp_countryCode = #{productsellecppCountrycode,jdbcType=VARCHAR},
+      productSellEcpp_zipCode = #{productsellecppZipcode,jdbcType=VARCHAR},
+      productSellEcpp_tel = #{productsellecppTel,jdbcType=VARCHAR},
+      productSellEcpp_paid_time = #{productsellecppPaidTime,jdbcType=VARCHAR},
+      productSellEcpp_update_time = #{productsellecppUpdateTime,jdbcType=VARCHAR},
+      productSellEcpp_goods_sn = #{productsellecppGoodsSn,jdbcType=VARCHAR},
+      productSellEcpp_goods_name = #{productsellecppGoodsName,jdbcType=VARCHAR},
+      productSellEcpp_goods_qty = #{productsellecppGoodsQty,jdbcType=VARCHAR},
+      productSellEcpp_goods_price = #{productsellecppGoodsPrice,jdbcType=VARCHAR},
+      productSellEcpp_goods_cost = #{productsellecppGoodsCost,jdbcType=VARCHAR},
+      productSellEcpp_createTime = #{productsellecppCreatetime,jdbcType=VARCHAR},
+      productSellEcpp_modifyTime = #{productsellecppModifytime,jdbcType=VARCHAR}
+    where productSellEcpp_id = #{productsellecppId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="productsellecppId" parameterType="com.atguigu.bean.CrmProductSellEcpp">
+    insert into tb_crm_productsellecpp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="productsellecppId != null">
+        productSellEcpp_id,
+      </if>
+      <if test="productsellecppOrderId != null">
+        productSellEcpp_order_id,
+      </if>
+      <if test="productsellecppOrderSn != null">
+        productSellEcpp_order_sn,
+      </if>
+      <if test="productsellecppTrackNo != null">
+        productSellEcpp_track_no,
+      </if>
+      <if test="productsellecppOrderAmount != null">
+        productSellEcpp_order_amount,
+      </if>
+      <if test="productsellecppConsignee != null">
+        productSellEcpp_consignee,
+      </if>
+      <if test="productsellecppEmail != null">
+        productSellEcpp_email,
+      </if>
+      <if test="productsellecppStreet1 != null">
+        productSellEcpp_street1,
+      </if>
+      <if test="productsellecppStreet2 != null">
+        productSellEcpp_street2,
+      </if>
+      <if test="productsellecppCity != null">
+        productSellEcpp_city,
+      </if>
+      <if test="productsellecppState != null">
+        productSellEcpp_state,
+      </if>
+      <if test="productsellecppCountry != null">
+        productSellEcpp_country,
+      </if>
+      <if test="productsellecppCountrycode != null">
+        productSellEcpp_countryCode,
+      </if>
+      <if test="productsellecppZipcode != null">
+        productSellEcpp_zipCode,
+      </if>
+      <if test="productsellecppTel != null">
+        productSellEcpp_tel,
+      </if>
+      <if test="productsellecppPaidTime != null">
+        productSellEcpp_paid_time,
+      </if>
+      <if test="productsellecppUpdateTime != null">
+        productSellEcpp_update_time,
+      </if>
+      <if test="productsellecppGoodsSn != null">
+        productSellEcpp_goods_sn,
+      </if>
+      <if test="productsellecppGoodsName != null">
+        productSellEcpp_goods_name,
+      </if>
+      <if test="productsellecppGoodsQty != null">
+        productSellEcpp_goods_qty,
+      </if>
+      <if test="productsellecppGoodsPrice != null">
+        productSellEcpp_goods_price,
+      </if>
+      <if test="productsellecppGoodsCost != null">
+        productSellEcpp_goods_cost,
+      </if>
+      <if test="productsellecppCreatetime != null">
+        productSellEcpp_createTime,
+      </if>
+      <if test="productsellecppModifytime != null">
+        productSellEcpp_modifyTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="productsellecppId != null">
+        #{productsellecppId,jdbcType=INTEGER},
+      </if>
+      <if test="productsellecppOrderId != null">
+        #{productsellecppOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="productsellecppOrderSn != null">
+        #{productsellecppOrderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppTrackNo != null">
+        #{productsellecppTrackNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppOrderAmount != null">
+        #{productsellecppOrderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="productsellecppConsignee != null">
+        #{productsellecppConsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppEmail != null">
+        #{productsellecppEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppStreet1 != null">
+        #{productsellecppStreet1,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppStreet2 != null">
+        #{productsellecppStreet2,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppCity != null">
+        #{productsellecppCity,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppState != null">
+        #{productsellecppState,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppCountry != null">
+        #{productsellecppCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppCountrycode != null">
+        #{productsellecppCountrycode,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppZipcode != null">
+        #{productsellecppZipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppTel != null">
+        #{productsellecppTel,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppPaidTime != null">
+        #{productsellecppPaidTime,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppUpdateTime != null">
+        #{productsellecppUpdateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppGoodsSn != null">
+        #{productsellecppGoodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppGoodsName != null">
+        #{productsellecppGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppGoodsQty != null">
+        #{productsellecppGoodsQty,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppGoodsPrice != null">
+        #{productsellecppGoodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppGoodsCost != null">
+        #{productsellecppGoodsCost,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppCreatetime != null">
+        #{productsellecppCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppModifytime != null">
+        #{productsellecppModifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- deleteByPrimaryKey -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_crm_productsellecpp
+    where productSellEcpp_id = #{productsellecppId,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- updateByPrimaryKeySelective -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.CrmProductSellEcpp">
+    update tb_crm_productsellecpp
+    <set>
+      <if test="productsellecppOrderId != null">
+        productSellEcpp_order_id = #{productsellecppOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="productsellecppOrderSn != null">
+        productSellEcpp_order_sn = #{productsellecppOrderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppTrackNo != null">
+        productSellEcpp_track_no = #{productsellecppTrackNo,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppOrderAmount != null">
+        productSellEcpp_order_amount = #{productsellecppOrderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="productsellecppConsignee != null">
+        productSellEcpp_consignee = #{productsellecppConsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppEmail != null">
+        productSellEcpp_email = #{productsellecppEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppStreet1 != null">
+        productSellEcpp_street1 = #{productsellecppStreet1,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppStreet2 != null">
+        productSellEcpp_street2 = #{productsellecppStreet2,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppCity != null">
+        productSellEcpp_city = #{productsellecppCity,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppState != null">
+        productSellEcpp_state = #{productsellecppState,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppCountry != null">
+        productSellEcpp_country = #{productsellecppCountry,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppCountrycode != null">
+        productSellEcpp_countryCode = #{productsellecppCountrycode,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppZipcode != null">
+        productSellEcpp_zipCode = #{productsellecppZipcode,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppTel != null">
+        productSellEcpp_tel = #{productsellecppTel,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppPaidTime != null">
+        productSellEcpp_paid_time = #{productsellecppPaidTime,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppUpdateTime != null">
+        productSellEcpp_update_time = #{productsellecppUpdateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppGoodsSn != null">
+        productSellEcpp_goods_sn = #{productsellecppGoodsSn,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppGoodsName != null">
+        productSellEcpp_goods_name = #{productsellecppGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppGoodsQty != null">
+        productSellEcpp_goods_qty = #{productsellecppGoodsQty,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppGoodsPrice != null">
+        productSellEcpp_goods_price = #{productsellecppGoodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppGoodsCost != null">
+        productSellEcpp_goods_cost = #{productsellecppGoodsCost,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppCreatetime != null">
+        productSellEcpp_createTime = #{productsellecppCreatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="productsellecppModifytime != null">
+        productSellEcpp_modifyTime = #{productsellecppModifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where productSellEcpp_id = #{productsellecppId,jdbcType=INTEGER}
+  </update>
+ 
+  <!-- selectByPrimaryKey -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_productsellecpp
+    where productSellEcpp_id = #{productsellecppId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- selectCrmProductSellEcppByPage -->
+  <select id="selectCrmProductSellEcppByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_productsellecpp
+    order by productSellEcpp_id desc
+  </select>
+  
+  <!-- selectCrmProductSellEcppByParameter -->
+  <select id="selectCrmProductSellEcppByParameter" parameterType="com.atguigu.bean.CrmProductSellEcpp" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_crm_productsellecpp
+    <where>
+      <if test="productsellecppOrderSn != null">
+        productSellEcpp_order_sn = #{productsellecppOrderSn,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppTrackNo != null">
+        and productSellEcpp_track_no = #{productsellecppTrackNo,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppConsignee != null">
+        and productSellEcpp_consignee = #{productsellecppConsignee,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppEmail != null">
+        and productSellEcpp_email = #{productsellecppEmail,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppStreet1 != null">
+        and productSellEcpp_street1 = #{productsellecppStreet1,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppStreet2 != null">
+        and productSellEcpp_street2 = #{productsellecppStreet2,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppCity != null">
+        and productSellEcpp_city = #{productsellecppCity,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppState != null">
+        and productSellEcpp_state = #{productsellecppState,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppCountry != null">
+        and productSellEcpp_country = #{productsellecppCountry,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppCountrycode != null">
+        and productSellEcpp_countryCode = #{productsellecppCountrycode,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppZipcode != null">
+        and productSellEcpp_zipCode = #{productsellecppZipcode,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppTel != null">
+        and productSellEcpp_tel = #{productsellecppTel,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppPaidTime != null">
+        and productSellEcpp_paid_time = #{productsellecppPaidTime,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppUpdateTime != null">
+        and productSellEcpp_update_time = #{productsellecppUpdateTime,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppGoodsSn != null">
+        and productSellEcpp_goods_sn = #{productsellecppGoodsSn,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppGoodsName != null">
+        and productSellEcpp_goods_name = #{productsellecppGoodsName,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppGoodsQty != null">
+        and productSellEcpp_goods_qty = #{productsellecppGoodsQty,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppGoodsPrice != null">
+        and productSellEcpp_goods_price = #{productsellecppGoodsPrice,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppGoodsCost != null">
+        and productSellEcpp_goods_cost = #{productsellecppGoodsCost,jdbcType=VARCHAR}
+      </if>
+      <if test="productsellecppCreatetime != null">
+        and productSellEcpp_createTime = #{productsellecppCreatetime,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by productSellEcpp_id desc
+  </select>
+  
+</mapper>

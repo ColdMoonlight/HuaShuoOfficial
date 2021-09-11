@@ -424,11 +424,14 @@ public class CrmProductSellInfoController {
 				}
 			}
 		}
-		List<String> productSellInfoFinallDateList = new ArrayList<String>();
+		List<String> productSellInfoFinallDateList = null;
 		//获取每天日期
-		if(productSellInfoFinallList != null && productSellInfoFinallList.size() > 0){
-			for(List<List<CrmProductSellInfo>> list :productSellInfoFinallList){
-				productSellInfoFinallDateList.add(list.get(0).get(0).getProductsellinfoProductselltime().substring(0,10));
+		if(productSellInfoFinallList != null){
+			productSellInfoFinallDateList = new ArrayList<String>();
+			if(productSellInfoFinallList.size() > 0){
+				for(List<List<CrmProductSellInfo>> list :productSellInfoFinallList){
+					productSellInfoFinallDateList.add(list.get(0).get(0).getProductsellinfoProductselltime().substring(0,10));
+				}
 			}
 		}
 		return Msg.success().add("resMsg","按时间范围查询数据，返回按天统计相同sku集合,只返回每天三个数量最多sku集合，并返回查询日期集合")
