@@ -60,6 +60,7 @@
 	position: relative;
 	min-height: 10rem;
     padding: 1rem;
+    overflow: hidden;
 }
 .c-tab-container {
 	overflow-y: auto;
@@ -478,6 +479,7 @@
 	min-width: 24rem;
     margin-left: .5rem;
 }
+.c-dropdown>.form-group,
 .c-date-time-range>.form-group {
 	display: flex;
     align-items: center;
@@ -708,9 +710,23 @@
 	align-items: center;
 	justify-content: center;
 }
+.chart-noresult {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #fff;
+}
 .card-chart {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	height: 100%;
+}
+.text-red {
+	color: #ff0000;
 }
