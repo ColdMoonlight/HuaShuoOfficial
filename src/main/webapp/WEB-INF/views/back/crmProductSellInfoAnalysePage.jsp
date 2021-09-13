@@ -36,7 +36,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-12 col-lg-6">
+				<!-- <div class="col-md-12 col-lg-6">
 					<div class="card">
 						<div class="card-chart card-bar"></div>
 						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
@@ -44,6 +44,21 @@
 							<div class="spinner-border"></div>
 						</div>
 					</div>
+				</div> -->
+			</div>
+			<div class="c-main-body">
+				<div class="c-table-table table-responsive-sm">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>时间</th>
+								<th>第一</th>
+								<th>第二</th>
+								<th>第三</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -131,50 +146,55 @@
 			$cardPie.parent().find(".card-mask").addClass('hide');
 		}
 		
-		function generateBarChart() {
-			
-		}
-		
-		function transformBarChart(data) {
-			var barData = [];
-			data.length && data.forEach(function(item, idx) {
-				var dArr = [];
-				item.length && item.forEach(function(sItem, idx) {
-					if (idx < 3) {
-						item.length && dArr.push({
-							value: item.length,
-							name: item[0].productsellinfoProductsku
-						});					
-					}
-				});
-				barArr.push(dArr);
-			});
-			var $cardBar = $('.card-bar');
-			if (barData.length) {
-				$cardBar.parent().find('.chart-noresult').addClass('hide');
-				var instance = generateChart($cardBar, {
-				    title: { text: '售卖产品统计（sku）', left: 'center' },
-				    legend: {},
-				    tooltip: { trigger: 'item' },
-				    dataset: { source: barData },
-				    xAxis: { type: 'date' },
-				    yAxis: {},
-				    series: [ {type: 'bar'}, {type: 'bar'}, {type: 'bar'} ]
-				});				
-
-				chartInstance.push(instance);
-			} else {
-				$cardBar.parent().find('.chart-noresult').removeClass('hide');
-			}
-			$cardBar.parent().find(".card-mask").addClass('hide');
-		}
-		
 		function generateChartWithData() {
 			$('.card-mask').removeClass('hide');
-			generatePieChart();	
-			generateBarChart();
+			generatePieChart();
+			getAllBlockData();
 		}
 
+		// init table-list
+		function renderTable(data) {
+			var timeArr = data.productSellInfoFinallDateList;
+			var nData = data.returnMsg;
+			var htmlStr = '';
+			for (var i = 0, len = timeArr.length; i < len; i += 1) {
+				htmlStr += '<tr><td>' + timeArr[i] + '</td>' +
+					'<td>' + (nData[i][0][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;') + '</td>' +
+					'<td>' + (nData[i][1][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;')+ '</td>' +
+					'<td>' + (nData[i][2][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;') + '</td>' +
+					'</tr>';
+			}
+			$('.c-table-table tbody').html(htmlStr);
+		}
+
+		function getAllBlockData(reqData) {
+			$('.c-mask').show();
+			$.ajax({
+				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByDate",
+				type: "post",
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify({
+					'productsellinfoProductselltime': $('#search-start-time').val(),
+					'productsellinfoMotifytime': $('#search-end-time').val()
+				}),
+				success: function (data) {
+					if (data.code == 100) {
+						renderTable(data.extend);
+						toastr.success(data.extend.resMsg);
+					} else {
+						toastr.error(data.extend.resMsg);
+					}
+				},
+				error: function () {
+					toastr.error('Failed to get ProductSellInfo table-list, please refresh the page to get again!');
+				},
+				complete: function () {
+					$('.c-mask').hide();
+				}
+			});
+		}
+		
 		// init
 		var date = new Date();
 		var ymd = date.getFullYear() + '-' + (date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)) + '-' + (date.getDate() > 9 ? date.getDate() : '0' + date.getDate());
@@ -186,7 +206,7 @@
 			$('#search-end-time').val(endTime);
 			generateChartWithData();
 			chartInstance = [];
-		});	
+		});
 		// resize for chart
 		$(window).on('resize', function() {
 			if (chartInstance.length) {

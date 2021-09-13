@@ -727,3 +727,6 @@
 	justify-content: center;
 	height: 100%;
 }
+.text-red {
+	color: #ff0000;
+}

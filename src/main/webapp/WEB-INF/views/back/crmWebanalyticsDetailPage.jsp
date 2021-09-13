@@ -12,7 +12,7 @@
 	<body class="c-app">
 		<jsp:include page="layout/backheader.jsp" flush="true"></jsp:include>
 		<div class="c-main">
-			<div class="c-date-time-range col-md-6 col-lg-6">
+			<div class="c-date-time-range">
 				<div class="form-group">
 					<label class="col-form-label" for="search-time">
 						<svg class="c-icon">
