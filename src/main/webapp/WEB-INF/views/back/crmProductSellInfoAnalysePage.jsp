@@ -7,6 +7,11 @@
 		<title>销售分析</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
+		<style>
+			.c-table-table { max-height: 460px; overflow-y: auto; }
+			.c-table-table table { position: relative; }
+			.c-table-table thead { position: sticky; top: 0; left: 0; background-color: #ebedef; }
+		</style>
 	</head>
 
 	<body class="c-app">
@@ -36,29 +41,20 @@
 						</div>
 					</div>
 				</div>
-				<!-- <div class="col-md-12 col-lg-6">
-					<div class="card">
-						<div class="card-chart card-bar"></div>
-						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
-						<div class="card-mask">
-							<div class="spinner-border"></div>
-						</div>
+				<div class="col-md-12 col-lg-6">
+					<div class="c-table-table">
+						<table class="table table-one">
+							<thead>
+								<tr>
+									<th>时间</th>
+									<th>第一</th>
+									<th>第二</th>
+									<th>第三</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
 					</div>
-				</div> -->
-			</div>
-			<div class="c-main-body">
-				<div class="c-table-table table-responsive-sm">
-					<table class="table">
-						<thead>
-							<tr>
-								<th>时间</th>
-								<th>第一</th>
-								<th>第二</th>
-								<th>第三</th>
-							</tr>
-						</thead>
-						<tbody></tbody>
-					</table>
 				</div>
 			</div>
 		</div>
@@ -82,7 +78,9 @@
 
 		function generateChart($el, option) {
 			$el.css('height', 460);
-			return echarts.init($el[0]).setOption(option);
+			var instance = echarts.init($el[0]);
+			instance.setOption(option);
+			return instance;
 		}
 
 		function generatePieChart() {			
@@ -157,14 +155,14 @@
 			var timeArr = data.productSellInfoFinallDateList;
 			var nData = data.returnMsg;
 			var htmlStr = '';
-			for (var i = 0, len = timeArr.length; i < len; i += 1) {
+			timeArr && timeArr.forEach(function(item, i) {
 				htmlStr += '<tr><td>' + timeArr[i] + '</td>' +
 					'<td>' + (nData[i][0][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;') + '</td>' +
 					'<td>' + (nData[i][1][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;')+ '</td>' +
 					'<td>' + (nData[i][2][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;') + '</td>' +
 					'</tr>';
-			}
-			$('.c-table-table tbody').html(htmlStr);
+			});
+			$('.table-one tbody').html(htmlStr);
 		}
 
 		function getAllBlockData(reqData) {
@@ -205,7 +203,6 @@
 			$('#search-start-time').val(startTime);
 			$('#search-end-time').val(endTime);
 			generateChartWithData();
-			chartInstance = [];
 		});
 		// resize for chart
 		$(window).on('resize', function() {

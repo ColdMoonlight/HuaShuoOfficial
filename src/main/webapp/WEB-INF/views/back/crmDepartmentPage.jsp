@@ -48,15 +48,10 @@
 							<!-- left panel  -->
 							<div class="left-panel col-lg-7 col-md-12">
 								<div class="card">
-									<div class="card-title">
-										<div class="card-title-name">通用</div>
-									</div>
-									<div class="card-body">
-										<div class="form-group">
-											<label class="col-form-label" for="departmentName">部门名字</label>
-											<div class="controls">
-												<input class="form-control" id="departmentName" type="text" />
-											</div>
+									<div class="form-group">
+										<label class="col-form-label" for="departmentName">部门名字</label>
+										<div class="controls">
+											<input class="form-control" id="departmentName" type="text" />
 										</div>
 									</div>
 								</div>
