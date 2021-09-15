@@ -186,8 +186,11 @@ public class CrmProductSellInfoController {
 	/**
 	 * 6.0
 	 * @author 20210904
+	 *  按时间范围、网站名称查询 查询每天的sku
+	 * 1、按时间范围、网站名称查询，获取数据List，按sku排序
+	 * 2、将各个相同skuList，添加到一个list中,最终按此list.size排序
 	 * @param CrmProductSellInfo
-	 * @exception 按时间查询 
+	 * @exception 
 	 * */
 	@RequestMapping(value="/GetProductSellInfoByRangeTime",method=RequestMethod.POST)
 	@ResponseBody
@@ -267,8 +270,12 @@ public class CrmProductSellInfoController {
 	 * 6.0
 	 * @author 20210907
 	 * @param CrmProductSellInfo
+	 * 按时间范围、网站名称查询 查询每天的sku
+	 * 1、按时间范围、网站名称查询，获取数据List，按销售日期升序排序
+	 * 2、获取相同日期的销售数据List--->相同日期内的按sku排序--->获取相同skuList
+	 * 3、将各个相同skuList，添加到一个list中（此list为相同日期），此list按list.size排序，只保留数量最多的三个skuList
 	 * @throws Exception 
-	 * @exception 按时间查询 查询每天的sku
+	 * @exception 
 	 * */
 	@RequestMapping(value="/GetProductSellInfoByDate",method=RequestMethod.POST)
 	@ResponseBody
@@ -301,9 +308,11 @@ public class CrmProductSellInfoController {
 			crmProductSellInfoList.sort(new Comparator<CrmProductSellInfo>(){
 				@Override
 				public int compare(CrmProductSellInfo o1, CrmProductSellInfo o2) {
+					if(StringUtil.isEmpty(o1.getProductsellinfoProductselltime()) || StringUtil.isEmpty(o2.getProductsellinfoProductselltime())){
+						return 0;
+					}
 					return o1.getProductsellinfoProductselltime().compareTo(o2.getProductsellinfoProductselltime());
 				}
-				
 			});
 			//将相同日期的合并为一个list
 			Date date1 = DateUtil.str2Date(crmProductSellInfoList.get(0).getProductsellinfoProductselltime(), "yyyy-MM-dd") ;
@@ -359,7 +368,6 @@ public class CrmProductSellInfoController {
 						public int compare(List<CrmProductSellInfo> o1, List<CrmProductSellInfo> o2) {
 							return o2.size()-o1.size();
 						}
-						
 					});
 					
 					productSellInfoSameSkuList = new ArrayList<CrmProductSellInfo>();
@@ -389,7 +397,6 @@ public class CrmProductSellInfoController {
 						public int compare(CrmProductSellInfo o1, CrmProductSellInfo o2) {
 							return o2.getProductsellinfoProductsku().compareTo(o1.getProductsellinfoProductsku());
 						}
-						
 					});
 					//将相同sku合并为一个list
 					String sku = productSellInfoTempList.get(0).getProductsellinfoProductsku();
@@ -417,7 +424,6 @@ public class CrmProductSellInfoController {
 						public int compare(List<CrmProductSellInfo> o1, List<CrmProductSellInfo> o2) {
 							return o2.size()-o1.size();
 						}
-						
 					});
 					//获取排序后 只获取每个dateList最多的三个返回  添加到最终返回的List中
 					List<List<CrmProductSellInfo>> productSellInfoDateListThree =  new ArrayList<List<CrmProductSellInfo>>();
@@ -454,13 +460,12 @@ public class CrmProductSellInfoController {
 	 * @param CrmProductSellInfo
 	 * @exception 查询某网站下数据
 	 * */
-	@RequestMapping(value="/GetProductSellInfoByBrandNameAndRangeTime",method=RequestMethod.POST)
+	@RequestMapping(value="/GetProductSellInfoByRangeTimeSortByTime",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getProductSellInfoByBrandNameAndRangeTime(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+	public Msg getProductSellInfoByRangeTimeSortByTime(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
 			@RequestBody CrmProductSellInfo crmProductSellInfoReq){
 		
 		CrmProductSellInfo productSellInfoGet = new CrmProductSellInfo();
-		productSellInfoGet.setProductsellinfoBrandname(crmProductSellInfoReq.getProductsellinfoBrandname());
 		productSellInfoGet.setProductsellinfoMotifytime(crmProductSellInfoReq.getProductsellinfoMotifytime());
 		productSellInfoGet.setProductsellinfoProductselltime(productSellInfoGet.getProductsellinfoProductselltime());
 		//按条件查询
@@ -473,6 +478,6 @@ public class CrmProductSellInfoController {
 				}
 			});
 		}
-		return Msg.success().add("resMsg", "返回某个网站下按时间查询该时间段数据，按时间升序排序").add("crmProductSellInfoList", crmProductSellInfoList);
+		return Msg.success().add("resMsg", "返回按时间查询该时间段数据，按时间升序排序").add("crmProductSellInfoList", crmProductSellInfoList);
 	}
 }

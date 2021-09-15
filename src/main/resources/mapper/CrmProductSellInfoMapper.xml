@@ -258,7 +258,7 @@
     from tb_crm_productsellinfo order by productSellInfo_id desc
   </select>
   
-  <!-- selectCrmProductSellInfoByParameter -->
+  <!-- selectCrmProductSellInfoByRangeTime -->
   <select id="selectCrmProductSellInfoByRangeTime" parameterType="com.atguigu.bean.CrmProductSellInfo" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
