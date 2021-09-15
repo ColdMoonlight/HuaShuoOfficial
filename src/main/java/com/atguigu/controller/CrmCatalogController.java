@@ -195,7 +195,7 @@ public class CrmCatalogController {
 		int PagNum = Const.PAGE_NUM_DEFAULT;
 		PageHelper.startPage(pn, PagNum);
 		List<CrmCatalog> crmCatalogList = crmCatalogService.selectCrmCatalogByPage();
-		PageInfo page = new PageInfo(crmCatalogList, PagNum);
+		PageInfo<CrmCatalog> page = new PageInfo<CrmCatalog>(crmCatalogList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
 	

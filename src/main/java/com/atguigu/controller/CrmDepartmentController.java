@@ -26,7 +26,7 @@ public class CrmDepartmentController {
 	
 	/**
 	 * 2.0	20210813
-	 * Department首页
+	 * crmDepartmentPage首页
 	 * */
 	@RequestMapping("/ToCrmDepartmentPage")
 	public String toCrmDepartmentPage(HttpSession session) throws Exception{
@@ -41,10 +41,9 @@ public class CrmDepartmentController {
 	}
 	
 	/**
-	 * 2.0
 	 * @author 20210813
 	 * @param CrmDepartment
-	 * @exception 创建新部门
+	 * 创建新部门
 	 * */
 	@RequestMapping(value="/Add",method=RequestMethod.POST)
 	@ResponseBody
@@ -67,7 +66,7 @@ public class CrmDepartmentController {
 	 * 3.0
 	 * @author 20210813
 	 * @param CrmDepartment
-	 * @exception 创建新部门
+	 * 删除新部门
 	 * */
 	@RequestMapping(value="/Delete",method=RequestMethod.POST)
 	@ResponseBody
@@ -82,7 +81,7 @@ public class CrmDepartmentController {
 	 * 4.0
 	 * @author 20210813
 	 * @param CrmDepartment
-	 * @exception 更新部门信息
+	 * 更新部门信息
 	 * */
 	@RequestMapping(value="/Update",method=RequestMethod.POST)
 	@ResponseBody
@@ -99,7 +98,7 @@ public class CrmDepartmentController {
 	 * 5.0
 	 * @author 20210813
 	 * @param CrmDepartment
-	 * @exception 查看单个部门
+	 * 查看单个部门
 	 * */
 	@RequestMapping(value="/GetOneDepartmentDetailById",method=RequestMethod.POST)
 	@ResponseBody
@@ -116,7 +115,7 @@ public class CrmDepartmentController {
 	 * 6.0
 	 * @author 20210813
 	 * @param CrmDepartment
-	 * @exception 查看全部部门
+	 *  查看全部部门
 	 * */
 	@RequestMapping(value="/GetAllDepartmentInfo",method=RequestMethod.GET)
 	@ResponseBody

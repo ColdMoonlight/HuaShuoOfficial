@@ -30,7 +30,7 @@ public class CrmProductSellEcppController {
 	/**
 	 * 1.0
 	 * 20210813
-	 * ProductSellEcpp首页
+	 * crmProductSellEcppPage首页
 	 * */
 	@RequestMapping("/ToCrmProductSellEcppPage")
 	public String toCrmProductSellEcppPage(HttpSession session) throws Exception{
@@ -48,7 +48,7 @@ public class CrmProductSellEcppController {
 	 * 2.0
 	 * @author 20210813
 	 * @param CrmProductSellEcpp
-	 * @exception 创建新
+	 * 创建新
 	 * */
 	@RequestMapping(value="/Add",method=RequestMethod.POST)
 	@ResponseBody
@@ -71,7 +71,7 @@ public class CrmProductSellEcppController {
 	 * 3.0
 	 * @author 20210813
 	 * @param CrmProductSellEcpp
-	 * @exception 删除信息
+	 * 删除信息
 	 * */
 	@RequestMapping(value="/Delete",method=RequestMethod.POST)
 	@ResponseBody
@@ -86,7 +86,7 @@ public class CrmProductSellEcppController {
 	 * 4.0
 	 * @author 20210813
 	 * @param CrmProductSellEcpp
-	 * @exception 更新信息
+	 * 更新信息
 	 * */
 	@RequestMapping(value="/Update",method=RequestMethod.POST)
 	@ResponseBody
@@ -103,7 +103,7 @@ public class CrmProductSellEcppController {
 	 * 5.0
 	 * @author 20210813
 	 * @param CrmProductSellEcpp
-	 * @exception 查看单个详情
+	 *  查看单个详情
 	 * */
 	@RequestMapping(value="/GetOneProductSellEcppDetailById",method=RequestMethod.POST)
 	@ResponseBody
@@ -120,7 +120,7 @@ public class CrmProductSellEcppController {
 	 * 6.0
 	 * @author 20210813
 	 * @param CrmProductSellEcpp
-	 * @exception 查询分页信息
+	 * 查询分页信息
 	 * */
 	@RequestMapping(value="/GetCrmProductSellEcppByPage",method=RequestMethod.POST)
 	@ResponseBody

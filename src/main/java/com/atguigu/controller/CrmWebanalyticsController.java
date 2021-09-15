@@ -33,7 +33,7 @@ public class CrmWebanalyticsController {
 	
 	/**
 	 * 20210812
-	 * CrmWebanalytics 首页
+	 * crmWebanalyticsPage 首页
 	 * */
 	@RequestMapping("/ToCrmWebanalyticsPage")
 	public String toCrmWebanalyticsPage(HttpSession session) throws Exception{
@@ -48,7 +48,7 @@ public class CrmWebanalyticsController {
 	}
 	 /**
 	   * 20210812
-	   * CrmWebanalytics 首页
+	   * crmWebanalyticsDetailPage 首页
 	   * */
 	  @RequestMapping("/ToCrmWebanalyticsDetailPage")
 	  public String ToCrmWebanalyticsDetailPage(HttpSession session) throws Exception{
@@ -62,10 +62,9 @@ public class CrmWebanalyticsController {
 	    }
 	  }
 	/**
-	 * 2.0
 	 * @author 20210812
 	 * @param CrmWebanalytics
-	 * @exception 创建新渠道
+	 * 创建新渠道
 	 * */
 	@RequestMapping(value="/Add",method=RequestMethod.POST)
 	@ResponseBody
@@ -85,10 +84,9 @@ public class CrmWebanalyticsController {
 	}
 	
 	/**
-	 * 4.0
 	 * @author 20210812
 	 * @param CrmWebanalytics
-	 * @exception 查看单个渠道
+	 * 删除单个渠道
 	 * */
 	@RequestMapping(value="/Delete",method=RequestMethod.POST)
 	@ResponseBody
@@ -102,10 +100,9 @@ public class CrmWebanalyticsController {
 	}
 	
 	/**
-	 * 2.0
 	 * @author 20210812
 	 * @param CrmWebanalytics
-	 * @exception 更新渠道信息
+	 *  更新渠道信息
 	 * */
 	@RequestMapping(value="/Update",method=RequestMethod.POST)
 	@ResponseBody
@@ -118,7 +115,8 @@ public class CrmWebanalyticsController {
 		return Msg.success().add("resMsg", "修改成功");
 	}
 	
-	/**2.0	20210812
+	/**
+	 * 20210812
 	 * 后台CrmWebanalytics列表分页list数据
 	 * @param pn
 	 * @return
@@ -130,7 +128,7 @@ public class CrmWebanalyticsController {
 		int PagNum = Const.PAGE_NUM_DEFAULT;
 		PageHelper.startPage(pn, PagNum);
 		List<CrmWebanalytics> crmWebanalyticsList = crmWebanalyticsService.selectCrmWebanalyticsByPage();
-		PageInfo page = new PageInfo(crmWebanalyticsList, PagNum);
+		PageInfo<CrmWebanalytics> page = new PageInfo<CrmWebanalytics>(crmWebanalyticsList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
 	
@@ -138,7 +136,7 @@ public class CrmWebanalyticsController {
 	 * 2.0
 	 * @author 20210812
 	 * @param CrmWebanalytics
-	 * @exception 查看单个渠道
+	 *  查看单个渠道
 	 * */
 	@RequestMapping(value="/GetOneCrmWebanalyticsDetailById",method=RequestMethod.POST)
 	@ResponseBody
@@ -155,7 +153,7 @@ public class CrmWebanalyticsController {
 	 * 2.0
 	 * @author 20210812
 	 * @param CrmWebanalytics
-	 * @exception 按时间查询
+	 * 按时间查询
 	 * */
 	@RequestMapping(value="/GetCrmWebanalyticsInfoByRangeTime",method=RequestMethod.POST)
 	@ResponseBody
@@ -245,7 +243,7 @@ public class CrmWebanalyticsController {
 	 * 2.0
 	 * @author 20210908
 	 * @param CrmWebanalytics
-	 * @exception 按时间查询
+	 * 按时间范围,网站查询
 	 * */
 	@RequestMapping(value="/GetCrmWebanalyticsInfoByBrandAndRangeTime",method=RequestMethod.POST)
 	@ResponseBody

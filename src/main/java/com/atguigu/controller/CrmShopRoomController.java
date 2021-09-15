@@ -25,9 +25,8 @@ public class CrmShopRoomController {
 	CrmShopRoomService crmShopRoomService;
 	
 	/**
-	 * 1.0
 	 * 20210813
-	 * ShopRoom首页
+	 * crmShopRoomPage页
 	 * */
 	@RequestMapping("/ToCrmShopRoomPage")
 	public String toCrmShopRoomPage(HttpSession session) throws Exception{
@@ -42,10 +41,9 @@ public class CrmShopRoomController {
 	}
 	
 	/**
-	 * 2.0
 	 * @author 20210813
 	 * @param CrmShopRoom
-	 * @exception 创建新店铺
+	 *  创建新店铺
 	 * */
 	@RequestMapping(value="/Add",method=RequestMethod.POST)
 	@ResponseBody
@@ -68,7 +66,7 @@ public class CrmShopRoomController {
 	 * 3.0
 	 * @author 20210813
 	 * @param CrmShopRoom
-	 * @exception 创建新店铺
+	 * 创建新店铺
 	 * */
 	@RequestMapping(value="/Delete",method=RequestMethod.POST)
 	@ResponseBody
@@ -83,7 +81,7 @@ public class CrmShopRoomController {
 	 * 4.0
 	 * @author 20210813
 	 * @param CrmShopRoom
-	 * @exception 更新店铺信息
+	 *  更新店铺信息
 	 * */
 	@RequestMapping(value="/Update",method=RequestMethod.POST)
 	@ResponseBody
@@ -100,7 +98,7 @@ public class CrmShopRoomController {
 	 * 5.0
 	 * @author 20210813
 	 * @param CrmShopRoom
-	 * @exception 查看单个店铺
+	 * 查看单个店铺
 	 * */
 	@RequestMapping(value="/GetOneShopRoomDetailById",method=RequestMethod.POST)
 	@ResponseBody
@@ -117,7 +115,7 @@ public class CrmShopRoomController {
 	 * 6.0
 	 * @author 20210813
 	 * @param CrmShopRoom
-	 * @exception 查看全部店铺
+	 * 查看全部店铺
 	 * */
 	@RequestMapping(value="/GetAllShopRoomInfo",method=RequestMethod.GET)
 	@ResponseBody
