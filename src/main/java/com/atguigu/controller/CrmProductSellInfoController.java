@@ -206,6 +206,10 @@ public class CrmProductSellInfoController {
 		CrmProductSellInfo productSellInfoGet = new CrmProductSellInfo();
 		productSellInfoGet.setProductsellinfoProductselltime(crmProductSellInfoReq.getProductsellinfoProductselltime());
 		productSellInfoGet.setProductsellinfoMotifytime(crmProductSellInfoReq.getProductsellinfoMotifytime());
+		//网站名称
+		if(StringUtil.isNotEmpty(crmProductSellInfoReq.getProductsellinfoBrandname())){
+			productSellInfoGet.setProductsellinfoBrandname(crmProductSellInfoReq.getProductsellinfoBrandname());
+		}
 		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByRangeTime(productSellInfoGet);
 		if(crmProductSellInfoList.size() > 0){
 			//将相同sku合并为一个list
@@ -283,6 +287,10 @@ public class CrmProductSellInfoController {
 		CrmProductSellInfo productSellInfoGet = new CrmProductSellInfo();
 		productSellInfoGet.setProductsellinfoProductselltime(crmProductSellInfoReq.getProductsellinfoProductselltime());
 		productSellInfoGet.setProductsellinfoMotifytime(crmProductSellInfoReq.getProductsellinfoMotifytime());
+		//网站名称
+		if(StringUtil.isNotEmpty(crmProductSellInfoReq.getProductsellinfoBrandname())){
+			productSellInfoGet.setProductsellinfoBrandname(crmProductSellInfoReq.getProductsellinfoBrandname());
+		}
 		
 		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByRangeTime(productSellInfoGet);
 		
@@ -434,7 +442,7 @@ public class CrmProductSellInfoController {
 				}
 			}
 		}
-		return Msg.success().add("resMsg","按时间范围查询数据，返回按天统计相同sku集合,只返回每天三个数量最多sku集合，并返回查询日期集合")
+		return Msg.success().add("resMsg","按时间范围、网站名称查询数据，返回某网站按天统计相同sku集合,只返回每天三个数量最多sku集合，并返回查询日期集合")
 				.add("productSellInfoFinallDateList", productSellInfoFinallDateList)
 				.add("returnMsg", productSellInfoFinallList);
 		

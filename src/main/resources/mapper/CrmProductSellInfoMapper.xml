@@ -264,8 +264,11 @@
     <include refid="Base_Column_List" />
     from tb_crm_productsellinfo
     <where>
+    	<if test="productsellinfoBrandname != null">
+	      productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
+	    </if>
 	    <if test="productsellinfoProductselltime != null and productsellinfoMotifytime != null">
-	       productSellInfo_productSellTime between #{productsellinfoProductselltime,jdbcType=VARCHAR} and #{productsellinfoMotifytime,jdbcType=VARCHAR}
+	      and productSellInfo_productSellTime between #{productsellinfoProductselltime,jdbcType=VARCHAR} and #{productsellinfoMotifytime,jdbcType=VARCHAR}
 	    </if>
     </where>
     order by productSellInfo_productSku desc
@@ -277,8 +280,11 @@
     <include refid="Base_Column_List" />
     from tb_crm_productsellinfo 
 	<where>
+		<if test="productsellinfoBrandname != null">
+	      productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
+	    </if>
 	    <if test="productsellinfoProductselltime != null">
-	       DATE_FORMAT(productSellInfo_productSellTime,'%Y-%m-%d')=DATE_FORMAT(#{productsellinfoProductselltime,jdbcType=VARCHAR},'%Y-%m-%d')
+	      and DATE_FORMAT(productSellInfo_productSellTime,'%Y-%m-%d')=DATE_FORMAT(#{productsellinfoProductselltime,jdbcType=VARCHAR},'%Y-%m-%d')
 	    </if>
     </where>
     order by productSellInfo_productSellTime desc
