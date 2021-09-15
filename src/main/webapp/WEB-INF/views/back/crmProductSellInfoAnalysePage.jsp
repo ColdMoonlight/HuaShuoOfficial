@@ -57,6 +57,62 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			<div class="row">
+				<div class="col-md-12 col-lg-6">
+					<div class="card">
+						<div class="card-chart card-pie-2"></div>
+						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
+						<div class="card-mask">
+							<div class="spinner-border"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-6">
+					<div class="c-table-table">
+						<table class="table table-two">
+							<thead>
+								<tr>
+									<th>时间</th>
+									<th>第一</th>
+									<th>第二</th>
+									<th>第三</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="row">
+				<div class="col-md-12 col-lg-6">
+					<div class="card">
+						<div class="card-chart card-pie-3"></div>
+						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
+						<div class="card-mask">
+							<div class="spinner-border"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-6">
+					<div class="c-table-table">
+						<table class="table table-three">
+							<thead>
+								<tr>
+									<th>时间</th>
+									<th>第一</th>
+									<th>第二</th>
+									<th>第三</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 		<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
 
@@ -83,7 +139,7 @@
 			return instance;
 		}
 
-		function generatePieChart() {			
+		function generatePieChart($el, websitename) {			
 			$.ajax({
 				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByRangeTime",
 				type: "post",
@@ -95,7 +151,7 @@
 				}),
 				success: function (data) {
 					if (data.code == 100) {
-						transformPieChart(data.extend.returnMsg);
+						transformPieChart($el, data.extend.returnMsg, websitename);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
@@ -106,7 +162,7 @@
 			});
 		}
 
-		function transformPieChart(data) {
+		function transformPieChart($cardPie, data, websitename) {
 			var pieData = [];
 			data.length && data.forEach(function(item, idx) {
 				if (idx < 10) {
@@ -127,13 +183,12 @@
 				}
 			});
 
-			var $cardPie = $('.card-pie');
 			if (pieData.length) {
 				$cardPie.parent().find('.chart-noresult').addClass('hide');
 				var instance = generateChart($cardPie, {
-				    title: { text: '售卖产品来源（sku）', left: 'center' },
+				    title: { text: (websitename + ' 售卖产品来源（sku）'), left: 'center' },
 				    tooltip: { trigger: 'item', formatter: '{a}: {c} ({d}%)' },
-				    legend: {  orient: 'vertical', left: 'left', },
+				    legend: {  orient: 'vertical', left: 'left', top: 'center' },
 				    series: [ { name: '数量', type: 'pie', radius: '50%', data: pieData } ]
 				});
 
@@ -146,12 +201,19 @@
 		
 		function generateChartWithData() {
 			$('.card-mask').removeClass('hide');
-			generatePieChart();
-			getAllBlockData();
+			/* arabella */
+			generatePieChart($('.card-pie'), 'arabella mall');
+			getAllBlockData($('.table-one tbody'), 'arabella mall');
+			/* megalook */
+			generatePieChart($('.card-pie-2'), 'megalook mall');
+			getAllBlockData($('.table-two tbody'), 'ML-mall');
+			/* ayiyi */
+			generatePieChart($('.card-pie-3'), 'ayiyi mall');
+			getAllBlockData($('.table-three tbody'), 'ayiyi mall');
 		}
 
 		// init table-list
-		function renderTable(data) {
+		function renderTable($el, data) {
 			var timeArr = data.productSellInfoFinallDateList;
 			var nData = data.returnMsg;
 			var htmlStr = '';
@@ -162,10 +224,10 @@
 					'<td>' + (nData[i][2][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;') + '</td>' +
 					'</tr>';
 			});
-			$('.table-one tbody').html(htmlStr);
+			$el.html(htmlStr);
 		}
 
-		function getAllBlockData(reqData) {
+		function getAllBlockData($el, websitename) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByDate",
@@ -173,12 +235,13 @@
 				dataType: "json",
 				contentType: 'application/json',
 				data: JSON.stringify({
+					'productsellinfoBrandname': websitename,
 					'productsellinfoProductselltime': $('#search-start-time').val(),
 					'productsellinfoMotifytime': $('#search-end-time').val()
 				}),
 				success: function (data) {
 					if (data.code == 100) {
-						renderTable(data.extend);
+						renderTable($el, data.extend);
 						toastr.success(data.extend.resMsg);
 					} else {
 						toastr.error(data.extend.resMsg);
