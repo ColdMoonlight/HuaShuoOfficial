@@ -47,10 +47,9 @@ public class MarketSensationInfoController {
 	}
 	
 	/**
-	 * 2.0
 	 * @author 20210902
 	 * @param MarketSensationInfo
-	 * @exception 创建单条信息
+	 *  创建单条信息
 	 * */
 	@RequestMapping(value="/Add",method=RequestMethod.POST)
 	@ResponseBody
@@ -72,7 +71,7 @@ public class MarketSensationInfoController {
 	 * 4.0
 	 * @author 20210902
 	 * @param MarketSensationInfo
-	 * @exception 删除单条信息
+	 *  删除单条信息
 	 * */
 	@RequestMapping(value="/Delete",method=RequestMethod.POST)
 	@ResponseBody
@@ -89,7 +88,7 @@ public class MarketSensationInfoController {
 	 * 2.0
 	 * @author 20210902
 	 * @param MarketSensationInfo
-	 * @exception 更新单条信息
+	 *  更新单条信息
 	 * */
 	@RequestMapping(value="/Update",method=RequestMethod.POST)
 	@ResponseBody
@@ -106,7 +105,7 @@ public class MarketSensationInfoController {
 	 * 2.0
 	 * @author 20210902
 	 * @param MarketSensationInfo
-	 * @exception 查看单个渠道
+	 *  查看单条信息
 	 * */
 	@RequestMapping(value="/GetOneMarketSensationInfoDetailById",method=RequestMethod.POST)
 	@ResponseBody
@@ -152,7 +151,7 @@ public class MarketSensationInfoController {
 	 * 2.0
 	 * @author 20210902
 	 * @param MarketSensationInfo
-	 * @exception 按条件查询
+	 * 按条件查询
 	 * */
 	@RequestMapping(value="/GetMarketSensationInfoByParameterByPage")
 	@ResponseBody

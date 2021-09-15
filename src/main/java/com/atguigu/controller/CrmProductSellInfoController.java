@@ -32,8 +32,8 @@ public class CrmProductSellInfoController {
 	CrmProductSellInfoService crmProductSellInfoService;
 	
 	/**
-	 * 2.0	20210818
-	 * CrmProductSellInfo首页
+	 * 20210818
+	 * CrmProductSellInfo页
 	 * */
 	@RequestMapping("/ToCrmProductSellInfoPage")
 	public String toCrmProductSellInfoPage(HttpSession session) throws Exception{
@@ -48,8 +48,8 @@ public class CrmProductSellInfoController {
 	}
 	
 	/**
-	 * 2.0	20210818
-	 * CrmProductSellInfo首页
+	 * 20210818
+	 * crmProductSellInfoAnalysePage页
 	 * */
 	@RequestMapping("/ToCrmProductSellInfoAnalysePage")
 	public String toCrmProductSellInfoAnalysePage(HttpSession session) throws Exception{
@@ -63,10 +63,9 @@ public class CrmProductSellInfoController {
 		}
 	}
 	/**
-	 * 2.0
 	 * @author 20210818
+	 * 新增
 	 * @param CrmProductSellInfo
-	 * @exception 新增
 	 * */
 	@RequestMapping(value="/Add",method=RequestMethod.POST)
 	@ResponseBody
@@ -80,15 +79,14 @@ public class CrmProductSellInfoController {
 		if(crmProductSellInfoReq.getProductsellinfoId() != null){
 			return Msg.success().add("resMsg", "创建成功");
 		}else{
-			return Msg.fail().add("resMsg", "系统错误，请联系管理员");
+			return Msg.fail().add("resMsg", "系统错误,请联系管理员");
 		}
 	}
 	
 	/**
-	 * 3.0
 	 * @author 20210818
+	 * 删除
 	 * @param CrmProductSellInfo
-	 * @exception 删除
 	 * */
 	@RequestMapping(value="/Delete",method=RequestMethod.POST)
 	@ResponseBody
@@ -100,10 +98,9 @@ public class CrmProductSellInfoController {
 	}
 	
 	/**
-	 * 4.0
 	 * @author 20210818
+	 *  更新信息
 	 * @param CrmProductSellInfo
-	 * @exception 更新信息
 	 * */
 	@RequestMapping(value="/Update",method=RequestMethod.POST)
 	@ResponseBody
@@ -117,10 +114,9 @@ public class CrmProductSellInfoController {
 	}
 	
 	/**
-	 * 5.0
 	 * @author 20210818
+	 * 查看单个
 	 * @param CrmProductSellInfo
-	 * @exception 查看单个
 	 * */
 	@RequestMapping(value="/GetOneProductSellInfoDetailById",method=RequestMethod.POST)
 	@ResponseBody
@@ -133,7 +129,8 @@ public class CrmProductSellInfoController {
 		
 	}
 	
-	/**2.0	20210818
+	/**
+	 * 20210818
 	 * 后台列表分页list数据
 	 * @param pn
 	 * @return
@@ -150,10 +147,9 @@ public class CrmProductSellInfoController {
 	}
 	
 	/**
-	 * 6.0
 	 * @author 20210818
+	 * 根据条件查询信息
 	 * @param CrmProductSellInfo
-	 * @exception 根据条件查询信息
 	 * */
 	@RequestMapping(value="/GetProductSellInfoByParameterByPage")
 	@ResponseBody
@@ -169,10 +165,9 @@ public class CrmProductSellInfoController {
 	}
 	
 	/**
-	 * 6.0
 	 * @author 20210818
+	 * 查看全部
 	 * @param CrmProductSellInfo
-	 * @exception 查看全部
 	 * */
 	@RequestMapping(value="/GetAllProductSellInfo",method=RequestMethod.GET)
 	@ResponseBody
@@ -184,13 +179,11 @@ public class CrmProductSellInfoController {
 	}
 	
 	/**
-	 * 6.0
 	 * @author 20210904
-	 *  按时间范围、网站名称查询 查询每天的sku
-	 * 1、按时间范围、网站名称查询，获取数据List，按sku排序
-	 * 2、将各个相同skuList，添加到一个list中,最终按此list.size排序
+	 *  按时间范围,网站名称查询 查询每天的sku
+	 * 1,按时间范围,网站名称查询,获取数据List,按sku排序
+	 * 2,将各个相同sku,添加到一个list中,最终按此list.size排序
 	 * @param CrmProductSellInfo
-	 * @exception 
 	 * */
 	@RequestMapping(value="/GetProductSellInfoByRangeTime",method=RequestMethod.POST)
 	@ResponseBody
@@ -198,11 +191,11 @@ public class CrmProductSellInfoController {
 			@RequestBody CrmProductSellInfo crmProductSellInfoReq){
 		
 		if(StringUtil.isEmpty(crmProductSellInfoReq.getProductsellinfoProductselltime())){
-			return Msg.fail().add("returnMsg", "查询失败，初始时间不能为空");
+			return Msg.fail().add("returnMsg", "查询失败,初始时间不能为空");
 		}
 		
 		if(StringUtil.isEmpty(crmProductSellInfoReq.getProductsellinfoMotifytime())){
-			return Msg.fail().add("returnMsg", "查询失败，结束时间不能为空");
+			return Msg.fail().add("returnMsg", "查询失败,结束时间不能为空");
 		}
 		
 		//按时间范围查询
@@ -228,7 +221,7 @@ public class CrmProductSellInfoController {
 					productSellInfoSameSkuList.add(p);
 					
 				}else{
-					//对上一个skuList进行排序，按时间降叙排序
+					//对上一个skuList进行排序,按时间降叙排序
 					productSellInfoSameSkuList.sort(new Comparator<CrmProductSellInfo>(){
 						@Override
 						public int compare(CrmProductSellInfo o1, CrmProductSellInfo o2) {
@@ -267,13 +260,12 @@ public class CrmProductSellInfoController {
 		}
 	}
 	/**
-	 * 6.0
 	 * @author 20210907
 	 * @param CrmProductSellInfo
-	 * 按时间范围、网站名称查询 查询每天的sku
-	 * 1、按时间范围、网站名称查询，获取数据List，按销售日期升序排序
-	 * 2、获取相同日期的销售数据List--->相同日期内的按sku排序--->获取相同skuList
-	 * 3、将各个相同skuList，添加到一个list中（此list为相同日期），此list按list.size排序，只保留数量最多的三个skuList
+	 * 按时间范围,网站名称查询 查询每天的sku
+	 * 1,按时间范围,网站名称查询,获取数据List,按销售日期升序排序
+	 * 2,获取相同日期的销售数据List--->相同日期内的按sku排序--->获取相同skuList
+	 * 3,将各个相同skuList,添加到一个list中(此list为相同日期),此list按list.size排序,只保留数量最多的三个skuList
 	 * @throws Exception 
 	 * @exception 
 	 * */
@@ -283,11 +275,11 @@ public class CrmProductSellInfoController {
 			@RequestBody CrmProductSellInfo crmProductSellInfoReq) throws Exception{
 		
 		if(StringUtil.isEmpty(crmProductSellInfoReq.getProductsellinfoProductselltime())){
-			return Msg.fail().add("returnMsg", "查询失败，初始时间不能为空");
+			return Msg.fail().add("returnMsg", "查询失败,初始时间不能为空");
 		}
 		
 		if(StringUtil.isEmpty(crmProductSellInfoReq.getProductsellinfoMotifytime())){
-			return Msg.fail().add("returnMsg", "查询失败，结束时间不能为空");
+			return Msg.fail().add("returnMsg", "查询失败,结束时间不能为空");
 		}
 		
 		//查询一段时间内 的数据
@@ -319,7 +311,7 @@ public class CrmProductSellInfoController {
 			
 			//最终返回List
 			productSellInfoFinallList = new ArrayList<List<List<CrmProductSellInfo>>>();
-			//临时list，用来合并相同日期下相同sku
+			//临时list,用来合并相同日期下相同sku
 			List<CrmProductSellInfo> productSellInfoTempList = new ArrayList<CrmProductSellInfo>();
 			//二级List:相同date的一个list,不同的date新建list
 			List<List<CrmProductSellInfo>> productSellInfoDateList  = new ArrayList<List<CrmProductSellInfo>>();
@@ -333,7 +325,7 @@ public class CrmProductSellInfoController {
 				if(date1.compareTo(date2)==0){
 					productSellInfoTempList.add(p);
 				}else{
-					//对上一个tempList进行排序，按sku降序排序
+					//对上一个tempList进行排序,按sku降序排序
 					productSellInfoTempList.sort(new Comparator<CrmProductSellInfo>(){
 						@Override
 						public int compare(CrmProductSellInfo o1, CrmProductSellInfo o2) {
@@ -391,7 +383,7 @@ public class CrmProductSellInfoController {
 				if(i==crmProductSellInfoList.size()-1){
 					//最后一个dateList添加到最终返回的List中
 					
-					//对上一个tempList进行排序，按sku降序排序
+					//对上一个tempList进行排序,按sku降序排序
 					productSellInfoTempList.sort(new Comparator<CrmProductSellInfo>(){
 						@Override
 						public int compare(CrmProductSellInfo o1, CrmProductSellInfo o2) {
@@ -448,17 +440,16 @@ public class CrmProductSellInfoController {
 				}
 			}
 		}
-		return Msg.success().add("resMsg","按时间范围、网站名称查询数据，返回某网站按天统计相同sku集合,只返回每天三个数量最多sku集合，并返回查询日期集合")
+		return Msg.success().add("resMsg","按时间范围,网站名称查询数据,返回某网站按天统计相同sku集合,只返回每天三个数量最多sku集合,并返回查询日期集合")
 				.add("productSellInfoFinallDateList", productSellInfoFinallDateList)
 				.add("returnMsg", productSellInfoFinallList);
 		
 	}
 
 	/**
-	 * 6.0
 	 * @author 20210908
+	 * 查询某网站下数据
 	 * @param CrmProductSellInfo
-	 * @exception 查询某网站下数据
 	 * */
 	@RequestMapping(value="/GetProductSellInfoByRangeTimeSortByTime",method=RequestMethod.POST)
 	@ResponseBody
@@ -478,6 +469,6 @@ public class CrmProductSellInfoController {
 				}
 			});
 		}
-		return Msg.success().add("resMsg", "返回按时间查询该时间段数据，按时间升序排序").add("crmProductSellInfoList", crmProductSellInfoList);
+		return Msg.success().add("resMsg", "返回按时间查询该时间段数据,按时间升序排序").add("crmProductSellInfoList", crmProductSellInfoList);
 	}
 }
