@@ -11,6 +11,7 @@
 			.c-table-table { max-height: 460px; overflow-y: auto; }
 			.c-table-table table { position: relative; }
 			.c-table-table thead { position: sticky; top: 0; left: 0; background-color: #ebedef; }
+			.chart-n-item+.chart-n-item { margin-top: 1rem; }
 		</style>
 	</head>
 
@@ -31,7 +32,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+
+			<div class="row chart-n-item">
 				<div class="col-md-12 col-lg-6">
 					<div class="card">
 						<div class="card-chart card-pie"></div>
@@ -59,7 +61,7 @@
 			</div>
 			
 			
-			<div class="row">
+			<div class="row chart-n-item">
 				<div class="col-md-12 col-lg-6">
 					<div class="card">
 						<div class="card-chart card-pie-2"></div>
@@ -87,7 +89,7 @@
 			</div>
 			
 			
-			<div class="row">
+			<div class="row chart-n-item">
 				<div class="col-md-12 col-lg-6">
 					<div class="card">
 						<div class="card-chart card-pie-3"></div>
