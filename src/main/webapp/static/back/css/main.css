@@ -48,7 +48,7 @@
 	transition: margin-left 0.3s ease;
 }
 .c-body {	
-	height: calc(100vh - 3.6rem);
+	min-height: calc(100vh - 3.6rem);
 }
 .c-main {
 	padding: 1rem;
