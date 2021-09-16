@@ -108,26 +108,16 @@ public class CrmProductSellInfoService {
 	 * @exception 按时间查询按sku排序
 	 * 
 	 * */
-	public List<CrmProductSellInfo> selectCrmProductSellInfoByRangeTime(CrmProductSellInfo crmProductSellInfo) {
-		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoByRangeTime(crmProductSellInfo);
+	public List<CrmProductSellInfo> selectCrmProductSellInfoAllByRangeTime(CrmProductSellInfo crmProductSellInfo) {
+		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoAllByRangeTime(crmProductSellInfo);
 		return crmProductSellInfoList;
 	}
+	
 	
 	/**
 	 * @author Shinelon
 	 * @param 
-	 * @exception 查询当天
-	 * 
-	 * */
-	public List<CrmProductSellInfo> selectCrmProductSellInfoByDate(CrmProductSellInfo crmProductSellInfo) {
-		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoByDate(crmProductSellInfo);
-		return crmProductSellInfoList;
-	}
-	
-	/**
-	 * @author Shinelon
-	 * @param 
-	 * @exception 按时间查询按sku排序
+	 * @exception 按时间，平台名称,网站名称 查询按sku排序
 	 * 
 	 * */
 	public List<CrmProductSellInfo> selectCrmProductSellInfoByRangeTimePlatformBrandName(CrmProductSellInfo crmProductSellInfo) {
