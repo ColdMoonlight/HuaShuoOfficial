@@ -278,6 +278,9 @@ public class ExcleImportController {
 	    cell = row.createCell(11);
 	    cell.setCellValue("productSellInfo_productSellTime");
 	    
+	    cell = row.createCell(12);
+	    cell.setCellValue("productSellInfo_platformName");
+	    
         row = sheet.createRow(1);
         row.createCell(0).setCellValue("megalooktest222");//
         row.createCell(1).setCellValue("ML202108181037");//
@@ -291,7 +294,6 @@ public class ExcleImportController {
         row.createCell(9).setCellValue(50.32);//
         row.createCell(10).setCellValue("H50");//
         
-        
         //设置导出excel 日期格式为文本
         HSSFCellStyle textStyle = wb.createCellStyle();
         HSSFDataFormat format = wb.createDataFormat();
@@ -301,6 +303,7 @@ public class ExcleImportController {
         cell.setCellType(CellType.STRING);
         cell.setCellValue("2021-08-18 15:56:49");//
         
+        row.createCell(12).setCellValue("独立站");//
 		try {
 			OutputStream out =rep.getOutputStream();
 			wb.write(out);
@@ -404,6 +407,10 @@ public class ExcleImportController {
 								default:
 									break;
 							}
+		                }
+						getCell = row.getCell(12);
+						if(getCell != null) {
+							crmProductSellInfo.setProductsellinfoPlatformName(getCell.getStringCellValue());
 		                }
 						crmProductSellInfoList.add(crmProductSellInfo);
 					}
