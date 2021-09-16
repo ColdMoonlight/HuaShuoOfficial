@@ -62,6 +62,45 @@ public class CrmProductSellInfoController {
 			return "back/crmProductSellInfoAnalysePage";
 		}
 	}
+	
+	/**
+	 * 20210916
+	 * 速卖通产品销售情况导入导出
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/ToCrmProductSellInfoAliExpressPage")
+	public String toCrmProductSellInfoAliExpressPage(HttpSession session) throws Exception{
+		
+		CrmAdmin crmAdmin =(CrmAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(crmAdmin==null){
+			//SysUsers对象为空
+			return "back/crmAdminLogin";
+		}else{
+			return "back/crmProductSellInfoAliExpressPage";
+		}
+	}
+	
+	/**
+	 * 20210916
+	 * 速卖通产品销售图表
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/ToCrmProductSellInfoAliExpressAnalysePage")
+	public String toCrmProductSellInfoAliExpressAnalysePage(HttpSession session) throws Exception{
+		
+		CrmAdmin crmAdmin =(CrmAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(crmAdmin==null){
+			//SysUsers对象为空
+			return "back/crmAdminLogin";
+		}else{
+			return "back/crmProductSellInfoAliExpressAnalysePage";
+		}
+	}
+	
 	/**
 	 * @author 20210818
 	 * 新增
@@ -131,7 +170,7 @@ public class CrmProductSellInfoController {
 	
 	/**
 	 * 20210818
-	 * 后台列表分页list数据
+	 * 独立站后台列表分页list数据
 	 * @param pn
 	 * @return
 	 */
@@ -142,6 +181,24 @@ public class CrmProductSellInfoController {
 		int PagNum = Const.PAGE_NUM_DEFAULT;
 		PageHelper.startPage(pn, PagNum);
 		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByPage();
+		PageInfo<CrmProductSellInfo> page = new PageInfo<CrmProductSellInfo>(crmProductSellInfoList, PagNum);
+		return Msg.success().add("pageInfo", page);
+	}
+	
+	/**
+	 * 20210916
+	 * 速卖通后台列表分页list数据
+	 * @param pn
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/GetProductSellInfoAliExpressByPage")
+	@ResponseBody
+	public Msg getProductSellInfoAliExpressByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+
+		int PagNum = Const.PAGE_NUM_DEFAULT;
+		PageHelper.startPage(pn, PagNum);
+		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoAliExpressByPage();
 		PageInfo<CrmProductSellInfo> page = new PageInfo<CrmProductSellInfo>(crmProductSellInfoList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
@@ -180,14 +237,14 @@ public class CrmProductSellInfoController {
 	
 	/**
 	 * @author 20210904
-	 *  按时间范围,网站名称查询 查询每天的sku
-	 * 1,按时间范围,网站名称查询,获取数据List,按sku排序
+	 *  按时间范围,平台名称,网站名称查询 查询每天的sku
+	 * 1,按时间范围,平台名称,网站名称查询,获取数据List,按sku排序
 	 * 2,将各个相同sku,添加到一个list中,最终按此list.size排序
 	 * @param CrmProductSellInfo
 	 * */
-	@RequestMapping(value="/GetProductSellInfoByRangeTime",method=RequestMethod.POST)
+	@RequestMapping(value="/GetProductSellInfoByRangeTimePlatformBrandName",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getProductSellInfoByRangeTime(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+	public Msg getProductSellInfoByRangeTimePlatformBrandName(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
 			@RequestBody CrmProductSellInfo crmProductSellInfoReq){
 		
 		if(StringUtil.isEmpty(crmProductSellInfoReq.getProductsellinfoProductselltime())){
@@ -210,7 +267,7 @@ public class CrmProductSellInfoController {
 		if(StringUtil.isNotEmpty(crmProductSellInfoReq.getProductsellinfoBrandname())){
 			productSellInfoGet.setProductsellinfoBrandname(crmProductSellInfoReq.getProductsellinfoBrandname());
 		}
-		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByRangeTime(productSellInfoGet);
+		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByRangeTimePlatformBrandName(productSellInfoGet);
 		if(crmProductSellInfoList.size() > 0){
 			//将相同sku合并为一个list
 			String sku = crmProductSellInfoList.get(0).getProductsellinfoProductsku();
@@ -263,19 +320,20 @@ public class CrmProductSellInfoController {
 			return Msg.success().add("returnMsg", crmProductSellInfoList);
 		}
 	}
+	
 	/**
 	 * @author 20210907
 	 * @param CrmProductSellInfo
-	 * 按时间范围,网站名称查询 查询每天的sku
-	 * 1,按时间范围,网站名称查询,获取数据List,按销售日期升序排序
+	 * 按时间范围,平台名称,网站名称查询 查询每天的sku
+	 * 1,按时间范围,平台名称,网站名称查询,获取数据List,按销售日期升序排序
 	 * 2,获取相同日期的销售数据List--->相同日期内的按sku排序--->获取相同skuList
 	 * 3,将各个相同skuList,添加到一个list中(此list为相同日期),此list按list.size排序,只保留数量最多的三个skuList
 	 * @throws Exception 
 	 * @exception 
 	 * */
-	@RequestMapping(value="/GetProductSellInfoByDate",method=RequestMethod.POST)
+	@RequestMapping(value="/GetProductSellInfoByDatePlatformBrandName",method=RequestMethod.POST)
 	@ResponseBody
-	public Msg getProductSellInfoByDate(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+	public Msg getProductSellInfoByDatePlatformBrandName(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
 			@RequestBody CrmProductSellInfo crmProductSellInfoReq) throws Exception{
 		
 		if(StringUtil.isEmpty(crmProductSellInfoReq.getProductsellinfoProductselltime())){
@@ -298,7 +356,7 @@ public class CrmProductSellInfoController {
 		if(StringUtil.isNotEmpty(crmProductSellInfoReq.getProductsellinfoBrandname())){
 			productSellInfoGet.setProductsellinfoBrandname(crmProductSellInfoReq.getProductsellinfoBrandname());
 		}
-		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByRangeTime(productSellInfoGet);
+		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByRangeTimePlatformBrandName(productSellInfoGet);
 		
 		//最终返回List
 		List<List<List<CrmProductSellInfo>>> productSellInfoFinallList=null;
@@ -447,7 +505,7 @@ public class CrmProductSellInfoController {
 				}
 			}
 		}
-		return Msg.success().add("resMsg","按时间范围,网站名称查询数据,返回某网站按天统计相同sku集合,只返回每天三个数量最多sku集合,并返回查询日期集合")
+		return Msg.success().add("resMsg","按 时间范围,网站名称,平台名称 查询数据,返回某平台,某网站按天统计相同sku集合,只返回每天三个数量最多sku集合,并返回查询日期集合")
 				.add("productSellInfoFinallDateList", productSellInfoFinallDateList)
 				.add("returnMsg", productSellInfoFinallList);
 		
