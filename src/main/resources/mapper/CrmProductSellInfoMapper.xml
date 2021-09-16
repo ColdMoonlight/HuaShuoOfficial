@@ -3,6 +3,7 @@
 <mapper namespace="com.atguigu.dao.CrmProductSellInfoMapper">
   <resultMap id="BaseResultMap" type="com.atguigu.bean.CrmProductSellInfo">
     <id column="productSellInfo_id" jdbcType="INTEGER" property="productsellinfoId" />
+    <result column="productSellInfo_platformName" jdbcType="VARCHAR" property="productsellinfoPlatformName" />
     <result column="productSellInfo_brandName" jdbcType="VARCHAR" property="productsellinfoBrandname" />
     <result column="productSellInfo_plateNum" jdbcType="VARCHAR" property="productsellinfoPlatenum" />
     <result column="productSellInfo_productType" jdbcType="VARCHAR" property="productsellinfoProducttype" />
@@ -18,7 +19,7 @@
     <result column="productSellInfo_motifyTime" jdbcType="VARCHAR" property="productsellinfoMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    productSellInfo_id, productSellInfo_brandName, productSellInfo_plateNum, productSellInfo_productType, 
+    productSellInfo_id, productSellInfo_platformName, productSellInfo_brandName, productSellInfo_plateNum, productSellInfo_productType, 
     productSellInfo_productId, productSellInfo_productName, productSellInfo_productSku, 
     productSellInfo_productMarkPrice, productSellInfo_productRealPrice, productSellInfo_productSellNum, 
     productSellInfo_couponPrice, productSellInfo_couponCode, productSellInfo_productSellTime, 
@@ -26,7 +27,8 @@
   </sql>
   
   <insert id="insert" parameterType="com.atguigu.bean.CrmProductSellInfo">
-    insert into tb_crm_productsellinfo (productSellInfo_id, productSellInfo_brandName, 
+    insert into tb_crm_productsellinfo (productSellInfo_id,
+      productSellInfo_platformName, productSellInfo_brandName, 
       productSellInfo_plateNum, productSellInfo_productType, 
       productSellInfo_productId, productSellInfo_productName, 
       productSellInfo_productSku, productSellInfo_productMarkPrice, 
@@ -34,7 +36,8 @@
       productSellInfo_couponPrice, productSellInfo_couponCode, 
       productSellInfo_productSellTime, productSellInfo_motifyTime
       )
-    values (#{productsellinfoId,jdbcType=INTEGER}, #{productsellinfoBrandname,jdbcType=VARCHAR}, 
+    values (#{productsellinfoId,jdbcType=INTEGER}, 
+      #{productsellinfoPlatformName,jdbcType=VARCHAR}, #{productsellinfoBrandname,jdbcType=VARCHAR}, 
       #{productsellinfoPlatenum,jdbcType=VARCHAR}, #{productsellinfoProducttype,jdbcType=VARCHAR}, 
       #{productsellinfoProductid,jdbcType=INTEGER}, #{productsellinfoProductname,jdbcType=VARCHAR}, 
       #{productsellinfoProductsku,jdbcType=VARCHAR}, #{productsellinfoProductmarkprice,jdbcType=DECIMAL}, 
@@ -46,7 +49,8 @@
   
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmProductSellInfo">
     update tb_crm_productsellinfo
-    set productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR},
+    set productSellInfo_platformName = #{productsellinfoPlatformName,jdbcType=VARCHAR},
+      productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR},
       productSellInfo_plateNum = #{productsellinfoPlatenum,jdbcType=VARCHAR},
       productSellInfo_productType = #{productsellinfoProducttype,jdbcType=VARCHAR},
       productSellInfo_productId = #{productsellinfoProductid,jdbcType=INTEGER},
@@ -62,11 +66,14 @@
     where productSellInfo_id = #{productsellinfoId,jdbcType=INTEGER}
   </update>
   
-  <insert id="insertSelective" parameterType="com.atguigu.bean.CrmProductSellInfo">
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="productsellinfoId" parameterType="com.atguigu.bean.CrmProductSellInfo">
     insert into tb_crm_productsellinfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="productsellinfoId != null">
         productSellInfo_id,
+      </if>
+      <if test="productsellinfoPlatformName != null">
+        productSellInfo_platformName,
       </if>
       <if test="productsellinfoBrandname != null">
         productSellInfo_brandName,
@@ -111,6 +118,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="productsellinfoId != null">
         #{productsellinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="productsellinfoPlatformName != null">
+        #{productsellinfoPlatformName,jdbcType=VARCHAR},
       </if>
       <if test="productsellinfoBrandname != null">
         #{productsellinfoBrandname,jdbcType=VARCHAR},
@@ -162,6 +172,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.bean.CrmProductSellInfo">
     update tb_crm_productsellinfo
     <set>
+   	  <if test="productsellinfoPlatformName != null">
+        productSellInfo_platformName = #{productsellinfoPlatformName,jdbcType=VARCHAR},
+      </if>
       <if test="productsellinfoBrandname != null">
         productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR},
       </if>
@@ -224,8 +237,11 @@
     <include refid="Base_Column_List" />
     from tb_crm_productsellinfo
     <where>
+    	<if test="productsellinfoPlatformName != null">
+	      productSellInfo_platformName = #{productsellinfoPlatformName,jdbcType=VARCHAR}
+	    </if>
 	    <if test="productsellinfoBrandname != null">
-	      productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
+	      and productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
 	    </if>
 	    <if test="productsellinfoPlatenum != null">
 	      and productSellInfo_plateNum = #{productsellinfoPlatenum,jdbcType=VARCHAR}
@@ -264,8 +280,11 @@
     <include refid="Base_Column_List" />
     from tb_crm_productsellinfo
     <where>
+        <if test="productsellinfoPlatformName != null">
+	      productSellInfo_platformName = #{productsellinfoPlatformName,jdbcType=VARCHAR}
+	    </if>
     	<if test="productsellinfoBrandname != null">
-	      productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
+	      and productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
 	    </if>
 	    <if test="productsellinfoProductselltime != null and productsellinfoMotifytime != null">
 	      and productSellInfo_productSellTime between #{productsellinfoProductselltime,jdbcType=VARCHAR} and #{productsellinfoMotifytime,jdbcType=VARCHAR}
@@ -280,8 +299,11 @@
     <include refid="Base_Column_List" />
     from tb_crm_productsellinfo 
 	<where>
+	    <if test="productsellinfoPlatformName != null">
+	      productSellInfo_platformName = #{productsellinfoPlatformName,jdbcType=VARCHAR}
+	    </if>
 		<if test="productsellinfoBrandname != null">
-	      productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
+	      and productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
 	    </if>
 	    <if test="productsellinfoProductselltime != null">
 	      and DATE_FORMAT(productSellInfo_productSellTime,'%Y-%m-%d')=DATE_FORMAT(#{productsellinfoProductselltime,jdbcType=VARCHAR},'%Y-%m-%d')
