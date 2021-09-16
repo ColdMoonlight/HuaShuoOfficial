@@ -301,8 +301,8 @@
     order by productSellInfo_productSku desc
   </select>
   
-  <!-- selectCrmProductSellInfoByRangeTime -->
-  <select id="selectCrmProductSellInfoByRangeTime" parameterType="com.atguigu.bean.CrmProductSellInfo" resultMap="BaseResultMap">
+  <!-- selectCrmProductSellInfoAllByRangeTime -->
+  <select id="selectCrmProductSellInfoAllByRangeTime" parameterType="com.atguigu.bean.CrmProductSellInfo" resultMap="BaseResultMap">
     select 
     productSellInfo_id, productSellInfo_productSku, 
     productSellInfo_productRealPrice, productSellInfo_productSellNum, productSellInfo_productSellTime
@@ -313,26 +313,6 @@
 	    </if>
     </where>
     order by productSellInfo_productSku desc
-  </select>
-  
-  <!-- selectCrmProductSellInfoByDate -->
-  <select id="selectCrmProductSellInfoByDate" parameterType="com.atguigu.bean.CrmProductSellInfo" resultMap="BaseResultMap">
-    select 
-    productSellInfo_id, productSellInfo_platformName, productSellInfo_brandName, productSellInfo_productSku, 
-    productSellInfo_productRealPrice, productSellInfo_productSellNum, productSellInfo_productSellTime
-    from tb_crm_productsellinfo 
-	<where>
-	    <if test="productsellinfoPlatformName != null">
-	      productSellInfo_platformName = #{productsellinfoPlatformName,jdbcType=VARCHAR}
-	    </if>
-		<if test="productsellinfoBrandname != null">
-	      and productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
-	    </if>
-	    <if test="productsellinfoProductselltime != null">
-	      and DATE_FORMAT(productSellInfo_productSellTime,'%Y-%m-%d')=DATE_FORMAT(#{productsellinfoProductselltime,jdbcType=VARCHAR},'%Y-%m-%d')
-	    </if>
-    </where>
-    order by productSellInfo_productSellTime desc
   </select>
   
 </mapper>
