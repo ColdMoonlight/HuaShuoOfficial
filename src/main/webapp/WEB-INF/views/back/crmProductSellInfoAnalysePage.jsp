@@ -141,19 +141,21 @@
 			return instance;
 		}
 
-		function generatePieChart($el, websitename) {			
+		function generatePieChart($el, type, name) {			
 			$.ajax({
 				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByRangeTime",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
 				data: JSON.stringify({
+					'productsellinfoPlatformName': type,
+					'productsellinfoBrandname': name,
 					'productsellinfoProductselltime': $('#search-start-time').val(),
 					'productsellinfoMotifytime': $('#search-end-time').val(),
 				}),
 				success: function (data) {
 					if (data.code == 100) {
-						transformPieChart($el, data.extend.returnMsg, websitename);
+						transformPieChart($el, data.extend.returnMsg, name);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
@@ -164,7 +166,7 @@
 			});
 		}
 
-		function transformPieChart($cardPie, data, websitename) {
+		function transformPieChart($cardPie, data, name) {
 			var pieData = [];
 			data.length && data.forEach(function(item, idx) {
 				if (idx < 10) {
@@ -188,7 +190,7 @@
 			if (pieData.length) {
 				$cardPie.parent().find('.chart-noresult').addClass('hide');
 				var instance = generateChart($cardPie, {
-				    title: { text: (websitename + ' 售卖产品来源（sku）'), left: 'center' },
+				    title: { text: (name + ' 售卖产品来源（sku）'), left: 'center' },
 				    tooltip: { trigger: 'item', formatter: '{a}: {c} ({d}%)' },
 				    legend: {  orient: 'vertical', left: 'left', top: 'center' },
 				    series: [ { name: '数量', type: 'pie', radius: '50%', data: pieData } ]
@@ -204,14 +206,14 @@
 		function generateChartWithData() {
 			$('.card-mask').removeClass('hide');
 			/* arabella */
-			generatePieChart($('.card-pie'), 'arabella mall');
-			getAllBlockData($('.table-one tbody'), 'arabella mall');
+			generatePieChart($('.card-pie'), '独立站', 'arabella mall');
+			getAllBlockData($('.table-one tbody'), '独立站', 'arabella mall');
 			/* megalook */
-			generatePieChart($('.card-pie-2'), 'megalook mall');
-			getAllBlockData($('.table-two tbody'), 'ML-mall');
+			generatePieChart($('.card-pie-2'), '独立站', 'ML-mall');
+			getAllBlockData($('.table-two tbody'), '独立站', 'ML-mall');
 			/* ayiyi */
-			generatePieChart($('.card-pie-3'), 'ayiyi mall');
-			getAllBlockData($('.table-three tbody'), 'ayiyi mall');
+			generatePieChart($('.card-pie-3'), '独立站', 'ayiyi mall');
+			getAllBlockData($('.table-three tbody'), '独立站', 'ayiyi mall');
 		}
 
 		// init table-list
@@ -229,7 +231,7 @@
 			$el.html(htmlStr);
 		}
 
-		function getAllBlockData($el, websitename) {
+		function getAllBlockData($el, type, name) {
 			$('.c-mask').show();
 			$.ajax({
 				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByDate",
@@ -237,7 +239,8 @@
 				dataType: "json",
 				contentType: 'application/json',
 				data: JSON.stringify({
-					'productsellinfoBrandname': websitename,
+					'productsellinfoPlatformName': type,
+					'productsellinfoBrandname': name,
 					'productsellinfoProductselltime': $('#search-start-time').val(),
 					'productsellinfoMotifytime': $('#search-end-time').val()
 				}),
@@ -275,8 +278,6 @@
 				chartInstance.forEach(function(item, idx) {
 					item.resize();
 				});
-			} else {
-				initChart(ymd + ' 00:00:00', ymd + ' 23:59:59');
 			}
 		});
 		</script>
