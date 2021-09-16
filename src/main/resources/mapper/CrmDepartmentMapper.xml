@@ -4,22 +4,24 @@
   <resultMap id="BaseResultMap" type="com.atguigu.bean.CrmDepartment">
     <id column="department_id" jdbcType="INTEGER" property="departmentId" />
     <result column="department_Name" jdbcType="VARCHAR" property="departmentName" />
+    <result column="department_SqlName" jdbcType="VARCHAR" property="departmentSqlName" />
     <result column="department_createTime" jdbcType="VARCHAR" property="departmentCreatetime" />
     <result column="department_motifyTime" jdbcType="VARCHAR" property="departmentMotifytime" />
   </resultMap>
   <sql id="Base_Column_List">
-    department_id, department_Name, department_createTime, department_motifyTime
+    department_id, department_Name,department_SqlName, department_createTime, department_motifyTime
   </sql>
   
   <insert id="insert" parameterType="com.atguigu.bean.CrmDepartment">
-    insert into tb_crm_department (department_id, department_Name, department_createTime, 
+    insert into tb_crm_department (department_id, department_Name,department_SqlName, department_createTime, 
       department_motifyTime)
-    values (#{departmentId,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR}, #{departmentCreatetime,jdbcType=VARCHAR}, 
+    values (#{departmentId,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR},#{departmentSqlName,jdbcType=VARCHAR}, #{departmentCreatetime,jdbcType=VARCHAR}, 
       #{departmentMotifytime,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.atguigu.bean.CrmDepartment">
     update tb_crm_department
     set department_Name = #{departmentName,jdbcType=VARCHAR},
+	  department_SqlName = #{departmentSqlName,jdbcType=VARCHAR},
       department_createTime = #{departmentCreatetime,jdbcType=VARCHAR},
       department_motifyTime = #{departmentMotifytime,jdbcType=VARCHAR}
     where department_id = #{departmentId,jdbcType=INTEGER}
@@ -35,6 +37,9 @@
       <if test="departmentName != null">
         department_Name,
       </if>
+      <if test="departmentSqlName != null">
+        department_SqlName,
+      </if>
       <if test="departmentCreatetime != null">
         department_createTime,
       </if>
@@ -48,6 +53,9 @@
       </if>
       <if test="departmentName != null">
         #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentSqlName != null">
+        #{departmentSqlName,jdbcType=VARCHAR},
       </if>
       <if test="departmentCreatetime != null">
         #{departmentCreatetime,jdbcType=VARCHAR},
@@ -68,6 +76,9 @@
     <set>
       <if test="departmentName != null">
         department_Name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentSqlName != null">
+        department_SqlName = #{departmentSqlName,jdbcType=VARCHAR},
       </if>
       <if test="departmentCreatetime != null">
         department_createTime = #{departmentCreatetime,jdbcType=VARCHAR},
