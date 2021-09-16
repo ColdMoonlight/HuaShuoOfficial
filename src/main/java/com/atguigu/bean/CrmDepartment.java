@@ -4,6 +4,8 @@ public class CrmDepartment {
     private Integer departmentId;
 
     private String departmentName;
+    
+    private String departmentSqlName;
 
     private String departmentCreatetime;
 
@@ -24,8 +26,16 @@ public class CrmDepartment {
     public void setDepartmentName(String departmentName) {
         this.departmentName = departmentName == null ? null : departmentName.trim();
     }
+    
+    public String getDepartmentSqlName() {
+		return departmentSqlName;
+	}
 
-    public String getDepartmentCreatetime() {
+	public void setDepartmentSqlName(String departmentSqlName) {
+		this.departmentSqlName = departmentSqlName == null ? null : departmentSqlName.trim();
+	}
+
+	public String getDepartmentCreatetime() {
         return departmentCreatetime;
     }
 
@@ -45,11 +55,12 @@ public class CrmDepartment {
 		super();
 	}
 
-	public CrmDepartment(Integer departmentId, String departmentName, String departmentCreatetime,
-			String departmentMotifytime) {
+	public CrmDepartment(Integer departmentId, String departmentName, String departmentSqlName,
+			String departmentCreatetime, String departmentMotifytime) {
 		super();
 		this.departmentId = departmentId;
 		this.departmentName = departmentName;
+		this.departmentSqlName = departmentSqlName;
 		this.departmentCreatetime = departmentCreatetime;
 		this.departmentMotifytime = departmentMotifytime;
 	}
@@ -57,7 +68,8 @@ public class CrmDepartment {
 	@Override
 	public String toString() {
 		return "CrmDepartment [departmentId=" + departmentId + ", departmentName=" + departmentName
-				+ ", departmentCreatetime=" + departmentCreatetime + ", departmentMotifytime=" + departmentMotifytime
-				+ "]";
+				+ ", departmentSqlName=" + departmentSqlName + ", departmentCreatetime=" + departmentCreatetime
+				+ ", departmentMotifytime=" + departmentMotifytime + "]";
 	}
+
 }
