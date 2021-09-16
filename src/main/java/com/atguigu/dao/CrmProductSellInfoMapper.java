@@ -28,9 +28,8 @@ public interface CrmProductSellInfoMapper {
     //速卖通 后台分页
     List<CrmProductSellInfo> selectCrmProductSellInfoAliExpressByPage();
     //按时间范围查询全部数据
-    List<CrmProductSellInfo> selectCrmProductSellInfoByRangeTime(CrmProductSellInfo record);
+    List<CrmProductSellInfo> selectCrmProductSellInfoAllByRangeTime(CrmProductSellInfo record);
     //按时间范围、平台名称、网站名称 查询全部数据
     List<CrmProductSellInfo> selectCrmProductSellInfoByRangeTimePlatformBrandName(CrmProductSellInfo record);
     
-    List<CrmProductSellInfo> selectCrmProductSellInfoByDate(CrmProductSellInfo record);
 }
