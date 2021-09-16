@@ -267,18 +267,18 @@
     </where>
     order by productSellInfo_id desc
   </select>
-  <!-- selectCrmProductSellInfoByPage 独立站 -->
+  <!-- selectCrmProductSellInfoByPage brandWebsite -->
   <select id="selectCrmProductSellInfoByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_crm_productsellinfo where productSellInfo_platformName='独立站' order by productSellInfo_id desc
+    from tb_crm_productsellinfo where productSellInfo_platformName='brandWebsite' order by productSellInfo_id desc
   </select>
   
-  <!-- selectCrmProductSellInfoAliExpressByPage 速卖通-->
+  <!-- selectCrmProductSellInfoAliExpressByPage aliexpress-->
   <select id="selectCrmProductSellInfoAliExpressByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_crm_productsellinfo where productSellInfo_platformName='速卖通' order by productSellInfo_id desc
+    from tb_crm_productsellinfo where productSellInfo_platformName='aliexpress' order by productSellInfo_id desc
   </select>
   
   <!-- selectCrmProductSellInfoByRangeTimePlatformBrandName -->

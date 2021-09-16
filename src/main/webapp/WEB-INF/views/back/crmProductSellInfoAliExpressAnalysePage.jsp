@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>速卖通销售分析</title>
+		<title>aliexpress销售分析</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
 		<style>
@@ -206,14 +206,14 @@
 		function generateChartWithData() {
 			$('.card-mask').removeClass('hide');
 			/* arabella */
-			generatePieChart($('.card-pie'), '速卖通', 'arabella mall');
-			getAllBlockData($('.table-one tbody'), '速卖通', 'arabella mall');
+			generatePieChart($('.card-pie'), 'aliexpress', 'arabella mall');
+			getAllBlockData($('.table-one tbody'), 'aliexpress', 'arabella mall');
 			/* megalook */
-			generatePieChart($('.card-pie-2'), '速卖通', 'megalook');
-			getAllBlockData($('.table-two tbody'), '速卖通', 'megalook');
+			generatePieChart($('.card-pie-2'), 'aliexpress', 'megalook');
+			getAllBlockData($('.table-two tbody'), 'aliexpress', 'megalook');
 			/* ayiyi */
-			generatePieChart($('.card-pie-3'), '速卖通', 'ayiyi mall');
-			getAllBlockData($('.table-three tbody'), '速卖通', 'ayiyi mall');
+			generatePieChart($('.card-pie-3'), 'aliexpress', 'ayiyi mall');
+			getAllBlockData($('.table-three tbody'), 'aliexpress', 'ayiyi mall');
 		}
 
 		// init table-list

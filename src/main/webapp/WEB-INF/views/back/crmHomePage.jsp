@@ -182,8 +182,8 @@
 			$('.card-mask').removeClass('hide');
 			/* all */
 			generatePieChart($('.card-pie'), '总销售（sku）');
-			generatePieChanelChart($('.card-pie-2'), '独立站', '独立站产品销售（sku）');
-			generatePieChanelChart($('.card-pie-3'), '速卖通', '速卖通产品销售（sku）');
+			generatePieChanelChart($('.card-pie-2'), 'brandWebsite', '独立站产品销售（sku）');
+			generatePieChanelChart($('.card-pie-3'), 'aliexpress', '速卖通产品销售（sku）');
 		}
 		
 		// init

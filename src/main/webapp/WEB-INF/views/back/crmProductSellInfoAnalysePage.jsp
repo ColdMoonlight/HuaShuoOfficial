@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>独立站销售分析</title>
+		<title>brandWebsite销售分析</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
 		<style>
@@ -206,14 +206,14 @@
 		function generateChartWithData() {
 			$('.card-mask').removeClass('hide');
 			/* arabella */
-			generatePieChart($('.card-pie'), '独立站', 'arabella mall');
-			getAllBlockData($('.table-one tbody'), '独立站', 'arabella mall');
+			generatePieChart($('.card-pie'), 'brandWebsite', 'arabellahairWebsite');
+			getAllBlockData($('.table-one tbody'), 'brandWebsite', 'arabellahairWebsite');
 			/* megalook */
-			generatePieChart($('.card-pie-2'), '独立站', 'ML-mall');
-			getAllBlockData($('.table-two tbody'), '独立站', 'ML-mall');
+			generatePieChart($('.card-pie-2'), 'brandWebsite', 'megalookWebsite');
+			getAllBlockData($('.table-two tbody'), 'brandWebsite', 'megalookWebsite');
 			/* ayiyi */
-			generatePieChart($('.card-pie-3'), '独立站', 'ayiyi mall');
-			getAllBlockData($('.table-three tbody'), '独立站', 'ayiyi mall');
+			generatePieChart($('.card-pie-3'), 'brandWebsite', 'ayiyihairWebsite');
+			getAllBlockData($('.table-three tbody'), 'brandWebsite', 'ayiyihairWebsite');
 		}
 
 		// init table-list
