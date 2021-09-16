@@ -83,11 +83,22 @@ public class CrmProductSellInfoService {
 	/**
 	 * @author Shinelon
 	 * @param 
-	 * @exception 获取分页信息
+	 * @exception 独立站获取分页信息
 	 * 
 	 * */
 	public List<CrmProductSellInfo> selectCrmProductSellInfoByPage() {
 		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoByPage();
+		return crmProductSellInfoList;
+	}
+	
+	/**
+	 * @author Shinelon
+	 * @param 
+	 * @exception 速卖通获取分页信息
+	 * 
+	 * */
+	public List<CrmProductSellInfo> selectCrmProductSellInfoAliExpressByPage() {
+		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoAliExpressByPage();
 		return crmProductSellInfoList;
 	}
 	
@@ -110,6 +121,17 @@ public class CrmProductSellInfoService {
 	 * */
 	public List<CrmProductSellInfo> selectCrmProductSellInfoByDate(CrmProductSellInfo crmProductSellInfo) {
 		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoByDate(crmProductSellInfo);
+		return crmProductSellInfoList;
+	}
+	
+	/**
+	 * @author Shinelon
+	 * @param 
+	 * @exception 按时间查询按sku排序
+	 * 
+	 * */
+	public List<CrmProductSellInfo> selectCrmProductSellInfoByRangeTimePlatformBrandName(CrmProductSellInfo crmProductSellInfo) {
+		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoByRangeTimePlatformBrandName(crmProductSellInfo);
 		return crmProductSellInfoList;
 	}
 }
