@@ -161,7 +161,7 @@
 					}
 				},
 				error: function () {
-					toastr.error('Failed to get payinfo-data, please refresh the page to get again！');
+					toastr.error('Failed to get data, please refresh the page to get again！');
 				}
 			});
 		}
