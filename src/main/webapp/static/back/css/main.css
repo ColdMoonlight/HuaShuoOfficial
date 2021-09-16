@@ -704,6 +704,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+	z-index: 6;
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -714,12 +715,21 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+	z-index: 3;
 	width: 100%;
 	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	background-color: #fff;
+}
+.card-item-details {
+	position: absolute;
+	bottom: .5rem;
+	right: 1rem;
+	z-index: 9;
+	display: block;
+	padding: .5rem 1rem;
 }
 .card-chart {
 	display: flex;
