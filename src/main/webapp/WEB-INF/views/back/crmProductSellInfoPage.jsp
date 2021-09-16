@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>产品销售数据</title>
+		<title>独立站产品销售数据</title>
 		<jsp:include page="common/backheader.jsp" flush="true"></jsp:include>
 		<link rel="stylesheet" href="${APP_PATH}/static/back/lib/datetimepicker/daterangepicker.css">
 	</head>
