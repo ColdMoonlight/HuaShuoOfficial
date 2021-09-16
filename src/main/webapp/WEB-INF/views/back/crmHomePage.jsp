@@ -49,6 +49,7 @@
 				<div class="col-md-12 col-lg-6">
 					<div class="card">
 						<div class="card-chart card-pie-2"></div>
+						<a href="${APP_PATH}/CrmProductSellInfo/ToCrmProductSellInfoAnalysePage" class="card-item-details">查看数据详情</a>
 						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
 						<div class="card-mask">
 							<div class="spinner-border"></div>
@@ -58,6 +59,7 @@
 				<div class="col-md-12 col-lg-6">
 					<div class="card">
 						<div class="card-chart card-pie-3"></div>
+						<a href="${APP_PATH}/CrmProductSellInfo/ToCrmProductSellInfoAliExpressAnalysePage" class="card-item-details">查看数据详情</a>
 						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
 						<div class="card-mask">
 							<div class="spinner-border"></div>
@@ -103,7 +105,7 @@
 				}),
 				success: function (data) {
 					if (data.code == 100) {
-						transformPieChart($el, data.extend.returnMsg, name);
+						transformPieChart($el, data.extend.returnMsg, name, 15);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
@@ -138,16 +140,17 @@
 			});
 		}
 
-		function transformPieChart($cardPie, data, name) {
+		function transformPieChart($cardPie, data, name, len) {
 			var pieData = [];
+			len = len ? len : 10;
 			data.length && data.forEach(function(item, idx) {
-				if (idx < 10) {
+				if (idx < len) {
 					item.length && pieData.push({
 						value: item.length,
 						name: item[0].productsellinfoProductsku
 					});					
 				} else {
-					var curItem = pieData[10];
+					var curItem = pieData[len];
 					if (curItem) {
 						curItem.value += item.length;
 					} else {
