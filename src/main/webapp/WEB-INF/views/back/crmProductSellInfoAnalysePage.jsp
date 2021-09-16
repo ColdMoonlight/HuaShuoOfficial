@@ -143,7 +143,7 @@
 
 		function generatePieChart($el, type, name) {			
 			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByRangeTime",
+				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByRangeTimePlatformBrandName",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
@@ -234,7 +234,7 @@
 		function getAllBlockData($el, type, name) {
 			$('.c-mask').show();
 			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByDate",
+				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByDatePlatformBrandName",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
