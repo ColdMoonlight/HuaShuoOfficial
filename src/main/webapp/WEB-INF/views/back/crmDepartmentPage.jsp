@@ -25,6 +25,7 @@
 									<tr>
 										<th>id</th>
 										<th>部门名字</th>
+										<th>部门sql名</th>
 										<th>操作</th>
 									</tr>
 								</thead>
@@ -52,6 +53,12 @@
 										<label class="col-form-label" for="departmentName">部门名字</label>
 										<div class="controls">
 											<input class="form-control" id="departmentName" type="text" />
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-form-label" for="departmentSqlName">部门名字</label>
+										<div class="controls">
+											<input class="form-control" id="departmentSqlName" type="text" />
 										</div>
 									</div>
 								</div>
@@ -164,6 +171,7 @@
 			var data = {};
 			data.departmentId = parseInt($('#departmentId').val());
 			data.departmentName = $('#departmentName').val();
+			data.departmentSqlName = $('#departmentSqlName').val();
 			return data;
 		}
 		// initFormData
@@ -171,6 +179,7 @@
 			// init
 			$('#departmentId').val(data.departmentId);
 			$('#departmentName').val(data.departmentName);
+			$('#departmentSqlName').val(data.departmentSqlName);
 		}
 		// callback get all data
 		function getAllBlockData() {
@@ -304,6 +313,7 @@
 			for (var i = 0, len = data.length; i < len; i += 1) {
 				htmlStr += '<tr><td>' + data[i].departmentId + '</td>' +
 					'<td>' + data[i].departmentName + '</td>' +
+					'<td>' + data[i].departmentSqlName + '</td>' +
 					'<td>' +
 						'<button class="btn btn-primary btn-edit" data-id="' + data[i].departmentId + '">' +
 							'<svg class="c-icon">' +
