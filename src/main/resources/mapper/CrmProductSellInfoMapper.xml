@@ -267,17 +267,25 @@
     </where>
     order by productSellInfo_id desc
   </select>
-  <!-- selectCrmProductSellInfoByPage -->
+  <!-- selectCrmProductSellInfoByPage 独立站 -->
   <select id="selectCrmProductSellInfoByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_crm_productsellinfo order by productSellInfo_id desc
+    from tb_crm_productsellinfo where productSellInfo_platformName='独立站' order by productSellInfo_id desc
   </select>
   
-  <!-- selectCrmProductSellInfoByRangeTime -->
-  <select id="selectCrmProductSellInfoByRangeTime" parameterType="com.atguigu.bean.CrmProductSellInfo" resultMap="BaseResultMap">
+  <!-- selectCrmProductSellInfoAliExpressByPage 速卖通-->
+  <select id="selectCrmProductSellInfoAliExpressByPage" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
+    from tb_crm_productsellinfo where productSellInfo_platformName='速卖通' order by productSellInfo_id desc
+  </select>
+  
+  <!-- selectCrmProductSellInfoByRangeTimePlatformBrandName -->
+  <select id="selectCrmProductSellInfoByRangeTimePlatformBrandName" parameterType="com.atguigu.bean.CrmProductSellInfo" resultMap="BaseResultMap">
+    select 
+    productSellInfo_id, productSellInfo_platformName, productSellInfo_brandName, productSellInfo_productSku, 
+    productSellInfo_productRealPrice, productSellInfo_productSellNum, productSellInfo_productSellTime
     from tb_crm_productsellinfo
     <where>
         <if test="productsellinfoPlatformName != null">
@@ -293,10 +301,25 @@
     order by productSellInfo_productSku desc
   </select>
   
+  <!-- selectCrmProductSellInfoByRangeTime -->
+  <select id="selectCrmProductSellInfoByRangeTime" parameterType="com.atguigu.bean.CrmProductSellInfo" resultMap="BaseResultMap">
+    select 
+    productSellInfo_id, productSellInfo_productSku, 
+    productSellInfo_productRealPrice, productSellInfo_productSellNum, productSellInfo_productSellTime
+    from tb_crm_productsellinfo
+    <where>
+	    <if test="productsellinfoProductselltime != null and productsellinfoMotifytime != null">
+	      productSellInfo_productSellTime between #{productsellinfoProductselltime,jdbcType=VARCHAR} and #{productsellinfoMotifytime,jdbcType=VARCHAR}
+	    </if>
+    </where>
+    order by productSellInfo_productSku desc
+  </select>
+  
   <!-- selectCrmProductSellInfoByDate -->
   <select id="selectCrmProductSellInfoByDate" parameterType="com.atguigu.bean.CrmProductSellInfo" resultMap="BaseResultMap">
     select 
-    <include refid="Base_Column_List" />
+    productSellInfo_id, productSellInfo_platformName, productSellInfo_brandName, productSellInfo_productSku, 
+    productSellInfo_productRealPrice, productSellInfo_productSellNum, productSellInfo_productSellTime
     from tb_crm_productsellinfo 
 	<where>
 	    <if test="productsellinfoPlatformName != null">
