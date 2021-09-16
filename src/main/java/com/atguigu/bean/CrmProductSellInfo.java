@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 public class CrmProductSellInfo {
     private Integer productsellinfoId;
+    
+    private String productsellinfoPlatformName;
 
     private String productsellinfoBrandname;
 
@@ -39,6 +41,13 @@ public class CrmProductSellInfo {
         this.productsellinfoId = productsellinfoId;
     }
 
+	public String getProductsellinfoPlatformName() {
+		return productsellinfoPlatformName;
+	}
+
+	public void setProductsellinfoPlatformName(String productsellinfoPlatformName) {
+		this.productsellinfoPlatformName = productsellinfoPlatformName;
+	}
     public String getProductsellinfoBrandname() {
         return productsellinfoBrandname;
     }
@@ -147,14 +156,15 @@ public class CrmProductSellInfo {
 		super();
 	}
 
-	public CrmProductSellInfo(Integer productsellinfoId, String productsellinfoBrandname,
-			String productsellinfoPlatenum, String productsellinfoProducttype, Integer productsellinfoProductid,
-			String productsellinfoProductname, String productsellinfoProductsku,
+	public CrmProductSellInfo(Integer productsellinfoId, String productsellinfoPlatformName,
+			String productsellinfoBrandname, String productsellinfoPlatenum, String productsellinfoProducttype,
+			Integer productsellinfoProductid, String productsellinfoProductname, String productsellinfoProductsku,
 			BigDecimal productsellinfoProductmarkprice, BigDecimal productsellinfoProductrealprice,
 			Integer productsellinfoProductsellnum, BigDecimal productsellinfoCouponprice,
 			String productsellinfoCouponcode, String productsellinfoProductselltime, String productsellinfoMotifytime) {
 		super();
 		this.productsellinfoId = productsellinfoId;
+		this.productsellinfoPlatformName = productsellinfoPlatformName;
 		this.productsellinfoBrandname = productsellinfoBrandname;
 		this.productsellinfoPlatenum = productsellinfoPlatenum;
 		this.productsellinfoProducttype = productsellinfoProducttype;
@@ -172,15 +182,17 @@ public class CrmProductSellInfo {
 
 	@Override
 	public String toString() {
-		return "CrmProductSellInfo [productsellinfoId=" + productsellinfoId + ", productsellinfoBrandname="
-				+ productsellinfoBrandname + ", productsellinfoPlatenum=" + productsellinfoPlatenum
-				+ ", productsellinfoProducttype=" + productsellinfoProducttype + ", productsellinfoProductid="
-				+ productsellinfoProductid + ", productsellinfoProductname=" + productsellinfoProductname
-				+ ", productsellinfoProductsku=" + productsellinfoProductsku + ", productsellinfoProductmarkprice="
-				+ productsellinfoProductmarkprice + ", productsellinfoProductrealprice="
-				+ productsellinfoProductrealprice + ", productsellinfoProductsellnum=" + productsellinfoProductsellnum
-				+ ", productsellinfoCouponprice=" + productsellinfoCouponprice + ", productsellinfoCouponcode="
-				+ productsellinfoCouponcode + ", productsellinfoProductselltime=" + productsellinfoProductselltime
-				+ ", productsellinfoMotifytime=" + productsellinfoMotifytime + "]";
+		return "CrmProductSellInfo [productsellinfoId=" + productsellinfoId + ", productsellinfoPlatformName="
+				+ productsellinfoPlatformName + ", productsellinfoBrandname=" + productsellinfoBrandname
+				+ ", productsellinfoPlatenum=" + productsellinfoPlatenum + ", productsellinfoProducttype="
+				+ productsellinfoProducttype + ", productsellinfoProductid=" + productsellinfoProductid
+				+ ", productsellinfoProductname=" + productsellinfoProductname + ", productsellinfoProductsku="
+				+ productsellinfoProductsku + ", productsellinfoProductmarkprice=" + productsellinfoProductmarkprice
+				+ ", productsellinfoProductrealprice=" + productsellinfoProductrealprice
+				+ ", productsellinfoProductsellnum=" + productsellinfoProductsellnum + ", productsellinfoCouponprice="
+				+ productsellinfoCouponprice + ", productsellinfoCouponcode=" + productsellinfoCouponcode
+				+ ", productsellinfoProductselltime=" + productsellinfoProductselltime + ", productsellinfoMotifytime="
+				+ productsellinfoMotifytime + "]";
 	}
+
 }

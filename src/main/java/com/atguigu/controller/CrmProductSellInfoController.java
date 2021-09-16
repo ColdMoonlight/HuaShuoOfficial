@@ -202,6 +202,10 @@ public class CrmProductSellInfoController {
 		CrmProductSellInfo productSellInfoGet = new CrmProductSellInfo();
 		productSellInfoGet.setProductsellinfoProductselltime(crmProductSellInfoReq.getProductsellinfoProductselltime());
 		productSellInfoGet.setProductsellinfoMotifytime(crmProductSellInfoReq.getProductsellinfoMotifytime());
+		//平台名称
+		if(StringUtil.isNotEmpty(crmProductSellInfoReq.getProductsellinfoPlatformName())){
+			productSellInfoGet.setProductsellinfoPlatformName(crmProductSellInfoReq.getProductsellinfoPlatformName());
+		}
 		//网站名称
 		if(StringUtil.isNotEmpty(crmProductSellInfoReq.getProductsellinfoBrandname())){
 			productSellInfoGet.setProductsellinfoBrandname(crmProductSellInfoReq.getProductsellinfoBrandname());
@@ -286,17 +290,20 @@ public class CrmProductSellInfoController {
 		CrmProductSellInfo productSellInfoGet = new CrmProductSellInfo();
 		productSellInfoGet.setProductsellinfoProductselltime(crmProductSellInfoReq.getProductsellinfoProductselltime());
 		productSellInfoGet.setProductsellinfoMotifytime(crmProductSellInfoReq.getProductsellinfoMotifytime());
+		//平台名称
+		if(StringUtil.isNotEmpty(crmProductSellInfoReq.getProductsellinfoPlatformName())){
+			productSellInfoGet.setProductsellinfoPlatformName(crmProductSellInfoReq.getProductsellinfoPlatformName());
+		}
 		//网站名称
 		if(StringUtil.isNotEmpty(crmProductSellInfoReq.getProductsellinfoBrandname())){
 			productSellInfoGet.setProductsellinfoBrandname(crmProductSellInfoReq.getProductsellinfoBrandname());
 		}
-		
 		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByRangeTime(productSellInfoGet);
 		
 		//最终返回List
 		List<List<List<CrmProductSellInfo>>> productSellInfoFinallList=null;
 		if(crmProductSellInfoList.size() > 0){
-			//将数据按照日期升序排序
+			//将数据按日期升序排序
 			crmProductSellInfoList.sort(new Comparator<CrmProductSellInfo>(){
 				@Override
 				public int compare(CrmProductSellInfo o1, CrmProductSellInfo o2) {
@@ -307,7 +314,7 @@ public class CrmProductSellInfoController {
 				}
 			});
 			//将相同日期的合并为一个list
-			Date date1 = DateUtil.str2Date(crmProductSellInfoList.get(0).getProductsellinfoProductselltime(), "yyyy-MM-dd") ;
+			Date date1 = DateUtil.str2Date(crmProductSellInfoList.get(0).getProductsellinfoProductselltime(), "yyyy-MM-dd");
 			
 			//最终返回List
 			productSellInfoFinallList = new ArrayList<List<List<CrmProductSellInfo>>>();
@@ -448,7 +455,7 @@ public class CrmProductSellInfoController {
 
 	/**
 	 * @author 20210908
-	 * 查询某网站下数据
+	 * 查询某时间范围内全部数据（不分平台、网站）
 	 * @param CrmProductSellInfo
 	 * */
 	@RequestMapping(value="/GetProductSellInfoByRangeTimeSortByTime",method=RequestMethod.POST)
