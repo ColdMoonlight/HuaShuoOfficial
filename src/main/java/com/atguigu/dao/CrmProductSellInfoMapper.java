@@ -1,6 +1,7 @@
 package com.atguigu.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.atguigu.bean.CrmProductSellInfo;
 
@@ -31,5 +32,7 @@ public interface CrmProductSellInfoMapper {
     List<CrmProductSellInfo> selectCrmProductSellInfoAllByRangeTime(CrmProductSellInfo record);
     //按时间范围、平台名称、网站名称 查询全部数据
     List<CrmProductSellInfo> selectCrmProductSellInfoByRangeTimePlatformBrandName(CrmProductSellInfo record);
+    
+    List<Map<String,Object>> selectAllCrmProductSellInfoByRangeTime(CrmProductSellInfo record);
     
 }
