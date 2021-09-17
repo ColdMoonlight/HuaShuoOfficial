@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -774,29 +776,128 @@ public class CrmProductSellInfoController {
 		
 	}
 	
-//	/**
-//	 * @author 20210908
-//	 * 查询某时间范围内全部数据（不分平台、网站）
-//	 * @param CrmProductSellInfo
-//	 * */
-//	@RequestMapping(value="/GetProductSellInfoByRangeTimeSortByTime",method=RequestMethod.POST)
-//	@ResponseBody
-//	public Msg getProductSellInfoByRangeTimeSortByTime(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
-//			@RequestBody CrmProductSellInfo crmProductSellInfoReq){
-//		
-//		CrmProductSellInfo productSellInfoGet = new CrmProductSellInfo();
-//		productSellInfoGet.setProductsellinfoMotifytime(crmProductSellInfoReq.getProductsellinfoMotifytime());
-//		productSellInfoGet.setProductsellinfoProductselltime(productSellInfoGet.getProductsellinfoProductselltime());
-//		//按条件查询
-//		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoByParameter(productSellInfoGet);
-//		if(crmProductSellInfoList.size() > 0){
-//			crmProductSellInfoList.sort(new Comparator<CrmProductSellInfo>(){
-//				@Override
-//				public int compare(CrmProductSellInfo o1, CrmProductSellInfo o2) {
-//					return o1.getProductsellinfoProductselltime().compareTo(o2.getProductsellinfoProductselltime());
+	/**
+	 * @author 20210917
+	 * 按时间范围,查询所有数据,查询每天的sku
+	 * 1,按时间范围查询,获取数据List,按sku排序
+	 * 2,将各个相同sku,添加到一个list中,最终按此list.size排序,只返回查询指定字段
+	 * @param rep
+	 * @param res
+	 * @param session
+	 * @param crmProductSellInfoReq
+	 * @return
+	 */
+	@RequestMapping(value="/GetAllProductSellInfoByRangeTime",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getProductSellInfoByRangeTimeAll(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody CrmProductSellInfo crmProductSellInfoReq){
+		
+		if(StringUtil.isEmpty(crmProductSellInfoReq.getProductsellinfoProductselltime())){
+			return Msg.fail().add("returnMsg", "查询失败,初始时间不能为空");
+		}
+		
+		if(StringUtil.isEmpty(crmProductSellInfoReq.getProductsellinfoMotifytime())){
+			return Msg.fail().add("returnMsg", "查询失败,结束时间不能为空");
+		}
+		
+		//按时间范围查询
+		CrmProductSellInfo productSellInfoGet = new CrmProductSellInfo();
+		productSellInfoGet.setProductsellinfoProductselltime(crmProductSellInfoReq.getProductsellinfoProductselltime());
+		productSellInfoGet.setProductsellinfoMotifytime(crmProductSellInfoReq.getProductsellinfoMotifytime());
+		List<Map<String,Object>> crmProductSellInfoList = crmProductSellInfoService.selectAllCrmProductSellInfoByRangeTime(productSellInfoGet);
+		if(crmProductSellInfoList.size() > 0){
+			//最终返回List
+			List<List<Map<String,Object>>> productSellInfoFinallList = new ArrayList<List<Map<String,Object>>>();
+			//将相同sku合并为一个list
+			String sku = crmProductSellInfoList.get(0).get("productsellinfoProductsku").toString();
+			//二级List:相同sku的一个list,不同的sku新建list
+			List<Map<String,Object>> productSellInfoSameSkuList = new ArrayList<Map<String,Object>>();
+			for(int i = 0;i < crmProductSellInfoList.size();i++){
+				String sku2 = crmProductSellInfoList.get(i).get("productsellinfoProductsku").toString();
+				if(sku.equals(sku2)){
+					productSellInfoSameSkuList.add(crmProductSellInfoList.get(i));
+				}else{
+					productSellInfoSameSkuList.sort(new Comparator<Map<String,Object>>(){
+						@Override
+						public int compare(Map<String, Object> o1, Map<String, Object> o2) {
+							if(StringUtil.isEmpty(o1.get("productsellinfoProductselltime").toString()) || StringUtil.isEmpty(o2.get("productsellinfoProductselltime").toString())){
+								return 0;
+							}
+							return o2.get("productsellinfoProductselltime").toString().compareTo(o1.get("productsellinfoProductselltime").toString());
+						}
+					});
+					//排序后添加到最终返回的List中
+					productSellInfoFinallList.add(productSellInfoSameSkuList);
+					//获取新的sku,list,重新进行存储
+					sku = sku2;
+					productSellInfoSameSkuList = new ArrayList<Map<String,Object>>();
+					productSellInfoSameSkuList.add(crmProductSellInfoList.get(i));
+				}
+				if(i==crmProductSellInfoList.size()-1){
+					//最后一个skuList添加到最终返回的List中
+					productSellInfoFinallList.add(productSellInfoSameSkuList);
+				}
+			}
+			if(productSellInfoFinallList.size() > 0){
+				//将最终返回的List按其中每个list的数量降序排序
+				productSellInfoFinallList.sort(new Comparator<List<Map<String,Object>>>(){
+					@Override
+					public int compare(List<Map<String,Object>> o1, List<Map<String,Object>> o2) {
+						return o2.size() - o1.size();
+					}
+				});
+			}
+			
+//			//将相同sku合并为一个list
+//			String sku = crmProductSellInfoList.get(0).getProductsellinfoProductsku();
+//			//最终返回List
+//			List<List<CrmProductSellInfo>> productSellInfoFinallList = new ArrayList<List<CrmProductSellInfo>>();
+//			//二级List:相同sku的一个list,不同的sku新建list
+//			List<CrmProductSellInfo> productSellInfoSameSkuList = new ArrayList<CrmProductSellInfo>();
+//			for(int i = 0;i < crmProductSellInfoList.size();i++)
+//			{
+//				CrmProductSellInfo p = crmProductSellInfoList.get(i);
+//				if(sku.equals(p.getProductsellinfoProductsku())){
+//					productSellInfoSameSkuList.add(p);
+//					
+//				}else{
+//					//对上一个skuList进行排序,按时间降叙排序
+//					productSellInfoSameSkuList.sort(new Comparator<CrmProductSellInfo>(){
+//						@Override
+//						public int compare(CrmProductSellInfo o1, CrmProductSellInfo o2) {
+//							if(StringUtil.isEmpty(o1.getProductsellinfoProductselltime()) || StringUtil.isEmpty(o2.getProductsellinfoProductselltime())){
+//								return 0;
+//							}
+//							return o2.getProductsellinfoProductselltime().compareTo(o1.getProductsellinfoProductselltime());
+//						}
+//						
+//					});
+//					
+//					//排序后添加到最终返回的List中
+//					productSellInfoFinallList.add(productSellInfoSameSkuList);
+//					//获取新的sku,list,重新进行存储
+//					sku = p.getProductsellinfoProductsku();
+//					productSellInfoSameSkuList = new ArrayList<CrmProductSellInfo>();
+//					productSellInfoSameSkuList.add(p);
 //				}
-//			});
-//		}
-//		return Msg.success().add("resMsg", "返回按时间查询该时间段数据,按时间升序排序").add("crmProductSellInfoList", crmProductSellInfoList);
-//	}
+//				if(i==crmProductSellInfoList.size()-1){
+//					//最后一个skuList添加到最终返回的List中
+//					productSellInfoFinallList.add(productSellInfoSameSkuList);
+//				}
+//			}
+//			if(productSellInfoFinallList.size() > 0){
+//				//将最终返回的List按其中每个list的数量降序排序
+//				productSellInfoFinallList.sort(new Comparator<List<CrmProductSellInfo>>(){
+//					@Override
+//					public int compare(List<CrmProductSellInfo> o1, List<CrmProductSellInfo> o2) {
+//						return o2.size() - o1.size();
+//					}
+//				});
+//			}
+			return Msg.success().add("returnMsg", productSellInfoFinallList);
+		}else{
+			return Msg.success().add("returnMsg", crmProductSellInfoList);
+		}
+	}
+	
 }

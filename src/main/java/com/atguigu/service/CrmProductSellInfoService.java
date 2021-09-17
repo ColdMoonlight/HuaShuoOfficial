@@ -1,6 +1,7 @@
 package com.atguigu.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -124,4 +125,10 @@ public class CrmProductSellInfoService {
 		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoByRangeTimePlatformBrandName(crmProductSellInfo);
 		return crmProductSellInfoList;
 	}
+	
+	public List<Map<String,Object>> selectAllCrmProductSellInfoByRangeTime(CrmProductSellInfo crmProductSellInfo) {
+		List<Map<String,Object>> crmProductSellInfoList = crmProductSellInfoMapper.selectAllCrmProductSellInfoByRangeTime(crmProductSellInfo);
+		return crmProductSellInfoList;
+	}
+	
 }
