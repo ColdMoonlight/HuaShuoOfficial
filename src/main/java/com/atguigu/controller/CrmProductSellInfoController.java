@@ -105,6 +105,44 @@ public class CrmProductSellInfoController {
 	}
 	
 	/**
+	 * 20210918
+	 * 国际站产品销售图表
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/ToCrmProductSellInfoAlibabaAnalysePage")
+	public String toCrmProductSellInfoAlibabaAnalysePage(HttpSession session) throws Exception{
+		
+		CrmAdmin crmAdmin =(CrmAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(crmAdmin==null){
+			//SysUsers对象为空
+			return "back/crmAdminLogin";
+		}else{
+			return "back/crmProductSellInfoAlibabaAnalysePage";
+		}
+	}
+	
+	/**
+	 * 20210918
+	 * 国际站产品销售情况导入导出
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/ToCrmProductSellInfoAlibabaPage")
+	public String toCrmProductSellInfoAlibabaPage(HttpSession session) throws Exception{
+		
+		CrmAdmin crmAdmin =(CrmAdmin) session.getAttribute(Const.ADMIN_USER);
+		if(crmAdmin==null){
+			//SysUsers对象为空
+			return "back/crmAdminLogin";
+		}else{
+			return "back/crmProductSellInfoAlibabaPage";
+		}
+	}
+	
+	/**
 	 * @author 20210818
 	 * 新增
 	 * @param CrmProductSellInfo
@@ -190,7 +228,7 @@ public class CrmProductSellInfoController {
 	
 	/**
 	 * 20210916
-	 * 速卖通后台列表分页list数据
+	 * 速卖通 后台列表分页list数据
 	 * @param pn
 	 * @param session
 	 * @return
@@ -205,6 +243,25 @@ public class CrmProductSellInfoController {
 		PageInfo<CrmProductSellInfo> page = new PageInfo<CrmProductSellInfo>(crmProductSellInfoList, PagNum);
 		return Msg.success().add("pageInfo", page);
 	}
+	
+	/**
+	 * 20210918
+	 * 国际站后台列表分页list数据
+	 * @param pn
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/GetProductSellInfoAlibabaByPage")
+	@ResponseBody
+	public Msg getProductSellInfoAlibabaByPage(@RequestParam(value = "pn", defaultValue = "1") Integer pn,HttpSession session) {
+
+		int PagNum = Const.PAGE_NUM_DEFAULT;
+		PageHelper.startPage(pn, PagNum);
+		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoAlibabaByPage();
+		PageInfo<CrmProductSellInfo> page = new PageInfo<CrmProductSellInfo>(crmProductSellInfoList, PagNum);
+		return Msg.success().add("pageInfo", page);
+	}
+	
 	
 	/**
 	 * @author 20210818

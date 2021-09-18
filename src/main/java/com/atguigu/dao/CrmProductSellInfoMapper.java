@@ -27,8 +27,14 @@ public interface CrmProductSellInfoMapper {
     List<CrmProductSellInfo> selectCrmProductSellInfoAll();
     //独立站 后台分页
     List<CrmProductSellInfo> selectCrmProductSellInfoByPage();
+    
     //速卖通 后台分页
     List<CrmProductSellInfo> selectCrmProductSellInfoAliExpressByPage();
+    
+    //国际站 后台分页
+    List<CrmProductSellInfo> selectCrmProductSellInfoAlibabaByPage();
+    
+    
     //按时间范围查询全部数据
     List<CrmProductSellInfo> selectCrmProductSellInfoAllByRangeTime(CrmProductSellInfo record);
     //按时间范围、平台名称、网站名称 查询全部数据
