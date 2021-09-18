@@ -236,8 +236,8 @@
 			generatePieChart($('.card-pie'), 'aliexpress', 'arabellaAliexpress');
 			getAllBlockData($('.table-one tbody'), 'aliexpress', 'arabellaAliexpress');
 			/* megalook */
-			generatePieChart($('.card-pie-2'), 'aliexpress', 'megalook');
-			getAllBlockData($('.table-two tbody'), 'aliexpress', 'megalook');
+			generatePieChart($('.card-pie-2'), 'aliexpress', 'megalookAliexpress');
+			getAllBlockData($('.table-two tbody'), 'aliexpress', 'megalookAliexpress');
 			/* aliLuminaAliexpress */
 			generatePieChart($('.card-pie-3'), 'aliexpress', 'aliLuminaAliexpress');
 			getAllBlockData($('.table-three tbody'), 'aliexpress', 'aliLuminaAliexpress');
@@ -253,9 +253,9 @@
 			var htmlStr = '';
 			timeArr && timeArr.forEach(function(item, i) {
 				htmlStr += '<tr><td>' + timeArr[i] + '</td>' +
-					'<td>' + (nData[i][0][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;') + '</td>' +
-					'<td>' + (nData[i][1][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][1].length +'</span>)&nbsp;')+ '</td>' +
-					'<td>' + (nData[i][2][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][2].length +'</span>)&nbsp;') + '</td>' +
+					'<td>' + (nData[i] && nData[i][0] ? nData[i][0][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;' : '--') + '</td>' +
+					'<td>' + (nData[i] && nData[i][1] ? nData[i][1][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;' : '--')+ '</td>' +
+					'<td>' + (nData[i] && nData[i][2] ? nData[i][2][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;' : '--') + '</td>' +
 					'</tr>';
 			});
 			$el.html(htmlStr);
