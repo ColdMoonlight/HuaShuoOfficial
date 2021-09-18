@@ -129,7 +129,7 @@
 				}),
 				success: function (data) {
 					if (data.code == 100) {
-						transformPieChart($el, data.extend.returnMsg, name);
+						transformPieChart($el, data.extend.returnMsg, name, 15);
 					} else {
 						toastr.error(data.extend.resMsg);
 					}
