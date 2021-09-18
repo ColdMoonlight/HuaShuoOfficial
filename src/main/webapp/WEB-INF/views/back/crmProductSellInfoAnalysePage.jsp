@@ -143,7 +143,7 @@
 
 		function generatePieChart($el, type, name) {			
 			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByRangeTimePlatformBrandName",
+				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoVoByRangeTimePlatformBrandName",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',

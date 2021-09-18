@@ -95,7 +95,7 @@
 
 		function generatePieChart($el, name) {			
 			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoAllByRangeTime",
+				url: "${APP_PATH}/CrmProductSellInfo/GetAllProductSellInfoByRangeTime",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
@@ -118,7 +118,7 @@
 
 		function generatePieChanelChart($el, type, name) {			
 			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByRangeTimePlatformBrandName",
+				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoVoByRangeTimePlatformBrandName",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
