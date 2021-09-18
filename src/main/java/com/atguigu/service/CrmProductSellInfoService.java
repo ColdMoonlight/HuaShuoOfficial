@@ -107,6 +107,18 @@ public class CrmProductSellInfoService {
 	/**
 	 * @author Shinelon
 	 * @param 
+	 * @exception 国际站获取分页信息
+	 * 
+	 * */
+	public List<CrmProductSellInfo> selectCrmProductSellInfoAlibabaByPage() {
+		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoAlibabaByPage();
+		return crmProductSellInfoList;
+	}
+	
+	
+	/**
+	 * @author Shinelon
+	 * @param 
 	 * @exception 按时间查询,按sku排序
 	 * 
 	 * */
