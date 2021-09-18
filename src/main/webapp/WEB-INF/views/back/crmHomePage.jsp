@@ -66,6 +66,16 @@
 						</div>
 					</div>
 				</div>
+				<div class="col-md-12 col-lg-6">
+					<div class="card">
+						<div class="card-chart card-pie-4"></div>
+						<a href="${APP_PATH}/CrmProductSellInfo/ToCrmProductSellInfoAlibabaAnalysePage" class="card-item-details">查看数据详情</a>
+						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
+						<div class="card-mask">
+							<div class="spinner-border"></div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
@@ -184,6 +194,7 @@
 			generatePieChart($('.card-pie'), '总销售（sku）');
 			generatePieChanelChart($('.card-pie-2'), 'brandWebsite', '独立站产品销售（sku）');
 			generatePieChanelChart($('.card-pie-3'), 'aliexpress', '速卖通产品销售（sku）');
+			generatePieChanelChart($('.card-pie-4'), 'alibaba', '国际站产品销售（sku）');
 		}
 		
 		// init
