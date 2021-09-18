@@ -143,7 +143,7 @@
 
 		function generatePieChart($el, type, name) {			
 			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByRangeTimePlatformBrandName",
+				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoVoByRangeTimePlatformBrandName",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
@@ -224,8 +224,8 @@
 			timeArr && timeArr.forEach(function(item, i) {
 				htmlStr += '<tr><td>' + timeArr[i] + '</td>' +
 					'<td>' + (nData[i][0][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;') + '</td>' +
-					'<td>' + (nData[i][1][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;')+ '</td>' +
-					'<td>' + (nData[i][2][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;') + '</td>' +
+					'<td>' + (nData[i][1][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][1].length +'</span>)&nbsp;')+ '</td>' +
+					'<td>' + (nData[i][2][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][2].length +'</span>)&nbsp;') + '</td>' +
 					'</tr>';
 			});
 			$el.html(htmlStr);

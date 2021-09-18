@@ -336,4 +336,33 @@
     order by productSellInfo_productSku desc
   </select>
   
+  <resultMap id="VoResultMap" type="com.atguigu.vo.CrmProductSellInfoVo">
+    <id column="productSellInfo_id" jdbcType="INTEGER" property="productsellinfoId" />
+    <result column="productSellInfo_platformName" jdbcType="VARCHAR" property="productsellinfoPlatformName" />
+    <result column="productSellInfo_brandName" jdbcType="VARCHAR" property="productsellinfoBrandname" />
+    <result column="productSellInfo_productSku" jdbcType="VARCHAR" property="productsellinfoProductsku" />
+    <result column="productSellInfo_productRealPrice" jdbcType="DECIMAL" property="productsellinfoProductrealprice" />
+    <result column="productSellInfo_productSellNum" jdbcType="INTEGER" property="productsellinfoProductsellnum" />
+    <result column="productSellInfo_productSellTime" jdbcType="VARCHAR" property="productsellinfoProductselltime" />
+  </resultMap>
+  <!-- selectCrmProductSellInfoVoByRangeTimePlatformBrandName -->
+  <select id="selectCrmProductSellInfoVoByRangeTimePlatformBrandName" parameterType="com.atguigu.bean.CrmProductSellInfo" resultMap="VoResultMap">
+    select 
+    productSellInfo_id, productSellInfo_platformName, productSellInfo_brandName, productSellInfo_productSku, 
+    productSellInfo_productRealPrice, productSellInfo_productSellNum, productSellInfo_productSellTime
+    from tb_crm_productsellinfo
+    <where>
+        <if test="productsellinfoPlatformName != null">
+	      productSellInfo_platformName = #{productsellinfoPlatformName,jdbcType=VARCHAR}
+	    </if>
+    	<if test="productsellinfoBrandname != null">
+	      and productSellInfo_brandName = #{productsellinfoBrandname,jdbcType=VARCHAR}
+	    </if>
+	    <if test="productsellinfoProductselltime != null and productsellinfoMotifytime != null">
+	      and productSellInfo_productSellTime between #{productsellinfoProductselltime,jdbcType=VARCHAR} and #{productsellinfoMotifytime,jdbcType=VARCHAR}
+	    </if>
+    </where>
+    order by productSellInfo_productSku desc
+  </select>
+  
 </mapper>

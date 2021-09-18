@@ -115,6 +115,33 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="row chart-n-item">
+				<div class="col-md-12 col-lg-6">
+					<div class="card">
+						<div class="card-chart card-pie-4"></div>
+						<div class="chart-noresult hide">该时间范围内，无可用数据...</div>
+						<div class="card-mask">
+							<div class="spinner-border"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-6">
+					<div class="c-table-table">
+						<table class="table table-four">
+							<thead>
+								<tr>
+									<th>时间</th>
+									<th>第一</th>
+									<th>第二</th>
+									<th>第三</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 		<jsp:include page="layout/backfooter.jsp" flush="true"></jsp:include>
 
@@ -143,7 +170,7 @@
 
 		function generatePieChart($el, type, name) {			
 			$.ajax({
-				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoByRangeTimePlatformBrandName",
+				url: "${APP_PATH}/CrmProductSellInfo/GetProductSellInfoVoByRangeTimePlatformBrandName",
 				type: "post",
 				dataType: "json",
 				contentType: 'application/json',
@@ -205,15 +232,18 @@
 		
 		function generateChartWithData() {
 			$('.card-mask').removeClass('hide');
-			/* arabella */
-			generatePieChart($('.card-pie'), 'aliexpress', 'arabella mall');
-			getAllBlockData($('.table-one tbody'), 'aliexpress', 'arabella mall');
+			/* arabellaAliexpress */
+			generatePieChart($('.card-pie'), 'aliexpress', 'arabellaAliexpress');
+			getAllBlockData($('.table-one tbody'), 'aliexpress', 'arabellaAliexpress');
 			/* megalook */
 			generatePieChart($('.card-pie-2'), 'aliexpress', 'megalook');
 			getAllBlockData($('.table-two tbody'), 'aliexpress', 'megalook');
-			/* ayiyi */
-			generatePieChart($('.card-pie-3'), 'aliexpress', 'ayiyi mall');
-			getAllBlockData($('.table-three tbody'), 'aliexpress', 'ayiyi mall');
+			/* aliLuminaAliexpress */
+			generatePieChart($('.card-pie-3'), 'aliexpress', 'aliLuminaAliexpress');
+			getAllBlockData($('.table-three tbody'), 'aliexpress', 'aliLuminaAliexpress');
+			/* aliLuminaAliexpress */
+			generatePieChart($('.card-pie-4'), 'aliexpress', 'beautyLuminaAliexpress');
+			getAllBlockData($('.table-four tbody'), 'aliexpress', 'beautyLuminaAliexpress');
 		}
 
 		// init table-list
@@ -224,8 +254,8 @@
 			timeArr && timeArr.forEach(function(item, i) {
 				htmlStr += '<tr><td>' + timeArr[i] + '</td>' +
 					'<td>' + (nData[i][0][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;') + '</td>' +
-					'<td>' + (nData[i][1][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;')+ '</td>' +
-					'<td>' + (nData[i][2][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][0].length +'</span>)&nbsp;') + '</td>' +
+					'<td>' + (nData[i][1][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][1].length +'</span>)&nbsp;')+ '</td>' +
+					'<td>' + (nData[i][2][0].productsellinfoProductsku + '&nbsp;(<span class="text-red">'+ nData[i][2].length +'</span>)&nbsp;') + '</td>' +
 					'</tr>';
 			});
 			$el.html(htmlStr);
