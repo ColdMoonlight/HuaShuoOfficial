@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.atguigu.bean.CrmProductSellInfo;
+import com.atguigu.vo.CrmProductSellInfoVo;
 
 public interface CrmProductSellInfoMapper {
    
@@ -34,5 +35,8 @@ public interface CrmProductSellInfoMapper {
     List<CrmProductSellInfo> selectCrmProductSellInfoByRangeTimePlatformBrandName(CrmProductSellInfo record);
     
     List<Map<String,Object>> selectAllCrmProductSellInfoByRangeTime(CrmProductSellInfo record);
+    
+   //按时间范围、平台名称、网站名称 查询全部数据
+    List<CrmProductSellInfoVo> selectCrmProductSellInfoVoByRangeTimePlatformBrandName(CrmProductSellInfo record);
     
 }

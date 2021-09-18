@@ -22,6 +22,7 @@ import com.atguigu.common.Const;
 import com.atguigu.common.Msg;
 import com.atguigu.service.CrmProductSellInfoService;
 import com.atguigu.utils.DateUtil;
+import com.atguigu.vo.CrmProductSellInfoVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
@@ -847,57 +848,97 @@ public class CrmProductSellInfoController {
 					}
 				});
 			}
-			
-//			//将相同sku合并为一个list
-//			String sku = crmProductSellInfoList.get(0).getProductsellinfoProductsku();
-//			//最终返回List
-//			List<List<CrmProductSellInfo>> productSellInfoFinallList = new ArrayList<List<CrmProductSellInfo>>();
-//			//二级List:相同sku的一个list,不同的sku新建list
-//			List<CrmProductSellInfo> productSellInfoSameSkuList = new ArrayList<CrmProductSellInfo>();
-//			for(int i = 0;i < crmProductSellInfoList.size();i++)
-//			{
-//				CrmProductSellInfo p = crmProductSellInfoList.get(i);
-//				if(sku.equals(p.getProductsellinfoProductsku())){
-//					productSellInfoSameSkuList.add(p);
-//					
-//				}else{
-//					//对上一个skuList进行排序,按时间降叙排序
-//					productSellInfoSameSkuList.sort(new Comparator<CrmProductSellInfo>(){
-//						@Override
-//						public int compare(CrmProductSellInfo o1, CrmProductSellInfo o2) {
-//							if(StringUtil.isEmpty(o1.getProductsellinfoProductselltime()) || StringUtil.isEmpty(o2.getProductsellinfoProductselltime())){
-//								return 0;
-//							}
-//							return o2.getProductsellinfoProductselltime().compareTo(o1.getProductsellinfoProductselltime());
-//						}
-//						
-//					});
-//					
-//					//排序后添加到最终返回的List中
-//					productSellInfoFinallList.add(productSellInfoSameSkuList);
-//					//获取新的sku,list,重新进行存储
-//					sku = p.getProductsellinfoProductsku();
-//					productSellInfoSameSkuList = new ArrayList<CrmProductSellInfo>();
-//					productSellInfoSameSkuList.add(p);
-//				}
-//				if(i==crmProductSellInfoList.size()-1){
-//					//最后一个skuList添加到最终返回的List中
-//					productSellInfoFinallList.add(productSellInfoSameSkuList);
-//				}
-//			}
-//			if(productSellInfoFinallList.size() > 0){
-//				//将最终返回的List按其中每个list的数量降序排序
-//				productSellInfoFinallList.sort(new Comparator<List<CrmProductSellInfo>>(){
-//					@Override
-//					public int compare(List<CrmProductSellInfo> o1, List<CrmProductSellInfo> o2) {
-//						return o2.size() - o1.size();
-//					}
-//				});
-//			}
 			return Msg.success().add("returnMsg", productSellInfoFinallList);
 		}else{
 			return Msg.success().add("returnMsg", crmProductSellInfoList);
 		}
 	}
+	
+	/**
+	 * @author 20210904
+	 *  按时间范围,平台名称,网站名称查询 查询每天的sku
+	 * 1,按时间范围,平台名称,网站名称查询,获取数据List,按sku排序
+	 * 2,将各个相同sku,添加到一个list中,最终按此list.size排序
+	 * @param CrmProductSellInfo
+	 * */
+	@RequestMapping(value="/GetProductSellInfoVoByRangeTimePlatformBrandName",method=RequestMethod.POST)
+	@ResponseBody
+	public Msg getProductSellInfoVoByRangeTimePlatformBrandName(HttpServletResponse rep,HttpServletRequest res,HttpSession session,
+			@RequestBody CrmProductSellInfo crmProductSellInfoReq){
+		
+		if(StringUtil.isEmpty(crmProductSellInfoReq.getProductsellinfoProductselltime())){
+			return Msg.fail().add("returnMsg", "查询失败,初始时间不能为空");
+		}
+		
+		if(StringUtil.isEmpty(crmProductSellInfoReq.getProductsellinfoMotifytime())){
+			return Msg.fail().add("returnMsg", "查询失败,结束时间不能为空");
+		}
+		
+		//按时间范围查询
+		CrmProductSellInfo productSellInfoGet = new CrmProductSellInfo();
+		productSellInfoGet.setProductsellinfoProductselltime(crmProductSellInfoReq.getProductsellinfoProductselltime());
+		productSellInfoGet.setProductsellinfoMotifytime(crmProductSellInfoReq.getProductsellinfoMotifytime());
+		//平台名称
+		if(StringUtil.isNotEmpty(crmProductSellInfoReq.getProductsellinfoPlatformName())){
+			productSellInfoGet.setProductsellinfoPlatformName(crmProductSellInfoReq.getProductsellinfoPlatformName());
+		}
+		//网站名称
+		if(StringUtil.isNotEmpty(crmProductSellInfoReq.getProductsellinfoBrandname())){
+			productSellInfoGet.setProductsellinfoBrandname(crmProductSellInfoReq.getProductsellinfoBrandname());
+		}
+		List<CrmProductSellInfoVo> crmProductSellInfoList = crmProductSellInfoService.selectCrmProductSellInfoVoByRangeTimePlatformBrandName(productSellInfoGet);
+		if(crmProductSellInfoList.size() > 0){
+			//将相同sku合并为一个list
+			String sku = crmProductSellInfoList.get(0).getProductsellinfoProductsku();
+			//最终返回List
+			List<List<CrmProductSellInfoVo>> productSellInfoFinallList = new ArrayList<List<CrmProductSellInfoVo>>();
+			//二级List:相同sku的一个list,不同的sku新建list
+			List<CrmProductSellInfoVo> productSellInfoSameSkuList = new ArrayList<CrmProductSellInfoVo>();
+			for(int i = 0;i < crmProductSellInfoList.size();i++)
+			{
+				CrmProductSellInfoVo p = crmProductSellInfoList.get(i);
+				if(sku.equals(p.getProductsellinfoProductsku())){
+					productSellInfoSameSkuList.add(p);
+					
+				}else{
+					//对上一个skuList进行排序,按时间降叙排序
+					productSellInfoSameSkuList.sort(new Comparator<CrmProductSellInfoVo>(){
+						@Override
+						public int compare(CrmProductSellInfoVo o1, CrmProductSellInfoVo o2) {
+							if(StringUtil.isEmpty(o1.getProductsellinfoProductselltime()) || StringUtil.isEmpty(o2.getProductsellinfoProductselltime())){
+								return 0;
+							}
+							return o2.getProductsellinfoProductselltime().compareTo(o1.getProductsellinfoProductselltime());
+						}
+						
+					});
+					
+					//排序后添加到最终返回的List中
+					productSellInfoFinallList.add(productSellInfoSameSkuList);
+					//获取新的sku,list,重新进行存储
+					sku = p.getProductsellinfoProductsku();
+					productSellInfoSameSkuList = new ArrayList<CrmProductSellInfoVo>();
+					productSellInfoSameSkuList.add(p);
+				}
+				if(i==crmProductSellInfoList.size()-1){
+					//最后一个skuList添加到最终返回的List中
+					productSellInfoFinallList.add(productSellInfoSameSkuList);
+				}
+			}
+			if(productSellInfoFinallList.size() > 0){
+				//将最终返回的List按其中每个list的数量降序排序
+				productSellInfoFinallList.sort(new Comparator<List<CrmProductSellInfoVo>>(){
+					@Override
+					public int compare(List<CrmProductSellInfoVo> o1, List<CrmProductSellInfoVo> o2) {
+						return o2.size() - o1.size();
+					}
+				});
+			}
+			return Msg.success().add("returnMsg", productSellInfoFinallList);
+		}else{
+			return Msg.success().add("returnMsg", crmProductSellInfoList);
+		}
+	}
+	
 	
 }

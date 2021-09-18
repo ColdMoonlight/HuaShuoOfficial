@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.atguigu.bean.CrmProductSellInfo;
 import com.atguigu.dao.CrmProductSellInfoMapper;
+import com.atguigu.vo.CrmProductSellInfoVo;
 
 @Service
 public class CrmProductSellInfoService {
@@ -106,14 +107,13 @@ public class CrmProductSellInfoService {
 	/**
 	 * @author Shinelon
 	 * @param 
-	 * @exception 按时间查询按sku排序
+	 * @exception 按时间查询,按sku排序
 	 * 
 	 * */
 	public List<CrmProductSellInfo> selectCrmProductSellInfoAllByRangeTime(CrmProductSellInfo crmProductSellInfo) {
 		List<CrmProductSellInfo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoAllByRangeTime(crmProductSellInfo);
 		return crmProductSellInfoList;
 	}
-	
 	
 	/**
 	 * @author Shinelon
@@ -126,8 +126,18 @@ public class CrmProductSellInfoService {
 		return crmProductSellInfoList;
 	}
 	
+	/**
+	 * 按时间查询,按sku排序,只返回查询字段
+	 * @param crmProductSellInfo
+	 * @return
+	 */
 	public List<Map<String,Object>> selectAllCrmProductSellInfoByRangeTime(CrmProductSellInfo crmProductSellInfo) {
 		List<Map<String,Object>> crmProductSellInfoList = crmProductSellInfoMapper.selectAllCrmProductSellInfoByRangeTime(crmProductSellInfo);
+		return crmProductSellInfoList;
+	}
+	
+	public List<CrmProductSellInfoVo> selectCrmProductSellInfoVoByRangeTimePlatformBrandName(CrmProductSellInfo crmProductSellInfo) {
+		List<CrmProductSellInfoVo> crmProductSellInfoList = crmProductSellInfoMapper.selectCrmProductSellInfoVoByRangeTimePlatformBrandName(crmProductSellInfo);
 		return crmProductSellInfoList;
 	}
 	
